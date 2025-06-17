@@ -1,572 +1,600 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jejak Sang Pembangun: Habib Saggaf Aljufri</title>
+
+    <!-- Tailwind & Library -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@500;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Harmony -->
-    <!-- Application Structure Plan: Aplikasi ini dirancang dengan struktur tematik berbasis-gulir (scroll-based) untuk menceritakan kisah Habib Saggaf Aljufri secara naratif dan menarik. Struktur ini tidak mengikuti urutan laporan, melainkan mengelompokkan informasi ke dalam bagian-bagian logis: (1) Pengenalan Heroik, (2) Linimasa Jejak Kehidupan, (3) Dasbor Interaktif Legasi Alkhairaat (dengan animasi angka hitung-naik), (4) Cuplikan Video Dokumenter, (5) Kartu Interaktif untuk Pemikiran & Pengaruh, dan (6) Sorotan pada Pusat Kaderisasi Madinatul Ilmi. Pendekatan ini dipilih untuk mengubah data teks yang padat menjadi pengalaman visual yang mudah dicerna, memungkinkan pengguna (seperti pembuat film dokumenter) untuk memahami poin-poin kunci dan melihat tren data dengan cepat, yang lebih efektif daripada membaca laporan linier. Navigasi sticky memfasilitasi akses cepat ke setiap tema. -->
-    <!-- Visualization & Content Choices: 
-        - [Jejak Kehidupan -> Goal: Menampilkan perjalanan hidup secara kronologis -> Viz/Method: Linimasa Vertikal HTML/CSS -> Interaction: Klik untuk detail -> Justification: Lebih menarik daripada paragraf panjang, menunjukkan progresi. Library: Vanilla JS].
-        - [Legasi Alkhairaat (Angka Statistik) -> Goal: Menampilkan dampak kuantitatif secara interaktif -> Viz/Method: Angka dengan animasi hitung-naik -> Interaction: Animasi saat terlihat di viewport -> Justification: Menarik perhatian pada metrik kunci. Library: Vanilla JS (Intersection Observer)].
-        - [Pertumbuhan Alkhairaat -> Goal: Menunjukkan ekspansi masif institusi -> Viz/Method: Grafik Garis (Line Chart) -> Interaction: Tooltip pada hover -> Justification: Visualisasi tren pertumbuhan secara efektif. Library: Chart.js].
-        - [Persebaran Alkhairaat -> Goal: Membandingkan jangkauan geografis -> Viz/Method: Grafik Batang Horizontal (Bar Chart) -> Interaction: Tooltip pada hover -> Justification: Mudah membandingkan jumlah antar wilayah. Library: Chart.js].
-        - [Cuplikan Video -> Goal: Menampilkan konten multimedia -> Viz/Method: Iframe YouTube responsif -> Interaction: Play/Pause video -> Justification: Mengintegrasikan materi dokumenter langsung ke dalam aplikasi. Library: HTML/CSS].
-        - [Pemikiran & Pengaruh -> Goal: Menyajikan ide-ide kualitatif -> Viz/Method: Kartu Interaktif (Clickable Cards) -> Interaction: Klik untuk menampilkan teks -> Justification: Mengorganisir informasi kompleks menjadi potongan yang mudah dicerna. Library: Vanilla JS].
-        - [Kaderisasi Dolo -> Goal: Menyoroti inisiatif strategis -> Viz/Method: Kartu Informasi Statis dengan Gambar -> Interaction: Tidak ada -> Justification: Menyampaikan informasi penting secara langsung dengan visual pendukung. Library: HTML/CSS].
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #fdfcf9;
-        }
-        h1, h2, h3 {
-            font-family: 'Lora', serif;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 320px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
-        }
-        .timeline-item-content {
-            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
-        }
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            max-width: 900px; /* Optional: max width for the video */
-            margin-left: auto;
-            margin-right: auto;
-            background-color: #000;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-    </style>
-</head>
-<body class="text-stone-800">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <header id="header" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <h1 class="text-xl md:text-2xl font-bold text-emerald-800">Jejak Sang Pembangun</h1>
-            <nav class="hidden md:flex space-x-6 text-sm font-semibold">
-                <a href="#jejak-kehidupan" class="text-stone-600 hover:text-emerald-700 transition">Jejak Kehidupan</a>
-                <a href="#legasi-alkhairaat" class="text-stone-600 hover:text-emerald-700 transition">Legasi Alkhairaat</a>
-                <a href="#cuplikan-video" class="text-stone-600 hover:text-emerald-700 transition">Cuplikan Video</a>
-                <a href="#pemikiran" class="text-stone-600 hover:text-emerald-700 transition">Pemikiran & Pengaruh</a>
-                <a href="#kaderisasi" class="text-stone-600 hover:text-emerald-700 transition">Pusat Kaderisasi</a>
-            </nav>
-            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-stone-600 hover:bg-stone-100">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
-            </button>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-stone-200">
-             <a href="#jejak-kehidupan" class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition">Jejak Kehidupan</a>
-             <a href="#legasi-alkhairaat" class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition">Legasi Alkhairaat</a>
-             <a href="#cuplikan-video" class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition">Cuplikan Video</a>
-             <a href="#pemikiran" class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition">Pemikiran & Pengaruh</a>
-             <a href="#kaderisasi" class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition">Pusat Kaderisasi</a>
-        </div>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="text-stone-800">
+    <header
+      id="header"
+      class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm"
+    >
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <h1 class="text-xl md:text-2xl font-bold text-emerald-800">
+          Jejak Sang Pembangun
+        </h1>
+        <nav class="hidden md:flex space-x-6 text-sm font-semibold">
+          <a
+            href="#jejak-kehidupan"
+            class="text-stone-600 hover:text-emerald-700 transition"
+            >Jejak Kehidupan</a
+          >
+          <a
+            href="#legasi-alkhairaat"
+            class="text-stone-600 hover:text-emerald-700 transition"
+            >Legasi Alkhairaat</a
+          >
+          <a
+            href="#cuplikan-video"
+            class="text-stone-600 hover:text-emerald-700 transition"
+            >Cuplikan Video</a
+          >
+          <a
+            href="#pemikiran"
+            class="text-stone-600 hover:text-emerald-700 transition"
+            >Pemikiran & Pengaruh</a
+          >
+          <a
+            href="#kaderisasi"
+            class="text-stone-600 hover:text-emerald-700 transition"
+            >Pusat Kaderisasi</a
+          >
+        </nav>
+        <button
+          id="mobile-menu-button"
+          class="md:hidden p-2 rounded-md text-stone-600 hover:bg-stone-100"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-white border-t border-stone-200"
+      >
+        <a
+          href="#jejak-kehidupan"
+          class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
+          >Jejak Kehidupan</a
+        >
+        <a
+          href="#legasi-alkhairaat"
+          class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
+          >Legasi Alkhairaat</a
+        >
+        <a
+          href="#cuplikan-video"
+          class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
+          >Cuplikan Video</a
+        >
+        <a
+          href="#pemikiran"
+          class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
+          >Pemikiran & Pengaruh</a
+        >
+        <a
+          href="#kaderisasi"
+          class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
+          >Pusat Kaderisasi</a
+        >
+      </div>
     </header>
-
-    <!-- Countdown Section -->
     <section class="bg-emerald-800 text-white py-4 text-center">
-        <div class="container mx-auto px-4">
-            <p class="text-lg md:text-xl font-semibold">Menuju Haul Habib Saggaf Aljufri:</p>
-            <div id="countdown" class="mt-2 text-2xl md:text-4xl font-bold text-amber-300">
-                <span id="days">00</span> Hari <span id="hours">00</span> Jam <span id="minutes">00</span> Menit <span id="seconds">00</span> Detik
-            </div>
+      <div class="container mx-auto px-4">
+        <p class="text-lg md:text-xl font-semibold">
+          Menuju Haul Habib Saggaf Aljufri:
+        </p>
+        <div
+          id="countdown"
+          class="mt-2 text-2xl md:text-4xl font-bold text-amber-300"
+        >
+          <span id="days">00</span> Hari <span id="hours">00</span> Jam
+          <span id="minutes">00</span> Menit <span id="seconds">00</span> Detik
         </div>
+      </div>
     </section>
 
+    <!-- === MULAI ISI KONTEN === -->
+
     <main>
-        <section id="hero" class="py-24 md:py-40 bg-amber-50/50"> <div class="container mx-auto px-6 text-center">
-                <img src="/asset/habib saggaf pict.jpg" alt="[Foto Habib Saggaf Aljufri]" class="rounded-full mx-auto w-48 h-48 md:w-56 md:h-56 object-cover mb-10 border-4 border-amber-400 shadow-lg"> <h2 class="text-4xl md:text-6xl font-bold text-emerald-900">Habib Saggaf Aljufri</h2>
-                <p class="mt-4 text-lg md:text-2xl text-amber-800/90 font-light">Pilar Pendidikan dan Dakwah di Jantung Nusantara Timur</p>
-                <p class="mt-8 max-w-3xl mx-auto text-stone-700 leading-relaxed">Seorang ulama visioner yang mendedikasikan hidupnya untuk mentransformasi Alkhairaat menjadi kekuatan pendidikan dan sosial, meninggalkan warisan institusi yang terus berkembang dan melayani jutaan umat di seluruh Indonesia.</p>
-            </div>
-        </section>
-
-        <section id="jejak-kehidupan" class="py-16 md:py-24">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-emerald-800">Jejak Kehidupan</h2>
-                    <p class="mt-3 max-w-2xl mx-auto text-stone-600">Sebuah garis waktu yang merangkum perjalanan penting Habib Saggaf, dari kelahiran hingga warisan abadi yang ditinggalkannya. Klik setiap tonggak untuk melihat detailnya.</p>
-                </div>
-
-                <div class="relative max-w-2xl mx-auto">
-                    <div class="relative"> <!-- New wrapper for timeline components to contain the line -->
-                        <div class="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-amber-200"></div>
-                        <div id="timeline-container" class="space-y-12">
-                            <!-- Timeline items will be injected by JavaScript -->
-                        </div>
-                    </div>
-                     <div class="mt-16 text-center">
-                        <img src="/asset/habib saggaf dan habib idrus.webp" alt="[Gambar Habib Saggaf muda]" class="rounded-lg mx-auto w-full max-w-sm object-cover shadow-lg border border-emerald-200">
-                        <p class="mt-3 text-sm text-stone-600">Habib Saggaf Aljufri di masa mudanya.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="legasi-alkhairaat" class="py-16 md:py-24 bg-emerald-50/40">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-emerald-800">Ketua Utama Alkhairaat</h2>
-                    <p class="mt-3 max-w-3xl mx-auto text-stone-600">Di bawah kepemimpinannya selama hampir 50 tahun, Alkhairaat mengalami ekspansi fenomenal. Dasbor ini memvisualisasikan pertumbuhan institusi pendidikan dan jangkauan dakwah yang menjadi warisan terbesarnya.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-12">
-                    <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50">
-                        <p class="text-4xl font-bold text-amber-600 count-up" data-target="1550">0</p>
-                        <p class="mt-2 text-stone-600">Madrasah & Sekolah</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50">
-                        <p class="text-4xl font-bold text-amber-600 count-up" data-target="36">0</p>
-                        <p class="mt-2 text-stone-600">Pondok Pesantren</p>
-                    </div>
-                     <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50">
-                        <p class="text-4xl font-bold text-amber-600 count-up" data-target="7">0</p>
-                        <p class="mt-2 text-stone-600">Fakultas di UNISA Palu</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-                    <div class="bg-white p-6 rounded-lg shadow-md">
-                        <h3 class="text-xl font-bold text-center text-emerald-800 mb-4">Pertumbuhan Madrasah Alkhairaat</h3>
-                        <div class="chart-container">
-                            <canvas id="growthChart"></canvas>
-                        </div>
-                         <p class="text-xs text-center mt-3 text-stone-500">Menunjukkan peningkatan jumlah madrasah/sekolah dari era Guru Tua hingga 2007.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md">
-                        <h3 class="text-xl font-bold text-center text-emerald-800 mb-4">Persebaran Dakwah di Indonesia</h3>
-                         <div class="chart-container">
-                            <canvas id="distributionChart"></canvas>
-                        </div>
-                        <p class="text-xs text-center mt-3 text-stone-500">Distribusi jumlah madrasah/sekolah Alkhairaat berdasarkan wilayah.</p>
-                    </div>
-                </div>
-                
-                 <div class="mt-16">
-                    <h3 class="text-2xl font-bold text-center text-emerald-800 mb-8">Visi Holistik: Melampaui Pendidikan</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center max-w-4xl mx-auto">
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50">
-                             <div class="text-3xl text-amber-600 mb-2">🏥</div>
-                            <h4 class="font-bold text-emerald-900">Kesehatan Umat</h4>
-                            <p class="text-sm text-stone-600 mt-1">Mendirikan RS Sis Aljufri untuk layanan kesehatan yang terjangkau.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50">
-                             <div class="text-3xl text-amber-600 mb-2">🛒</div>
-                            <h4 class="font-bold text-emerald-900">Ekonomi Umat</h4>
-                            <p class="text-sm text-stone-600 mt-1">Membangun Toserba SAL untuk kebutuhan pangan halal dan sehat.</p>
-                        </div>
-                         <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50">
-                              <div class="text-3xl text-amber-600 mb-2">📻</div>
-                            <h4 class="font-bold text-emerald-900">Informasi Umat</h4>
-                            <p class="text-sm text-stone-600 mt-1">Merintis media massa melalui Surat Kabar MAL dan Radio Alkhairaat (RAL).</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="cuplikan-video" class="py-16 md:py-24 bg-amber-50/40">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-emerald-800 mb-6">Cuplikan Dokumenter</h2>
-                <p class="mt-3 max-w-3xl mx-auto text-stone-600 mb-8">Saksikan sekilas perjalanan dan warisan Habib Saggaf Aljufri melalui cuplikan video ini. Ganti URL di bawah dengan video dokumenter Anda.</p>
-                <div class="video-container rounded-lg shadow-xl border-4 border-amber-200">
-                    <!-- Ganti URL ini dengan tautan sematan (embed link) video YouTube Anda -->
-                    <iframe src="/asset/videoo hb saggaf.mp4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                 <p class="mt-4 text-sm text-stone-600"></p>
-            </div>
-        </section>
-
-        <section id="pemikiran" class="py-16 md:py-24">
-             <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-emerald-800">Pemikiran & Pengaruh</h2>
-                    <p class="mt-3 max-w-3xl mx-auto text-stone-600">Warisan intelektual Habib Saggaf tidak terletak pada karya tulis, melainkan pada dakwah lisan, gagasan moderat, dan pengaruhnya yang luas di ranah sosial dan kebangsaan. Jelajahi pilar-pilar pemikirannya.</p>
-                    <div class="mt-6 flex justify-center space-x-4">
-                        <button id="summarize-btn" class="bg-emerald-700 text-white px-5 py-2 rounded-md hover:bg-emerald-800 transition-colors shadow-md">Ringkasan Pemikiran ✨</button>
-                        <button id="questions-btn" class="bg-amber-600 text-white px-5 py-2 rounded-md hover:bg-amber-700 transition-colors shadow-md">Pertanyaan Diskusi ✨</button>
-                    </div>
-                     <div id="llm-output" class="mt-8 p-6 bg-white rounded-lg shadow-md border border-stone-200/50 text-left text-stone-700 hidden">
-                        <div id="llm-loading" class="text-center text-emerald-700 font-semibold hidden">Memproses...</div>
-                        <div id="llm-content"></div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="card bg-amber-50/60 p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
-                        <h3 class="font-bold text-lg text-emerald-900">Dakwah Melalui Institusi</h3>
-                        <p class="mt-2 text-sm text-stone-700 leading-relaxed">Fokus utamanya adalah membangun lembaga yang kuat. Beliau percaya warisan terbaik bukanlah buku, melainkan institusi pendidikan dan sosial yang hidup, mandiri, dan terus memberi manfaat bagi masyarakat luas.</p>
-                    </div>
-                    <div class="card bg-amber-50/60 p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
-                        <h3 class="font-bold text-lg text-emerald-900">Moderasi & Dialog</h3>
-                        <p class="mt-2 text-sm text-stone-700 leading-relaxed">Dikenal sebagai tokoh moderat yang cair dalam pergaulan. Beliau aktif menjalin dialog dengan berbagai kelompok, termasuk menerima kunjungan tokoh Syiah untuk mencari solusi dan mempromosikan toleransi antar-mazhab.</p>
-                    </div>
-                    <div class="card bg-amber-50/60 p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
-                        <h3 class="font-bold text-lg text-emerald-900">Nasihat Kebangsaan</h3>
-                        <p class="mt-2 text-sm text-stone-700 leading-relaxed">Beliau berpesan agar moral agama tidak hilang dalam menata bangsa. Setelah gempa Palu, ia menenangkan umat dengan menyebutnya cobaan, bukan hukuman, menunjukkan perannya sebagai pembimbing spiritual bangsa.</p>
-                    </div>
-                    <div class="card bg-amber-50/60 p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
-                        <h3 class="font-bold text-lg text-emerald-900">Pengaruh Politik</h3>
-                        <p class="mt-2 text-sm text-stone-700 leading-relaxed">Untuk pertama kalinya dalam sejarah, Alkhairaat di bawahnya mengeluarkan "maklumat politik". Langkah ini menunjukkan pengaruhnya yang besar dalam ranah sipil, mengubah peran lembaga dari non-politis menjadi aktor sosial-politik.</p>
-                    </div>
-                </div>
-             </div>
-        </section>
-
-        <section id="kaderisasi" class="py-16 md:py-24 bg-emerald-50/40">
-            <div class="container mx-auto px-6">
-                 <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-emerald-800">Pusat Kaderisasi: Madinatul Ilmi Dolo</h2>
-                    <p class="mt-3 max-w-3xl mx-auto text-stone-600">Salah satu inisiatif paling strategis dari Habib Saggaf adalah pendirian Pondok Pesantren Madinatul Ilmi Dolo. Ini bukan sekadar ekspansi, melainkan solusi visioner untuk menjawab kebutuhan kritis Alkhairaat di masa depan.</p>
-                </div>
-
-                 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                    <div class="bg-white p-8 rounded-lg shadow-lg">
-                        <h3 class="font-bold text-xl text-emerald-900 mb-3">Sebuah Jawaban Strategis</h3>
-                        <p class="text-stone-700 leading-relaxed">Digagas pada Muktamar 1991, Madinatul Ilmi Dolo didirikan untuk mengatasi kelangkaan guru profesional dan kader ulama tingkat menengah yang siap pakai di pedesaan. Ini menunjukkan visi jangka panjang Habib Saggaf yang berfokus pada investasi sumber daya manusia untuk keberlanjutan dakwah.</p>
-                        <img src="asset/alhairaat mdi pict.jpg" alt="[Gambar Pesantren Alkhairaat Madinatul Ilmi Dolo]" class="rounded-lg mt-6 w-full object-cover shadow-md border border-emerald-200">
-                        <p class="mt-3 text-sm text-stone-600">Potret Pondok Pesantren Alkhairaat Madinatul Ilmi Dolo.</p>
-                    </div>
-                     <div class="text-center">
-                         <div class="inline-block bg-amber-100/80 rounded-full p-6">
-                          <img src="asset/logo mdi.jpeg" alt="[Logo Madinatul Ilmi Dolo]" class="w-32 h-50 object-cover rounded-full border-4 border-amber-400">
-                        </div>
-                        <h3 class="mt-4 font-bold text-lg text-emerald-900">Pencetak Generasi Penerus</h3>
-                        <p class="mt-1 text-stone-600">Kini, pondok pesantren ini menjadi pusat penting untuk mencetak Abnaulkhairaat (generasi penerus) dan menjadi lokasi utama peringatan Haul tahunan Habib Saggaf, melestarikan memori dan melanjutkan perjuangannya.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-    
-    <footer class="bg-emerald-900 text-white py-8">
-        <div class="container mx-auto px-6 text-center text-sm text-emerald-200">
-            <p>Aplikasi Interaktif ini dibuat untuk menghormati warisan Habib Sayyid Saggaf bin Muhammad Aljufri.</p>
-            <p class="mt-2">Sebuah visualisasi naratif untuk membantu produksi dokumenter dan menyebarkan inspirasi dari jejak hidupnya.</p>
+      <section id="hero" class="py-24 md:py-40 bg-amber-50/50">
+        <div class="container mx-auto px-6 text-center">
+          <img
+            src="/asset/habib saggaf pict.jpg"
+            alt="Foto Habib Saggaf Aljufri"
+            class="rounded-full mx-auto w-48 h-48 md:w-56 md:h-56 object-cover mb-10 border-4 border-amber-400 shadow-lg"
+          />
+          <h2 class="text-4xl md:text-6xl font-bold text-emerald-900">
+            Habib Saggaf Aljufri
+          </h2>
+          <p class="mt-4 text-lg md:text-2xl text-amber-800/90 font-light">
+            Pilar Pendidikan dan Dakwah di Jantung Nusantara Timur
+          </p>
+          <p class="mt-8 max-w-3xl mx-auto text-stone-700 leading-relaxed">
+            Seorang ulama visioner yang mendedikasikan hidupnya untuk
+            mentransformasi Alkhairaat menjadi kekuatan pendidikan dan sosial,
+            meninggalkan warisan institusi yang terus berkembang dan melayani
+            jutaan umat di seluruh Indonesia.
+          </p>
         </div>
+      </section>
+
+      <section id="jejak-kehidupan" class="py-16 md:py-24">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-emerald-800">
+              Jejak Kehidupan
+            </h2>
+            <p class="mt-3 max-w-2xl mx-auto text-stone-600">
+              Membahas Alkhairaat pasti kita akan berbicara siapa pendiri dan penerusnya. Itu menjadi bagian penting, karena pendiri dan penerus menentukan sejauh mana sebuah lembaga berkembang dan berkiprah.
+
+            Adalah Habib Sayyid Saggaf bin Muhamad bin Idrus Aljufri. Orang mengenal beliau sebagai sosok ulama sederhana, 
+            kharismatik, teduh, tawadhu. Itulah kesan yg terpancar dari seorang Habib Saggaf bin Muhamad Aljufri
+
+            </p>
+          </div>
+
+          <div class="relative max-w-2xl mx-auto">
+            <div class="relative">
+              <div
+                class="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-amber-200"
+              ></div>
+              <div id="timeline-container" class="space-y-12">
+                <!-- Timeline items will be injected by JavaScript -->
+              </div>
+            </div>
+
+            <!-- === MODIFIKASI GAMBAR MENJADI CAROUSEL (LANGKAH 2) === -->
+            <div class="mt-16 max-w-xl mx-auto">
+              <div
+                class="swiper mySwiper rounded-lg shadow-lg border border-emerald-200"
+              >
+                <div class="swiper-wrapper">
+                  <!-- Slide 1 -->
+                  <div class="swiper-slide bg-stone-200">
+                    <img
+                      src="/asset/habib saggaf dan habib idrus.webp"
+                      alt="Habib Saggaf di masa muda"
+                      class="w-full h-full object-cover"
+                      onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+1';"
+                    />
+                    <div
+                      class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs"
+                    >
+                      Habib Saggaf Aljufri di masa mudanya.
+                    </div>
+                  </div>
+                  <!-- Slide 2: Ganti dengan gambar Anda -->
+                  <div class="swiper-slide bg-stone-200">
+                    <img
+                      src="/asset/tito-karnavian-sayyid-saggaf-aljufri-and-hadi-tjahjanto-92c3a5-1024.jpg"
+                      alt="Deskripsi gambar 2"
+                      class="w-full h-full object-cover"
+                      onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+2';"
+                    />
+                    <div
+                      class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs"
+                    >
+                      Panglima dan Kapolri bersama Habib Saggaf Aljufri.
+                    </div>
+                  </div>
+                  <!-- Slide 3: Ganti dengan gambar Anda -->
+                  <div class="swiper-slide bg-stone-200">
+                    <img
+                      src="/asset/habib-sayyid-saggaf-bin-muhammad-aljufri-e03e6d-1024.jpg"
+                      alt="Deskripsi gambar 3"
+                      class="w-full h-full object-cover"
+                      onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+3';"
+                    />
+                    <div
+                      class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs"
+                    >
+                      Habib Saggaf Aljufri Di haul habib idrus.
+                    </div>
+                  </div>
+
+                  <!-- Slide 3: Ganti dengan gambar Anda -->
+                  <div class="swiper-slide bg-stone-200">
+                    <img
+                      src="/asset/habib-saggaf-bin-muhammad-aljufri-dengan-anies-baswedan.jpg"
+                      alt="Deskripsi gambar 3"
+                      class="w-full h-full object-cover"
+                      onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+3';"
+                    />
+                    <div
+                      class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs"
+                    >
+                      Anies Baswedan Di palu bersama Habib Saggaf Aljufri.
+                    </div>
+                  </div>
+                </div>
+                <!-- Pagination (titik-titik) -->
+                <div class="swiper-pagination"></div>
+
+                <!-- Navigation buttons (panah kiri-kanan) -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="legasi-alkhairaat" class="py-16 md:py-24 bg-emerald-50/40">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-emerald-800">
+              Ketua Utama Alkhairaat
+            </h2>
+            <p class="mt-3 max-w-3xl mx-auto text-stone-600">
+              Di bawah kepemimpinannya selama hampir 50 tahun, Alkhairaat
+              mengalami ekspansi fenomenal. Dasbor ini memvisualisasikan
+              pertumbuhan institusi pendidikan dan jangkauan dakwah yang menjadi
+              warisan terbesarnya.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-12">
+            <div
+              class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50"
+            >
+              <p
+                class="text-4xl font-bold text-amber-600 count-up"
+                data-target="1550"
+              >
+                0
+              </p>
+              <p class="mt-2 text-stone-600">Madrasah & Sekolah</p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50"
+            >
+              <p
+                class="text-4xl font-bold text-amber-600 count-up"
+                data-target="36"
+              >
+                0
+              </p>
+              <p class="mt-2 text-stone-600">Pondok Pesantren</p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50"
+            >
+              <p
+                class="text-4xl font-bold text-amber-600 count-up"
+                data-target="7"
+              >
+                0
+              </p>
+              <p class="mt-2 text-stone-600">Fakultas di UNISA Palu</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h3 class="text-xl font-bold text-center text-emerald-800 mb-4">
+                Pertumbuhan Madrasah Alkhairaat
+              </h3>
+              <div class="chart-container">
+                <canvas id="growthChart"></canvas>
+              </div>
+              <p class="text-xs text-center mt-3 text-stone-500">
+                Menunjukkan peningkatan jumlah madrasah/sekolah dari era Guru
+                Tua hingga 2007.
+              </p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h3 class="text-xl font-bold text-center text-emerald-800 mb-4">
+                Persebaran Dakwah di Indonesia
+              </h3>
+              <div class="chart-container">
+                <canvas id="distributionChart"></canvas>
+              </div>
+              <p class="text-xs text-center mt-3 text-stone-500">
+                Distribusi jumlah madrasah/sekolah Alkhairaat berdasarkan
+                wilayah.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-16">
+            <h3 class="text-2xl font-bold text-center text-emerald-800 mb-8">
+              Visi Holistik: Melampaui Pendidikan
+            </h3>
+            <div
+              class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center max-w-4xl mx-auto"
+            >
+              <div
+                class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50"
+              >
+                <div class="mb-4">
+                  <img
+                    src="asset/RS alkhairaat.jpeg"
+                    alt="RS Sis Aljufri"
+                    class="w-24 h-24 mx-auto rounded-lg shadow"
+                  />
+                </div>
+                <h4 class="font-bold text-emerald-900">Kesehatan Umat</h4>
+                <p class="text-sm text-stone-600 mt-1">
+                  Mendirikan RS Sis Aljufri untuk layanan kesehatan yang
+                  terjangkau.
+                </p>
+              </div>
+
+              <div
+                class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50"
+              >
+                <div class="mb-4">
+                  <img
+                    src="asset/swalayan logo.jpg"
+                    alt="Toserba SAL"
+                    class="w-24 h-24 mx-auto rounded-lg shadow"
+                  />
+                </div>
+                <h4 class="font-bold text-emerald-900">Ekonomi Umat</h4>
+                <p class="text-sm text-stone-600 mt-1">
+                  Membangun Toserba SAL untuk kebutuhan pangan halal dan sehat.
+                </p>
+              </div>
+
+              <div
+                class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50"
+              >
+                <div class="mb-4">
+                  <img
+                    src="asset/RAL.jpg"
+                    alt="Radio Alkhairaat"
+                    class="w-24 h-24 mx-auto rounded-lg shadow"
+                  />
+                </div>
+                <h4 class="font-bold text-emerald-900">Informasi Umat</h4>
+                <p class="text-sm text-stone-600 mt-1">
+                  Merintis media massa melalui Surat Kabar MAL dan Radio
+                  Alkhairaat (RAL).
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="cuplikan-video" class="py-16 md:py-24 bg-amber-50/40">
+        <div class="container mx-auto px-6 text-center">
+          <h2 class="text-3xl md:text-4xl font-bold text-emerald-800 mb-6">
+            Cuplikan Dokumenter
+          </h2>
+          <p class="mt-3 max-w-3xl mx-auto text-stone-600 mb-8">
+            Saksikan sekilas perjalanan dan warisan Habib Saggaf Aljufri melalui
+            cuplikan video ini. Ganti URL di bawah dengan video dokumenter Anda.
+          </p>
+          <div
+            class="video-container rounded-lg shadow-xl border-10 border-amber-200"
+          >
+            <iframe
+              src="/asset/videoo hb saggaf.mp4"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section id="pemikiran" class="py-16 md:py-24">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-emerald-800">
+              Pemikiran & Pengaruh
+            </h2>
+            <p class="mt-3 max-w-3xl mx-auto text-stone-600">
+              Warisan intelektual Habib Saggaf tidak terletak pada karya tulis,
+              melainkan pada dakwah lisan, gagasan moderat, dan pengaruhnya yang
+              luas di ranah sosial dan kebangsaan. Jelajahi pilar-pilar
+              pemikirannya.
+            </p>
+            <div class="mt-6 flex justify-center space-x-4">
+              <button
+                id="summarize-btn"
+                class="bg-emerald-700 text-white px-5 py-2 rounded-md hover:bg-emerald-800 transition-colors shadow-md"
+              >
+                Ringkasan Pemikiran ✨
+              </button>
+              <button
+                id="questions-btn"
+                class="bg-amber-600 text-white px-5 py-2 rounded-md hover:bg-amber-700 transition-colors shadow-md"
+              >
+                Pertanyaan Diskusi ✨
+              </button>
+            </div>
+            <div
+              id="llm-output"
+              class="mt-8 p-6 bg-white rounded-lg shadow-md border border-stone-200/50 text-left text-stone-700 hidden"
+            >
+              <div
+                id="llm-loading"
+                class="text-center text-emerald-700 font-semibold hidden"
+              >
+                Memproses...
+              </div>
+              <div id="llm-content"></div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div
+              class="card bg-amber-50/60 p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
+            >
+              <h3 class="font-bold text-lg text-emerald-900">
+                Dakwah Melalui Institusi
+              </h3>
+              <p class="mt-2 text-sm text-stone-700 leading-relaxed">
+                Fokus utamanya adalah membangun lembaga yang kuat. Beliau
+                percaya warisan terbaik bukanlah buku, melainkan institusi
+                pendidikan dan sosial yang hidup, mandiri, dan terus memberi
+                manfaat bagi masyarakat luas.
+              </p>
+            </div>
+            <div
+              class="card bg-amber-50/60 p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
+            >
+              <h3 class="font-bold text-lg text-emerald-900">
+                Moderasi & Dialog
+              </h3>
+              <p class="mt-2 text-sm text-stone-700 leading-relaxed">
+                Dikenal sebagai tokoh moderat yang cair dalam pergaulan. Beliau
+                aktif menjalin dialog dengan berbagai kelompok, termasuk non muslim
+                dan Syiah. Ini terlihat dari keterlibatannya dalam dialog lintas
+                menerima kunjungan tokoh Syiah untuk mencari solusi dan
+                mempromosikan toleransi antar-mazhab.
+              </p>
+            </div>
+            <div
+              class="card bg-amber-50/60 p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
+            >
+              <h3 class="font-bold text-lg text-emerald-900">
+                Nasihat Kebangsaan
+              </h3>
+              <p class="mt-2 text-sm text-stone-700 leading-relaxed">
+                Beliau berpesan agar moral agama tidak hilang dalam menata
+                bangsa. Setelah gempa Palu, ia menenangkan umat dengan
+                menyebutnya cobaan, bukan hukuman, menunjukkan perannya sebagai
+                pembimbing spiritual bangsa.
+              </p>
+            </div>
+            <div
+              class="card bg-amber-50/60 p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
+            >
+              <h3 class="font-bold text-lg text-emerald-900">
+                Pengaruh Politik
+              </h3>
+              <p class="mt-2 text-sm text-stone-700 leading-relaxed">
+                Untuk pertama kalinya dalam sejarah, Alkhairaat di bawahnya
+                mengeluarkan "maklumat politik". Langkah ini menunjukkan
+                pengaruhnya yang besar dalam ranah sipil, mengubah peran lembaga
+                dari non-politis menjadi aktor sosial-politik.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-8 md:py-12">
+        <div class="container mx-auto px-6 text-center p-4">
+          <img
+            src="asset/quote habib revisi 4.png"
+            alt="Quote Habib Saggaf"
+            class="mx-auto rounded-xl w-full max-w-3xl"
+          />
+        </div>
+      </section>
+
+      <section id="kaderisasi" class="py-16 md:py-24 bg-emerald-50/40">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-emerald-800">
+              Pusat Kaderisasi: Madinatul Ilmi Dolo
+            </h2>
+            <p class="mt-3 max-w-3xl mx-auto text-stone-600">
+              Salah satu inisiatif paling strategis dari Habib Saggaf adalah
+              pendirian Pondok Pesantren Madinatul Ilmi Dolo. Ini bukan sekadar
+              ekspansi, melainkan solusi visioner untuk menjawab kebutuhan
+              kritis Alkhairaat di masa depan.
+            </p>
+          </div>
+
+          <div
+            class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+          >
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+              <h3 class="font-bold text-xl text-emerald-900 mb-3">
+                Sebuah Jawaban Strategis
+              </h3>
+              <p class="text-stone-700 leading-relaxed">
+                Digagas pada Muktamar 1991, Madinatul Ilmi Dolo didirikan untuk
+                mengatasi kelangkaan guru profesional dan kader ulama tingkat
+                menengah yang siap pakai di pedesaan. Ini menunjukkan visi
+                jangka panjang Habib Saggaf yang berfokus pada investasi sumber
+                daya manusia untuk keberlanjutan dakwah.
+              </p>
+              <img
+                src="asset/alhairaat mdi pict.jpg"
+                alt="Gambar Pesantren Alkhairaat Madinatul Ilmi Dolo"
+                class="rounded-lg mt-6 w-full object-cover shadow-md border border-emerald-200"
+              />
+              <p class="mt-3 text-sm text-stone-600">
+                Potret Pondok Pesantren Alkhairaat Madinatul Ilmi Dolo.
+              </p>
+            </div>
+            <div class="text-center">
+              <div class="inline-block bg-amber-100/80 rounded-full p-6">
+                <img
+                  src="asset/logo mdi.jpeg"
+                  alt="Logo Madinatul Ilmi Dolo"
+                  class="w-32 h-50 object-cover rounded-full border-4 border-amber-400"
+                />
+              </div>
+              <h3 class="mt-4 font-bold text-lg text-emerald-900">
+                Pencetak Generasi Penerus
+              </h3>
+              <p class="mt-1 text-stone-600">
+                Kini, pondok pesantren ini menjadi pusat penting untuk mencetak
+                Abnaulkhairaat (generasi penerus) dan menjadi lokasi utama
+                peringatan Haul tahunan Habib Saggaf, melestarikan memori dan
+                melanjutkan perjuangannya.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- === AKHIR ISI KONTEN === -->
+
+    <footer class="bg-emerald-900 text-white py-8">
+      <div class="container mx-auto px-6 text-center text-sm text-emerald-200">
+        <p>
+          Aplikasi Interaktif ini dibuat untuk menghormati warisan Habib Sayyid
+          Saggaf bin Muhammad Aljufri.
+        </p>
+        <p class="mt-2">
+          Sebuah visualisasi naratif untuk membantu produksi dokumenter dan
+          menyebarkan inspirasi dari jejak hidupnya.
+        </p>
+      </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-            
-            document.querySelectorAll('#mobile-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                });
-            });
-
-            const timelineData = [
-                { year: '1937', title: 'Kelahiran Sang Cahaya', description: 'Lahir di Pekalongan, Jawa Tengah, pada 17 Agustus. Kelahirannya yang bertepatan dengan hari kemerdekaan menjadi simbol keterikatannya dengan bangsa Indonesia.' },
-                { year: '1951', title: 'Hijrah ke Palu', description: 'Pindah dan menetap di Palu, Sulawesi Tengah, memulai babak baru hidupnya di jantung komunitas Alkhairaat yang akan dipimpinnya kelak.' },
-                { year: '1959-1967', title: 'Menimba Ilmu di Al-Azhar', description: 'Melanjutkan studi di Universitas Al-Azhar, Kairo, Mesir. Meraih gelar Sarjana dan Master, membangun fondasi keilmuan yang mendalam.' },
-                { year: '1974', title: 'Memegang Amanah Kepemimpinan', description: 'Diangkat menjadi Ketua Utama Alkhairaat, melanjutkan estafet kepemimpinan dari ayah dan kakeknya (Guru Tua). Memulai era transformasi dan ekspansi besar.' },
-                { year: '1991', title: 'Gagasan Visioner', description: 'Pada Muktamar Alkhairaat VI, beliau menggagas pendirian Pondok Pesantren Madinatul Ilmi Dolo sebagai solusi strategis untuk krisis kader pengajar.' },
-                { year: '2021', title: 'Berpulang ke Rahmatullah', description: 'Wafat pada 3 Agustus di Palu, meninggalkan warisan institusi yang kokoh dan jutaan Abnaulkhairaat yang melanjutkan perjuangannya.' }
-            ];
-
-            const timelineContainer = document.getElementById('timeline-container');
-            timelineData.forEach((item, index) => {
-                const alignmentClass = index % 2 === 0 ? 'md:ml-auto md:mr-0' : 'md:mr-auto md:ml-0';
-                const timelineItem = document.createElement('div');
-                timelineItem.className = `relative w-full md:w-1/2 p-4 rounded-lg bg-white shadow-md border border-stone-200/60 ${alignmentClass}`;
-                timelineItem.innerHTML = `
-                    <div class="absolute top-1/2 -translate-y-1/2 ${index % 2 === 0 ? 'right-full md:-right-4' : 'left-full md:-left-4'} w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center text-white font-bold shadow-lg">${index + 1}</div>
-                    <p class="font-bold text-lg text-amber-700">${item.year}</p>
-                    <h4 class="font-semibold text-emerald-800 mt-1 cursor-pointer">${item.title}</h4>
-                    <div class="timeline-item-content overflow-hidden max-h-0 opacity-0">
-                       <p class="text-sm text-stone-600 mt-2">${item.description}</p>
-                    </div>
-                `;
-                timelineContainer.appendChild(timelineItem);
-                
-                const titleElement = timelineItem.querySelector('h4');
-                const contentElement = timelineItem.querySelector('.timeline-item-content');
-                titleElement.addEventListener('click', () => {
-                    if (contentElement.style.maxHeight && contentElement.style.maxHeight !== '0px') {
-                        contentElement.style.maxHeight = '0px';
-                        contentElement.style.opacity = '0';
-                    } else {
-                        contentElement.style.maxHeight = contentElement.scrollHeight + "px";
-                        contentElement.style.opacity = '1';
-                    }
-                });
-            });
-
-
-            const growthCtx = document.getElementById('growthChart').getContext('2d');
-            new Chart(growthCtx, {
-                type: 'line',
-                data: {
-                    labels: ['1969', '1970', '1980', '1986', '1991', '1997', '2007'],
-                    datasets: [{
-                        label: 'Jumlah Madrasah/Sekolah',
-                        data: [420, 450, 556, 732, 1221, 1268, 1561],
-                        borderColor: 'rgb(217, 119, 6)',
-                        backgroundColor: 'rgba(217, 119, 6, 0.1)',
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.3
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                             ticks: { color: '#57534e' }
-                        },
-                        x: {
-                             ticks: { color: '#57534e' }
-                        }
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: '#064e3b',
-                            titleFont: { size: 14 },
-                            bodyFont: { size: 12 },
-                            padding: 10,
-                            cornerRadius: 4
-                        }
-                    }
-                }
-            });
-
-            const distributionCtx = document.getElementById('distributionChart').getContext('2d');
-            new Chart(distributionCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['Sulteng', 'Maluku & MU', 'Sulut', 'Gorontalo', 'Kaltim', 'Sulbar', 'Papua & PB', 'Sulsel'],
-                    datasets: [{
-                        label: 'Jumlah Madrasah/Sekolah',
-                        data: [1096, 162, 135, 61, 55, 18, 12, 7],
-                        backgroundColor: [
-                            'rgba(6, 78, 59, 0.7)',
-                            'rgba(16, 185, 129, 0.7)',
-                            'rgba(245, 158, 11, 0.7)',
-                            'rgba(202, 138, 4, 0.7)',
-                            'rgba(120, 113, 108, 0.7)',
-                            'rgba(6, 78, 59, 0.5)',
-                            'rgba(16, 185, 129, 0.5)',
-                            'rgba(245, 158, 11, 0.5)',
-                        ],
-                        borderColor: [
-                            'rgb(6, 78, 59)',
-                            'rgb(16, 185, 129)',
-                            'rgb(245, 158, 11)',
-                            'rgb(202, 138, 4)',
-                            'rgb(120, 113, 108)',
-                             'rgb(6, 78, 59)',
-                            'rgb(16, 185, 129)',
-                            'rgb(245, 158, 11)',
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                             ticks: { color: '#57534e' }
-                        },
-                        y: {
-                             ticks: { color: '#57534e' }
-                        }
-                    },
-                     plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: '#064e3b',
-                            titleFont: { size: 14 },
-                            bodyFont: { size: 12 },
-                            padding: 10,
-                            cornerRadius: 4
-                        }
-                    }
-                }
-            });
-
-            // Gemini API Integration for "Pemikiran & Pengaruh" section
-            const summarizeBtn = document.getElementById('summarize-btn');
-            const questionsBtn = document.getElementById('questions-btn');
-            const llmOutputDiv = document.getElementById('llm-output');
-            const llmLoadingDiv = document.getElementById('llm-loading');
-            const llmContentDiv = document.getElementById('llm-content');
-
-            // Collect all text from the 'pemikiran' cards
-            const pemikiranCards = document.querySelectorAll('#pemikiran .card p');
-            let pemikiranText = '';
-            pemikiranCards.forEach(card => {
-                pemikiranText += card.textContent + ' ';
-            });
-            pemikiranText = pemikiranText.trim();
-
-            async function callGeminiAPI(promptText) {
-                llmOutputDiv.classList.remove('hidden');
-                llmLoadingDiv.classList.remove('hidden');
-                llmContentDiv.innerHTML = ''; // Clear previous content
-
-                try {
-                    let chatHistory = [];
-                    chatHistory.push({ role: "user", parts: [{ text: promptText }] });
-                    const payload = { contents: chatHistory };
-                    const apiKey = ""; 
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                    const response = await fetch(apiUrl, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify(payload)
-                            });
-                    const result = await response.json();
-
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        llmContentDiv.innerHTML = text.replace(/\n/g, '<br>'); // Display newlines as <br>
-                    } else {
-                        llmContentDiv.textContent = 'Maaf, tidak dapat menghasilkan respons. Silakan coba lagi.';
-                    }
-                } catch (error) {
-                    console.error('Error calling Gemini API:', error);
-                    llmContentDiv.textContent = 'Terjadi kesalahan saat berkomunikasi dengan API. Coba lagi nanti.';
-                } finally {
-                    llmLoadingDiv.classList.add('hidden');
-                }
-            }
-
-            summarizeBtn.addEventListener('click', () => {
-                const prompt = `Ringkaslah poin-poin utama dari teks berikut tentang pemikiran dan pengaruh Habib Saggaf Aljufri:\n\n${pemikiranText}`;
-                callGeminiAPI(prompt);
-            });
-
-            questionsBtn.addEventListener('click', () => {
-                const prompt = `Buatlah 3-5 pertanyaan diskusi yang mendalam dan relevan berdasarkan teks berikut tentang pemikiran dan pengaruh Habib Saggaf Aljufri:\n\n${pemikiranText}`;
-                callGeminiAPI(prompt);
-            });
-
-            // Countdown Logic
-            const countdownDate = new Date("July 13, 2025 00:00:00").getTime(); // Set target date for Aug 3, 2025
-
-            const updateCountdown = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = countdownDate - now;
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById("days").innerHTML = String(days).padStart(2, '0');
-                document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
-                document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
-                document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
-
-                if (distance < 0) {
-                    clearInterval(updateCountdown);
-                    document.getElementById("countdown").innerHTML = "Haul Telah Tiba!";
-                }
-            }, 1000);
-
-            // Count-up animation for statistics
-            function animateCountUp(element, start, end, duration) {
-                let current = start;
-                const range = end - start;
-                // Ensure stepTime is at least 1 to avoid division by zero or overly fast animations for small ranges
-                const stepTime = Math.max(1, Math.abs(Math.floor(duration / range)));
-                let timer;
-                const hasPlus = element.dataset.target.includes('+'); // Check if original target had '+'
-
-                const updateCount = () => {
-                    // Check if we have reached or passed the target
-                    if (start < end ? current < end : current > end) { // Continue if not yet reached
-                        current += (start < end ? 1 : -1); // Increment or decrement
-                        element.textContent = current.toLocaleString('en-US') + (hasPlus ? '+' : '');
-                    } else {
-                        current = end; // Ensure it stops exactly at the end
-                        clearInterval(timer);
-                        element.textContent = current.toLocaleString('en-US') + (hasPlus ? '+' : '');
-                    }
-                };
-
-                // Initialize element text to start value before starting animation
-                element.textContent = start.toLocaleString('en-US') + (hasPlus && start !== 0 ? '+' : ''); // Only add + if not 0, initially
-
-                timer = setInterval(updateCount, stepTime);
-            }
-
-            const countUpElements = document.querySelectorAll('.count-up');
-            const observerOptions = {
-                root: null, // viewport
-                rootMargin: '0px',
-                threshold: 0.5 // trigger when 50% of the element is visible
-            };
-            
-            const observedElements = new Set(); // To track elements that have already been animated
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !observedElements.has(entry.target)) {
-                        const element = entry.target;
-                        const target = parseInt(element.dataset.target.replace(/\+/g, '')); // Remove '+' and parse
-
-                        // Initialize the displayed value to 0 before animation starts
-                        element.textContent = '0' + (element.dataset.target.includes('+') && target !== 0 ? '+' : ''); // Display 0 (or 0+ if target has +)
-
-                        animateCountUp(element, 0, target, 2000); // Animate from 0 to target in 2 seconds
-                        
-                        observedElements.add(element); // Mark as animated
-                        observer.unobserve(element); // Stop observing once animated
-                    }
-                });
-            }, observerOptions);
-
-            countUpElements.forEach(element => {
-                observer.observe(element);
-            });
-        });
-    </script>
-</body>
+    <!-- External JS -->
+    <script src="script.js"></script>
+  </body>
 </html>
