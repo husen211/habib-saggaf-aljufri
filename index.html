@@ -10,9 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@500;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Harmony -->
-    <!-- Application Structure Plan: Aplikasi ini dirancang dengan struktur tematik berbasis-gulir (scroll-based) untuk menceritakan kisah Habib Saggaf Aljufri secara naratif dan menarik. Struktur ini tidak mengikuti urutan laporan, melainkan mengelompokkan informasi ke dalam bagian-bagian logis: (1) Pengenalan Heroik, (2) Linimasa Jejak Kehidupan, (3) Dasbor Interaktif Legasi Alkhairaat, (4) Cuplikan Video Dokumenter, (5) Kartu Interaktif untuk Pemikiran & Pengaruh, dan (6) Sorotan pada Pusat Kaderisasi Madinatul Ilmi. Pendekatan ini dipilih untuk mengubah data teks yang padat menjadi pengalaman visual yang mudah dicerna, memungkinkan pengguna (seperti pembuat film dokumenter) untuk memahami poin-poin kunci dan melihat tren data dengan cepat, yang lebih efektif daripada membaca laporan linier. Navigasi sticky memfasilitasi akses cepat ke setiap tema. -->
+    <!-- Application Structure Plan: Aplikasi ini dirancang dengan struktur tematik berbasis-gulir (scroll-based) untuk menceritakan kisah Habib Saggaf Aljufri secara naratif dan menarik. Struktur ini tidak mengikuti urutan laporan, melainkan mengelompokkan informasi ke dalam bagian-bagian logis: (1) Pengenalan Heroik, (2) Linimasa Jejak Kehidupan, (3) Dasbor Interaktif Legasi Alkhairaat (dengan animasi angka hitung-naik), (4) Cuplikan Video Dokumenter, (5) Kartu Interaktif untuk Pemikiran & Pengaruh, dan (6) Sorotan pada Pusat Kaderisasi Madinatul Ilmi. Pendekatan ini dipilih untuk mengubah data teks yang padat menjadi pengalaman visual yang mudah dicerna, memungkinkan pengguna (seperti pembuat film dokumenter) untuk memahami poin-poin kunci dan melihat tren data dengan cepat, yang lebih efektif daripada membaca laporan linier. Navigasi sticky memfasilitasi akses cepat ke setiap tema. -->
     <!-- Visualization & Content Choices: 
         - [Jejak Kehidupan -> Goal: Menampilkan perjalanan hidup secara kronologis -> Viz/Method: Linimasa Vertikal HTML/CSS -> Interaction: Klik untuk detail -> Justification: Lebih menarik daripada paragraf panjang, menunjukkan progresi. Library: Vanilla JS].
+        - [Legasi Alkhairaat (Angka Statistik) -> Goal: Menampilkan dampak kuantitatif secara interaktif -> Viz/Method: Angka dengan animasi hitung-naik -> Interaction: Animasi saat terlihat di viewport -> Justification: Menarik perhatian pada metrik kunci. Library: Vanilla JS (Intersection Observer)].
         - [Pertumbuhan Alkhairaat -> Goal: Menunjukkan ekspansi masif institusi -> Viz/Method: Grafik Garis (Line Chart) -> Interaction: Tooltip pada hover -> Justification: Visualisasi tren pertumbuhan secara efektif. Library: Chart.js].
         - [Persebaran Alkhairaat -> Goal: Membandingkan jangkauan geografis -> Viz/Method: Grafik Batang Horizontal (Bar Chart) -> Interaction: Tooltip pada hover -> Justification: Mudah membandingkan jumlah antar wilayah. Library: Chart.js].
         - [Cuplikan Video -> Goal: Menampilkan konten multimedia -> Viz/Method: Iframe YouTube responsif -> Interaction: Play/Pause video -> Justification: Mengintegrasikan materi dokumenter langsung ke dalam aplikasi. Library: HTML/CSS].
@@ -126,7 +127,7 @@
                         </div>
                     </div>
                      <div class="mt-16 text-center">
-                        <img src="/asset/habib saggaf dan habib idrus.webp" alt="" class="rounded-lg mx-auto w-full max-w-sm object-cover shadow-lg border border-emerald-200">
+                        <img src="/asset/habib saggaf dan habib idrus.webp" alt="[Gambar Habib Saggaf muda]" class="rounded-lg mx-auto w-full max-w-sm object-cover shadow-lg border border-emerald-200">
                         <p class="mt-3 text-sm text-stone-600">Habib Saggaf Aljufri di masa mudanya.</p>
                     </div>
                 </div>
@@ -142,15 +143,15 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-12">
                     <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50">
-                        <p class="text-4xl font-bold text-amber-600">1.550+</p>
+                        <p class="text-4xl font-bold text-amber-600 count-up" data-target="1550">0</p>
                         <p class="mt-2 text-stone-600">Madrasah & Sekolah</p>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50">
-                        <p class="text-4xl font-bold text-amber-600">36+</p>
+                        <p class="text-4xl font-bold text-amber-600 count-up" data-target="36">0</p>
                         <p class="mt-2 text-stone-600">Pondok Pesantren</p>
                     </div>
                      <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50">
-                        <p class="text-4xl font-bold text-amber-600">7</p>
+                        <p class="text-4xl font-bold text-amber-600 count-up" data-target="7">0</p>
                         <p class="mt-2 text-stone-600">Fakultas di UNISA Palu</p>
                     </div>
                 </div>
@@ -253,7 +254,7 @@
                     <div class="bg-white p-8 rounded-lg shadow-lg">
                         <h3 class="font-bold text-xl text-emerald-900 mb-3">Sebuah Jawaban Strategis</h3>
                         <p class="text-stone-700 leading-relaxed">Digagas pada Muktamar 1991, Madinatul Ilmi Dolo didirikan untuk mengatasi kelangkaan guru profesional dan kader ulama tingkat menengah yang siap pakai di pedesaan. Ini menunjukkan visi jangka panjang Habib Saggaf yang berfokus pada investasi sumber daya manusia untuk keberlanjutan dakwah.</p>
-                        <img src="asset/alhairaat mdi pict.jpg" alt="" class="rounded-lg mt-6 w-full object-cover shadow-md border border-emerald-200">
+                        <img src="asset/alhairaat mdi pict.jpg" alt="[Gambar Pesantren Alkhairaat Madinatul Ilmi Dolo]" class="rounded-lg mt-6 w-full object-cover shadow-md border border-emerald-200">
                         <p class="mt-3 text-sm text-stone-600">Potret Pondok Pesantren Alkhairaat Madinatul Ilmi Dolo.</p>
                     </div>
                      <div class="text-center">
@@ -509,6 +510,62 @@
                 }
             }, 1000);
 
+            // Count-up animation for statistics
+            function animateCountUp(element, start, end, duration) {
+                let current = start;
+                const range = end - start;
+                // Ensure stepTime is at least 1 to avoid division by zero or overly fast animations for small ranges
+                const stepTime = Math.max(1, Math.abs(Math.floor(duration / range)));
+                let timer;
+                const hasPlus = element.dataset.target.includes('+'); // Check if original target had '+'
+
+                const updateCount = () => {
+                    // Check if we have reached or passed the target
+                    if (start < end ? current < end : current > end) { // Continue if not yet reached
+                        current += (start < end ? 1 : -1); // Increment or decrement
+                        element.textContent = current.toLocaleString('en-US') + (hasPlus ? '+' : '');
+                    } else {
+                        current = end; // Ensure it stops exactly at the end
+                        clearInterval(timer);
+                        element.textContent = current.toLocaleString('en-US') + (hasPlus ? '+' : '');
+                    }
+                };
+
+                // Initialize element text to start value before starting animation
+                element.textContent = start.toLocaleString('en-US') + (hasPlus && start !== 0 ? '+' : ''); // Only add + if not 0, initially
+
+                timer = setInterval(updateCount, stepTime);
+            }
+
+            const countUpElements = document.querySelectorAll('.count-up');
+            const observerOptions = {
+                root: null, // viewport
+                rootMargin: '0px',
+                threshold: 0.5 // trigger when 50% of the element is visible
+            };
+            
+            const observedElements = new Set(); // To track elements that have already been animated
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !observedElements.has(entry.target)) {
+                        const element = entry.target;
+                        const target = parseInt(element.dataset.target.replace(/\+/g, '')); // Remove '+' and parse
+
+                        // Initialize the displayed value to 0 before animation starts
+                        element.textContent = '0' + (element.dataset.target.includes('+') && target !== 0 ? '+' : ''); // Display 0 (or 0+ if target has +)
+
+                        animateCountUp(element, 0, target, 2000); // Animate from 0 to target in 2 seconds
+                        
+                        observedElements.add(element); // Mark as animated
+                        observer.unobserve(element); // Stop observing once animated
+                    }
+                });
+            }, observerOptions);
+
+            countUpElements.forEach(element => {
+                observer.observe(element);
+            });
         });
     </script>
 </body>
