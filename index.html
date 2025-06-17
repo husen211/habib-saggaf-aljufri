@@ -112,45 +112,54 @@
         >
       </div>
     </header>
-    <section class="bg-emerald-800 text-white py-4 text-center">
-      <div class="container mx-auto px-4">
-        <p class="text-lg md:text-xl font-semibold">
-          Menuju Haul Habib Saggaf Aljufri:
-        </p>
-        <div
-          id="countdown"
-          class="mt-2 text-2xl md:text-4xl font-bold text-amber-300"
-        >
-          <span id="days">00</span> Hari <span id="hours">00</span> Jam
-          <span id="minutes">00</span> Menit <span id="seconds">00</span> Detik
-        </div>
-      </div>
-    </section>
+    
 
     <!-- === MULAI ISI KONTEN === -->
 
     <main>
-      <section id="hero" class="py-24 md:py-40 bg-amber-50/50">
-        <div class="container mx-auto px-6 text-center">
-          <img
-            src="/asset/habib saggaf pict.jpg"
-            alt="Foto Habib Saggaf Aljufri"
-            class="rounded-full mx-auto w-48 h-48 md:w-56 md:h-56 object-cover mb-10 border-4 border-amber-400 shadow-lg"
-          />
-          <h2 class="text-4xl md:text-6xl font-bold text-emerald-900">
-            Habib Saggaf Aljufri
-          </h2>
-          <p class="mt-4 text-lg md:text-2xl text-amber-800/90 font-light">
-            Pilar Pendidikan dan Dakwah di Jantung Nusantara Timur
-          </p>
-          <p class="mt-8 max-w-3xl mx-auto text-stone-700 leading-relaxed">
-            Seorang ulama visioner yang mendedikasikan hidupnya untuk
-            mentransformasi Alkhairaat menjadi kekuatan pendidikan dan sosial,
-            meninggalkan warisan institusi yang terus berkembang dan melayani
-            jutaan umat di seluruh Indonesia.
-          </p>
-        </div>
-      </section>
+      <section id="hero" class="relative py-24 md:py-40 bg-amber-50/50">
+  <!-- Background subtle gradasi -->
+  <div class="absolute inset-0 bg-gradient-to-b from-amber-100/30 via-transparent to-amber-50 pointer-events-none"></div>
+
+  <div class="container mx-auto px-6 text-center relative z-10">
+    <!-- Tagline pembuka -->
+    <p class="text-lg md:text-xl text-emerald-800 font-semibold mb-3">
+      
+    </p>
+
+    <!-- Foto bulat -->
+    <div class="inline-block relative mb-8">
+      <div class="rounded-full border-4 border-amber-400 shadow-lg overflow-hidden w-56 h-56 md:w-64 md:h-64 mx-auto">
+        <img src="/asset/habib saggaf pict.jpg" alt="Foto Habib Saggaf Aljufri" class="object-cover w-full h-full" />
+      </div>
+    </div>
+
+    <!-- Nama dan Judul -->
+    <h2 class="text-4xl md:text-6xl font-bold text-emerald-900 mb-3">Habib Saggaf Aljufri</h2>
+    
+
+    <!-- Quote -->
+    <p class="italic text-stone-600 text-sm md:text-base mb-6">
+            Ulama visioner yang membangun Alkhairaat sebagai kekuatan pendidikan dan sosial,
+             mewariskan institusi yang terus berkembang melayani jutaan umat.
+    </p>
+
+
+    <!-- Call to Action -->
+    <a href="#jejak-kehidupan" class="inline-block bg-emerald-700 text-white px-5 py-3 rounded-md shadow-md hover:bg-emerald-800 transition">
+      Jelajahi Perjalanan Beliau
+    </a>
+     
+    <p class="mt-6 text-stone-600 text-sm md:text-base">
+     
+   <div class="mt-6 bg-amber-100 text-emerald-900 px-6 py-3 rounded-lg inline-block shadow-md">
+  Menuju Haul: <span id="days">00</span> Hari <span id="hours">00</span> Jam <span id="minutes">00</span> Menit <span id="seconds">00</span> Detik
+</div>
+
+
+  </div>
+</section>
+
 
       <section id="jejak-kehidupan" class="py-16 md:py-24">
         <div class="container mx-auto px-6">
@@ -458,13 +467,15 @@
               class="card bg-amber-50/60 p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
             >
               <h3 class="font-bold text-lg text-emerald-900">
-                Dakwah Melalui Institusi
+                Dakwah & Karya Tulis
               </h3>
               <p class="mt-2 text-sm text-stone-700 leading-relaxed">
-                Fokus utamanya adalah membangun lembaga yang kuat. Beliau
-                percaya warisan terbaik bukanlah buku, melainkan institusi
-                pendidikan dan sosial yang hidup, mandiri, dan terus memberi
-                manfaat bagi masyarakat luas.
+                Fokus dakwah beliau terpusat pada pembangunan lembaga pendidikan
+                dan sosial yang kokoh sebagai warisan berkelanjutan. Selain itu,
+                beliau juga menulis Menjawab Masalah Ummat, berisi fatwa dan
+                nasihat atas persoalan fiqih, akidah, sosial, hingga kehidupan
+                sehari-hari, dengan bahasa yang sederhana namun tetap berbobot
+                dalil.
               </p>
             </div>
             <div
@@ -512,9 +523,9 @@
       </section>
 
       <section class="py-8 md:py-12">
-        <div class="container mx-auto px-6 text-center p-4">
+        <div class="container mx-auto px-6 text-center p-1">
           <img
-            src="asset/quote habib revisi 4.png"
+            src="asset/Quote habib revisi 5.png"
             alt="Quote Habib Saggaf"
             class="mx-auto rounded-xl w-full max-w-3xl"
           />
@@ -583,20 +594,15 @@
 
     <!-- === AKHIR ISI KONTEN === -->
 
-    <footer class="bg-emerald-900 text-white py-8">
+    <footer class="bg-emerald-900 text-white py-6">
       <div class="container mx-auto px-6 text-center text-sm text-emerald-200">
-        <p>
-          Aplikasi Interaktif ini dibuat untuk menghormati warisan Habib Sayyid
-          Saggaf bin Muhammad Aljufri.
-        </p>
-        <p class="mt-2">
-          Sebuah visualisasi naratif untuk membantu produksi dokumenter dan
-          menyebarkan inspirasi dari jejak hidupnya.
-        </p>
+        <p>&copy; 2025 Pondok Pesantren Alkhairaat Madinatul Ilmi Dolo</p>
       </div>
     </footer>
 
     <!-- External JS -->
     <script src="script.js"></script>
+
+    
   </body>
 </html>
