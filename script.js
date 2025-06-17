@@ -202,3 +202,17 @@ timelineData.forEach((item, index) => {
         },
     });
 });
+
+
+
+// Smooth Scroll for Anchor Links
+window.addEventListener("DOMContentLoaded", () => {
+  const intro = document.getElementById("intro");
+  setTimeout(() => {
+    intro.style.opacity = "0";
+    intro.style.pointerEvents = "none";
+    setTimeout(() => {
+      intro.style.display = "none";
+    }, 1000); // tunggu transisi hilang
+  }, 3000); // 3 detik tampil dulu
+});
