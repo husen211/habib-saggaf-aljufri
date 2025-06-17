@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+
     // Timeline Data & Logic
     const timelineData = [
         { year: '1937', title: 'Kelahiran Sang Cahaya', description: 'Lahir di Pekalongan, Jawa Tengah, 17 Agustus 1937 Masehi. Bertepatan dengan. Kelahirannya yang bertepatan dengan tanggal kemerdekaan menjadi simbol keterikatannya dengan bangsa Indonesia.' },
@@ -21,33 +22,50 @@ document.addEventListener('DOMContentLoaded', function () {
         { year: '1991', title: 'Gagasan Visioner', description: 'Pada Muktamar Alkhairaat VI, beliau menggagas pendirian Pondok Pesantren Madinatul Ilmi Dolo sebagai solusi strategis untuk krisis kader pengajar.' },
         { year: '2021', title: 'Berpulang ke Rahmatullah', description: 'Wafat pada 3 Agustus di Palu, meninggalkan warisan institusi yang kokoh dan jutaan Abnaulkhairaat yang melanjutkan perjuangannya.' }
     ];
-    const timelineContainer = document.getElementById('timeline-container');
-    timelineData.forEach((item, index) => {
-        const alignmentClass = index % 2 === 0 ? 'md:ml-auto md:mr-0' : 'md:mr-auto md:ml-0';
-        const timelineItem = document.createElement('div');
-        timelineItem.className = `relative w-full md:w-1/2 p-4 rounded-lg bg-white shadow-md border border-stone-200/60 ${alignmentClass}`;
-        timelineItem.innerHTML = `
-            <div class="absolute top-1/2 -translate-y-1/2 ${index % 2 === 0 ? 'right-full md:-right-4' : 'left-full md:-left-4'} w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center text-white font-bold shadow-lg">${index + 1}</div>
-            <p class="font-bold text-lg text-amber-700">${item.year}</p>
-            <h4 class="font-semibold text-emerald-800 mt-1 cursor-pointer">${item.title}</h4>
-            <div class="timeline-item-content overflow-hidden max-h-0 opacity-0">
-               <p class="text-sm text-stone-600 mt-2">${item.description}</p>
-            </div>
-        `;
-        timelineContainer.appendChild(timelineItem);
-        
-        const titleElement = timelineItem.querySelector('h4');
-        const contentElement = timelineItem.querySelector('.timeline-item-content');
-        titleElement.addEventListener('click', () => {
-            if (contentElement.style.maxHeight && contentElement.style.maxHeight !== '0px') {
-                contentElement.style.maxHeight = '0px';
-                contentElement.style.opacity = '0';
-            } else {
-                contentElement.style.maxHeight = contentElement.scrollHeight + "px";
-                contentElement.style.opacity = '1';
-            }
-        });
+
+const timelineContainer = document.getElementById('timeline-container');
+timelineData.forEach((item, index) => {
+    const timelineItem = document.createElement('div');
+    timelineItem.className = `relative w-full md:w-2/3 p-4 rounded-lg bg-white shadow-md border border-stone-200/60 mx-auto`;
+
+    timelineItem.innerHTML = `
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-md">
+            ${index + 1}
+        </div>
+        <p class="font-bold text-lg text-amber-700 text-center">${item.year}</p>
+
+        <h4 class="font-semibold text-emerald-800 mt-1 text-center cursor-pointer flex justify-center items-center gap-2">
+            ${item.title}
+            <svg class="h-4 w-4 text-emerald-700 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+        </h4>
+
+        <div class="timeline-item-content overflow-hidden max-h-0 opacity-0 transition-all duration-300">
+            <p class="text-sm text-stone-600 mt-2 text-center">${item.description}</p>
+        </div>
+    `;
+
+    timelineContainer.appendChild(timelineItem);
+
+    const titleElement = timelineItem.querySelector('h4');
+    const contentElement = timelineItem.querySelector('.timeline-item-content');
+    const iconElement = timelineItem.querySelector('svg');
+
+    titleElement.addEventListener('click', () => {
+        const isOpen = contentElement.style.maxHeight && contentElement.style.maxHeight !== '0px';
+        if (isOpen) {
+            contentElement.style.maxHeight = '0px';
+            contentElement.style.opacity = '0';
+            iconElement.style.transform = 'rotate(0deg)';
+        } else {
+            contentElement.style.maxHeight = contentElement.scrollHeight + "px";
+            contentElement.style.opacity = '1';
+            iconElement.style.transform = 'rotate(180deg)';
+        }
     });
+});
+
 
     // Chart.js - Growth Chart
     const growthCtx = document.getElementById('growthChart').getContext('2d');
