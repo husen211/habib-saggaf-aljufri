@@ -44,19 +44,20 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="text-stone-800">
-
-
     <!-- INTRO ANIMATION -->
-<div id="intro" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white text-emerald-900 transition-opacity duration-1000">
-  <img
-    src="/asset/Logo_alkhairaat.svg.png"
-    alt="Logo Alkhairaat"
-    class="w-24 h-24 mb-4 opacity-0 animate-fadein"
-  />
-  <p class="text-xl font-semibold opacity-0 animate-fadein-delay">
-    Jejak Sang Pembangun
-  </p>
-</div>
+    <div
+      id="intro"
+      class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white text-emerald-900 transition-opacity duration-1000"
+    >
+      <img
+        src="/asset/Logo_alkhairaat.svg.png"
+        alt="Logo Alkhairaat"
+        class="w-24 h-24 mb-4 opacity-0 animate-fadein"
+      />
+      <p class="text-xl font-semibold opacity-0 animate-fadein-delay">
+        Jejak Sang Pembangun
+      </p>
+    </div>
 
     <header
       id="header"
@@ -152,143 +153,184 @@
     <main>
       <!-- HERO SECTION CUSTOM -->
 
-      <section class="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
-  <!-- Background Video -->
-  <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover z-0">
-    <source src="/asset/video header.mov" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
+      <section
+        class="relative min-h-screen flex items-center justify-center text-white overflow-hidden"
+      >
+        <!-- Background Video -->
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          class="absolute inset-0 w-full h-full object-cover z-0"
+        >
+          <source src="/asset/video header.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
 
-  <!-- Overlay Gelap agar teks kebaca -->
-  <div class="absolute inset-0 bg-black/50 z-10"></div>
+        <!-- Overlay Gelap agar teks kebaca -->
+        <div class="absolute inset-0 bg-black/50 z-10"></div>
 
-  <!-- Konten Tengah -->
-  <div class="relative z-20 text-center max-w-2xl px-6">
-    <h1 class="text-4xl md:text-6xl font-bold leading-tight tracking-tight">
-      Habib Saggaf Aljufri
-    </h1>
-    <p class="mt-4 text-lg md:text-xl text-gray-200">
-      Ulama Kharismatik Yang Mendedikasikan Hidupnya Untuk Pendidikan Dan Umat
-    </p>
-    <a
-      href="#jejak-kehidupan"
-      class="mt-6 inline-block bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full shadow-lg transition"
-    >
-      Jelajahi Perjalanan beliau
-    </a>
-  </div>
-</section>
+        <!-- Konten Tengah -->
+        <div class="relative z-20 text-center max-w-2xl px-6">
+          <h1
+            class="text-4xl md:text-6xl font-bold leading-tight tracking-tight"
+          >
+            Habib Saggaf Aljufri
+          </h1>
+          <p class="mt-4 text-lg md:text-xl text-gray-200">
+            Ulama Kharismatik Yang Mendedikasikan Hidupnya Untuk Pendidikan Dan
+            Umat
+          </p>
+          <a
+            href="#jejak-kehidupan"
+            class="mt-6 inline-block bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full shadow-lg transition"
+          >
+            Jelajahi Perjalanan beliau
+          </a>
+        </div>
+      </section>
 
-
-<!-- Gradasi Transisi Halus ke Section Berikutnya -->
-<div class="relative z-10 -mt-10">
-  <div class="h-20 w-full bg-gradient-to-t from-[#fefcf9] to-transparent opacity-90 backdrop-blur-sm"></div>
-</div>
-
-<section id="jejak-kehidupan" class="py-16 md:py-24 bg-[#fefcf9]">
-  <div class="container mx-auto px-6 space-y-16">
-    
-    <!-- Judul Section -->
-    <div class="scroll-fade opacity-0 translate-y-12 transition duration-700 ease-in-out">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-emerald-800">
-          Jejak Kehidupan
-        </h2>
-        <p class="mt-3 max-w-2xl mx-auto text-stone-600">
-          Membahas Alkhairaat pasti kita akan berbicara siapa pendiri dan
-          penerusnya. Itu menjadi bagian penting, karena pendiri dan penerus
-          menentukan sejauh mana sebuah lembaga berkembang dan berkiprah.
-          Adalah Habib Sayyid Saggaf bin Muhamad bin Idrus Aljufri. Orang
-          mengenal beliau sebagai sosok ulama sederhana, kharismatik, teduh,
-          tawadhu. Itulah kesan yg terpancar dari seorang Habib Saggaf bin
-          Muhamad Aljufri.
-        </p>
+      <!-- Gradasi Transisi Halus ke Section Berikutnya -->
+      <div class="relative z-10 -mt-10">
+        <div
+          class="h-20 w-full bg-gradient-to-t from-[#fefcf9] to-transparent opacity-90 backdrop-blur-sm"
+        ></div>
       </div>
-    </div>
 
-    <!-- Timeline -->
-    <div class="scroll-fade opacity-0 translate-y-12 transition duration-700 ease-in-out">
-      <div class="relative max-w-2xl mx-auto">
-        <div class="relative">
-          <div class="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-amber-200"></div>
-          <div id="timeline-container" class="space-y-16">
-            <!-- Timeline items will be injected by JavaScript -->
+      <section id="jejak-kehidupan" class="py-16 md:py-24 bg-[#fefcf9]">
+        <div class="container mx-auto px-6 space-y-16">
+          <!-- Judul Section -->
+          <div
+            class="scroll-fade opacity-0 translate-y-12 transition duration-700 ease-in-out"
+          >
+            <div class="text-center mb-12">
+              <h2 class="text-3xl md:text-4xl font-bold text-emerald-800">
+                Jejak Kehidupan
+              </h2>
+              <p class="mt-3 max-w-2xl mx-auto text-stone-600">
+                Membahas Alkhairaat pasti kita akan berbicara siapa pendiri dan
+                penerusnya. Itu menjadi bagian penting, karena pendiri dan
+                penerus menentukan sejauh mana sebuah lembaga berkembang dan
+                berkiprah. Adalah Habib Sayyid Saggaf bin Muhamad bin Idrus
+                Aljufri. Orang mengenal beliau sebagai sosok ulama sederhana,
+                kharismatik, teduh, tawadhu. Itulah kesan yg terpancar dari
+                seorang Habib Saggaf bin Muhamad Aljufri.
+              </p>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Countdown Section -->
-    <div class="scroll-fade opacity-0 translate-y-12 transition duration-700 ease-in-out">
-      <div class="mt-12 mb-6 text-center">
-        <p class="text-lg md:text-xl font-semibold text-emerald-800">
-          Menuju Haul Habib Saggaf Aljufri:
-        </p>
-        <div id="countdown" class="mt-2 text-2xl md:text-4xl font-bold text-amber-600">
-          <span id="days">00</span> Hari <span id="hours">00</span> Jam
-          <span id="minutes">00</span> Menit <span id="seconds">00</span> Detik
-        </div>
-      </div>
-    </div>
-
-    <!-- Carousel Swiper -->
-    <div class="scroll-fade opacity-0 translate-y-12 transition duration-700 ease-in-out">
-      <div class="mt-16 max-w-xl mx-auto">
-        <div class="swiper mySwiper rounded-lg shadow-lg border border-emerald-200">
-          <div class="swiper-wrapper">
-            <!-- Slide 1 -->
-            <div class="swiper-slide bg-stone-200 relative">
-              <img src="/asset/habib saggaf dan habib idrus.webp"
-                   alt="Habib Saggaf di masa muda"
-                   class="w-full h-full object-cover"
-                   onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+1';" />
-              <div class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs">
-                Habib Saggaf Aljufri di masa mudanya.
-              </div>
-            </div>
-            <!-- Slide 2 -->
-            <div class="swiper-slide bg-stone-200 relative">
-              <img src="/asset/tito-karnavian-sayyid-saggaf-aljufri-and-hadi-tjahjanto-92c3a5-1024.jpg"
-                   alt="Deskripsi gambar 2"
-                   class="w-full h-full object-cover"
-                   onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+2';" />
-              <div class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs">
-                Panglima dan Kapolri bersama Habib Saggaf Aljufri.
-              </div>
-            </div>
-            <!-- Slide 3 -->
-            <div class="swiper-slide bg-stone-200 relative">
-              <img src="/asset/habib-sayyid-saggaf-bin-muhammad-aljufri-e03e6d-1024.jpg"
-                   alt="Deskripsi gambar 3"
-                   class="w-full h-full object-cover"
-                   onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+3';" />
-              <div class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs">
-                Habib Saggaf Aljufri di haul Habib Idrus.
-              </div>
-            </div>
-            <!-- Slide 4 -->
-            <div class="swiper-slide bg-stone-200 relative">
-              <img src="/asset/habib-saggaf-bin-muhammad-aljufri-dengan-anies-baswedan.jpg"
-                   alt="Deskripsi gambar 4"
-                   class="w-full h-full object-cover"
-                   onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+4';" />
-              <div class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs">
-                Anies Baswedan di Palu bersama Habib Saggaf Aljufri.
+          <!-- Timeline -->
+          <div
+            class="scroll-fade opacity-0 translate-y-12 transition duration-700 ease-in-out"
+          >
+            <div class="relative max-w-2xl mx-auto">
+              <div class="relative">
+                <div
+                  class="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-amber-200"
+                ></div>
+                <div id="timeline-container" class="space-y-16">
+                  <!-- Timeline items will be injected by JavaScript -->
+                </div>
               </div>
             </div>
           </div>
-          <!-- Pagination -->
-          <div class="swiper-pagination"></div>
-          <!-- Navigation -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
+
+          <!-- Countdown Section -->
+          <div
+            class="scroll-fade opacity-0 translate-y-12 transition duration-700 ease-in-out"
+          >
+            <div class="mt-12 mb-6 text-center">
+              <p class="text-lg md:text-xl font-semibold text-emerald-800">
+                Menuju Haul Habib Saggaf Aljufri:
+              </p>
+              <div
+                id="countdown"
+                class="mt-2 text-2xl md:text-4xl font-bold text-amber-600"
+              >
+                <span id="days">00</span> Hari <span id="hours">00</span> Jam
+                <span id="minutes">00</span> Menit
+                <span id="seconds">00</span> Detik
+              </div>
+            </div>
+          </div>
+
+          <!-- Carousel Swiper -->
+          <div
+            class="scroll-fade opacity-0 translate-y-12 transition duration-700 ease-in-out"
+          >
+            <div class="mt-16 max-w-xl mx-auto">
+              <div
+                class="swiper mySwiper rounded-lg shadow-lg border border-emerald-200"
+              >
+                <div class="swiper-wrapper">
+                  <!-- Slide 1 -->
+                  <div class="swiper-slide bg-stone-200 relative">
+                    <img
+                      src="/asset/habib saggaf dan habib idrus.webp"
+                      alt="Habib Saggaf di masa muda"
+                      class="w-full h-full object-cover"
+                      onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+1';"
+                    />
+                    <div
+                      class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs"
+                    >
+                      Habib Saggaf Aljufri di masa mudanya.
+                    </div>
+                  </div>
+                  <!-- Slide 2 -->
+                  <div class="swiper-slide bg-stone-200 relative">
+                    <img
+                      src="/asset/tito-karnavian-sayyid-saggaf-aljufri-and-hadi-tjahjanto-92c3a5-1024.jpg"
+                      alt="Deskripsi gambar 2"
+                      class="w-full h-full object-cover"
+                      onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+2';"
+                    />
+                    <div
+                      class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs"
+                    >
+                      Panglima dan Kapolri bersama Habib Saggaf Aljufri.
+                    </div>
+                  </div>
+                  <!-- Slide 3 -->
+                  <div class="swiper-slide bg-stone-200 relative">
+                    <img
+                      src="/asset/habib-sayyid-saggaf-bin-muhammad-aljufri-e03e6d-1024.jpg"
+                      alt="Deskripsi gambar 3"
+                      class="w-full h-full object-cover"
+                      onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+3';"
+                    />
+                    <div
+                      class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs"
+                    >
+                      Habib Saggaf Aljufri di haul Habib Idrus.
+                    </div>
+                  </div>
+                  <!-- Slide 4 -->
+                  <div class="swiper-slide bg-stone-200 relative">
+                    <img
+                      src="/asset/habib-saggaf-bin-muhammad-aljufri-dengan-anies-baswedan.jpg"
+                      alt="Deskripsi gambar 4"
+                      class="w-full h-full object-cover"
+                      onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+4';"
+                    />
+                    <div
+                      class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs"
+                    >
+                      Anies Baswedan di Palu bersama Habib Saggaf Aljufri.
+                    </div>
+                  </div>
+                </div>
+                <!-- Pagination -->
+                <div class="swiper-pagination"></div>
+                <!-- Navigation -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
+      </section>
 
       <section id="legasi-alkhairaat" class="py-16 md:py-24 bg-emerald-50/40">
         <div class="container mx-auto px-6">
