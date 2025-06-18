@@ -82,3 +82,29 @@ h1, h2, h3 {
   animation: fadein 1s ease forwards;
   animation-delay: 1.5s;
 }
+
+
+
+
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(3rem);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.scroll-fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(3rem);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.scroll-fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}

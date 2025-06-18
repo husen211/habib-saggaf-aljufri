@@ -216,3 +216,17 @@ window.addEventListener("DOMContentLoaded", () => {
     }, 1000); // tunggu transisi hilang
   }, 3000); // 3 detik tampil dulu
 });
+
+
+
+// Scroll Reveal Logic
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+      observer.unobserve(entry.target); // stop observing after shown
+    }
+  });
+}, { threshold: 0.4 });
+
+document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el));
