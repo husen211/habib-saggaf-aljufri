@@ -21,8 +21,6 @@
     />
     <meta property="og:url" content="https://jejakhabibsaggaf.com/" />
     <meta property="og:type" content="website" />
-
-    <!-- Optional: biar SEO nya juga enak -->
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Tailwind & Library -->
@@ -34,14 +32,32 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@500;700&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!-- External CSS -->
     <link rel="stylesheet" href="style.css" />
+
+    <!-- === CSS TAMBAHAN UNTUK GALERI SCROLL === -->
+    <style>
+      /* Style scrollbar hanya untuk desktop */
+      @media (min-width: 768px) {
+        .horizontal-scroll-container {
+          scrollbar-width: thin; /* Firefox */
+          scrollbar-color: #d97706 #fdfcf9; /* Firefox */
+        }
+        /* Chrome, Edge, Safari */
+        .horizontal-scroll-container::-webkit-scrollbar {
+          height: 8px;
+        }
+        .horizontal-scroll-container::-webkit-scrollbar-track {
+          background: #fdfcf9;
+        }
+        .horizontal-scroll-container::-webkit-scrollbar-thumb {
+          background-color: #d97706;
+          border-radius: 10px;
+          border: 2px solid #fdfcf9;
+        }
+      }
+    </style>
   </head>
   <body class="text-stone-800">
     <!-- INTRO ANIMATION -->
@@ -148,15 +164,10 @@
       </div>
     </header>
 
-    <!-- === MULAI ISI KONTEN === -->
-
     <main>
-      <!-- HERO SECTION CUSTOM -->
-
       <section
         class="relative min-h-screen flex items-center justify-center text-white overflow-hidden"
       >
-        <!-- Background Video -->
         <video
           autoplay
           muted
@@ -167,11 +178,7 @@
           <source src="/asset/video header.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-
-        <!-- Overlay Gelap agar teks kebaca -->
         <div class="absolute inset-0 bg-black/50 z-10"></div>
-
-        <!-- Konten Tengah -->
         <div class="relative z-20 text-center max-w-2xl px-6">
           <h1
             class="text-4xl md:text-6xl font-bold leading-tight tracking-tight"
@@ -191,7 +198,6 @@
         </div>
       </section>
 
-      <!-- Gradasi Transisi Halus ke Section Berikutnya -->
       <div class="relative z-10 -mt-10">
         <div
           class="h-20 w-full bg-gradient-to-t from-[#fefcf9] to-transparent opacity-90 backdrop-blur-sm"
@@ -200,7 +206,6 @@
 
       <section id="jejak-kehidupan" class="py-16 md:py-24 bg-[#fefcf9]">
         <div class="container mx-auto px-6 space-y-16">
-          <!-- Judul Section -->
           <div
             class="scroll-fade opacity-0 translate-y-12 transition duration-700 ease-in-out"
           >
@@ -210,9 +215,7 @@
               </h2>
               <p class="mt-3 max-w-2xl mx-auto text-stone-600">
                 Membahas Alkhairaat pasti kita akan berbicara siapa pendiri dan
-                penerusnya. Itu menjadi bagian penting, karena pendiri dan
-                penerus menentukan sejauh mana sebuah lembaga berkembang dan
-                berkiprah. Adalah Habib Sayyid Saggaf bin Muhamad bin Idrus
+                penerusnya. Adalah Habib Sayyid Saggaf bin Muhamad bin Idrus
                 Aljufri. Orang mengenal beliau sebagai sosok ulama sederhana,
                 kharismatik, teduh, tawadhu. Itulah kesan yg terpancar dari
                 seorang Habib Saggaf bin Muhamad Aljufri.
@@ -220,7 +223,6 @@
             </div>
           </div>
 
-          <!-- Timeline -->
           <div
             class="scroll-fade opacity-0 translate-y-12 transition duration-700 ease-in-out"
           >
@@ -236,7 +238,6 @@
             </div>
           </div>
 
-          <!-- Countdown Section -->
           <div
             class="scroll-fade opacity-0 translate-y-12 transition duration-700 ease-in-out"
           >
@@ -255,80 +256,182 @@
             </div>
           </div>
 
-          <!-- Carousel Swiper -->
+          <!-- === GALERI KISAH (REVISI MOBILE) === -->
           <div
             class="scroll-fade opacity-0 translate-y-12 transition duration-700 ease-in-out"
           >
-            <div class="mt-16 max-w-xl mx-auto">
-              <div
-                class="swiper mySwiper rounded-lg shadow-lg border border-emerald-200"
+            <div class="max-w-7xl mx-auto">
+              <h3
+                class="text-2xl md:text-3xl font-bold text-emerald-800 text-center mb-10"
               >
-                <div class="swiper-wrapper">
-                  <!-- Slide 1 -->
-                  <div class="swiper-slide bg-stone-200 relative">
-                    <img
-                      src="/asset/habib saggaf dan habib idrus.webp"
-                      alt="Habib Saggaf di masa muda"
-                      class="w-full h-full object-cover"
-                      onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+1';"
-                    />
+                Galeri Kisah
+              </h3>
+
+              <!-- Kontainer Galeri: Tampilan berbeda di mobile dan desktop -->
+              <div
+                class="md:horizontal-scroll-container md:flex md:overflow-x-auto md:gap-8 md:pb-4 md:scroll-snap-x-mandatory"
+              >
+                <!-- Wrapper untuk mobile: menjadi grid vertikal -->
+                <div class="grid grid-cols-1 gap-8 md:flex md:flex-shrink-0">
+
+                  <!-- Kartu Foto 1 -->
+                  <div class="md:scroll-snap-align-start md:w-80 lg:w-96">
                     <div
-                      class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs"
+                      class="bg-white rounded-lg shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
                     >
-                      Habib Saggaf Aljufri di masa mudanya.
+                      <img
+                        src="/asset/habib saggaf dan habib idrus.webp"
+                        alt="Habib Saggaf di masa muda"
+                        class="w-full h-64 object-cover"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x400/f5f5f4/44403c?text=Foto+1';"
+                      />
+                      <div class="p-6 flex-grow">
+                        <h4 class="font-bold text-lg text-emerald-800">
+                          Masa Muda Penuh Ilmu
+                        </h4>
+                        <p class="mt-2 text-sm text-stone-600 leading-relaxed">
+                          Foto ini mengabadikan Habib Saggaf muda bersama
+                          kakeknya, Habib Idrus bin Salim Aljufri (Guru Tua),
+                          pendiri Alkhairaat. Di usia muda, Habib Saggaf telah
+                          menunjukkan ketekunan luar biasa dalam menuntut ilmu.
+                          Dalam bimbingan langsung Guru Tua, beliau diasah dalam
+                          aspek keilmuan, spiritualitas, dan kepemimpinan.
+                          Kebersamaan ini bukan hanya ikatan keluarga, namun juga
+                          simbol pewarisan nilai-nilai dakwah dan pendidikan Islam
+                          yang kelak ia lanjutkan hingga level internasional.
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  <!-- Slide 2 -->
-                  <div class="swiper-slide bg-stone-200 relative">
-                    <img
-                      src="/asset/tito-karnavian-sayyid-saggaf-aljufri-and-hadi-tjahjanto-92c3a5-1024.jpg"
-                      alt="Deskripsi gambar 2"
-                      class="w-full h-full object-cover"
-                      onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+2';"
-                    />
+
+                  <!-- Kartu Foto 2 -->
+                  <div class="md:scroll-snap-align-start md:w-80 lg:w-96">
                     <div
-                      class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs"
+                      class="bg-white rounded-lg shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
                     >
-                      Panglima dan Kapolri bersama Habib Saggaf Aljufri.
+                      <img
+                        src="/asset/tito-karnavian-sayyid-saggaf-aljufri-and-hadi-tjahjanto-92c3a5-1024.jpg"
+                        alt="Panglima dan Kapolri bersama Habib Saggaf"
+                        class="w-full h-64 object-cover"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x400/eaddc7/44403c?text=Foto+2';"
+                      />
+                      <div class="p-6 flex-grow">
+                        <h4 class="font-bold text-lg text-emerald-800">
+                          Merangkul Semua Kalangan
+                        </h4>
+                        <p class="mt-2 text-sm text-stone-600 leading-relaxed">
+                          Dalam gambar ini, Habib Saggaf duduk bersama Panglima
+                          TNI dan Kapolri, menunjukkan betapa luasnya penerimaan
+                          beliau di berbagai kalangan. Hal ini menjadi bukti nyata
+                          dari karakter beliau yang terbuka, moderat, dan
+                          menjunjung tinggi ukhuwah. Sebagai tokoh agama, beliau
+                          tidak hanya fokus dalam bidang keislaman, namun juga
+                          aktif menjalin komunikasi dengan unsur negara demi
+                          memperkuat harmoni dan stabilitas nasional. Inilah wajah
+                          dakwah inklusif yang selalu beliau contohkan.
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  <!-- Slide 3 -->
-                  <div class="swiper-slide bg-stone-200 relative">
-                    <img
-                      src="/asset/habib-sayyid-saggaf-bin-muhammad-aljufri-e03e6d-1024.jpg"
-                      alt="Deskripsi gambar 3"
-                      class="w-full h-full object-cover"
-                      onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+3';"
-                    />
+
+                  <!-- Kartu Foto 3 -->
+                  <div class="md:scroll-snap-align-start md:w-80 lg:w-96">
                     <div
-                      class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs"
+                      class="bg-white rounded-lg shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
                     >
-                      Habib Saggaf Aljufri di haul Habib Idrus.
+                      <img
+                        src="/asset/habib-saggaf-bin-muhammad-aljufri-dengan-anies-baswedan.jpg"
+                        alt="Habib Saggaf bersama Anies Baswedan"
+                        class="w-full h-64 object-cover"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x400/d6c2a8/44403c?text=Foto+3';"
+                      />
+                      <div class="p-6 flex-grow">
+                        <h4 class="font-bold text-lg text-emerald-800">
+                          Tokoh Pemersatu Umat
+                        </h4>
+                        <p class="mt-2 text-sm text-stone-600 leading-relaxed">
+                          Pertemuan Habib Saggaf dengan Anies Baswedan ini
+                          menegaskan peran beliau sebagai jembatan antar-profesi
+                          dan antar-golongan. Rumah beliau selalu terbuka, menjadi
+                          tempat dialog yang menyejukkan antara tokoh agama,
+                          politik, dan masyarakat sipil. Di tengah polarisasi
+                          sosial, kehadiran beliau menjadi perekat yang
+                          menenangkan dan memberi arah. Habib Saggaf tidak
+                          membedakan latar belakang tamunya, melainkan menyambut
+                          dengan akhlak dan pandangan keumatan yang melampaui
+                          sekat politik
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  <!-- Slide 4 -->
-                  <div class="swiper-slide bg-stone-200 relative">
-                    <img
-                      src="/asset/habib-saggaf-bin-muhammad-aljufri-dengan-anies-baswedan.jpg"
-                      alt="Deskripsi gambar 4"
-                      class="w-full h-full object-cover"
-                      onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Foto+4';"
-                    />
+
+                  <!-- Kartu Foto 4 -->
+                  <div class="md:scroll-snap-align-start md:w-80 lg:w-96">
                     <div
-                      class="absolute bottom-0 left-0 w-full p-4 bg-black/50 text-white text-center text-xs"
+                      class="bg-white rounded-lg shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
                     >
-                      Anies Baswedan di Palu bersama Habib Saggaf Aljufri.
+                      <img
+                        src="/asset/jufus kalla sowan di kediaman habib saggaf.jpg"
+                        alt="Contoh foto 4"
+                        class="w-full h-64 object-cover"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x400/fef3c7/44403c?text=Foto+4';"
+                      />
+                      <div class="p-6 flex-grow">
+                        <h4 class="font-bold text-lg text-emerald-800">
+                          Menjaga Silaturahmi Kebangsaan
+                        </h4>
+                        <p class="mt-2 text-sm text-stone-600 leading-relaxed">
+                          Kunjungan Wakil Presiden RI ke-10 dan ke-12, Jusuf
+                          Kalla, ke kediaman Habib Saggaf Aljufri menjadi simbol
+                          kuat hubungan antara tokoh bangsa dan tokoh agama. Dalam
+                          suasana penuh kehangatan, momen ini memperlihatkan
+                          bagaimana nilai silaturahmi tetap dijaga dalam ruang
+                          yang saling menghormati, melintasi peran dan kedudukan.
+                          menjadikan rumahnya sebagai ruang dialog yang terbuka.
+                          Pertemuan ini mencerminkan wajah Islam Indonesia yang
+                          santun dan berkontribusi dalam menjahit persatuan
+                          nasional, di saat negara membutuhkan suara penenang dan
+                          pemersatu.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Kartu Foto 5 -->
+                  <div class="md:scroll-snap-align-start md:w-80 lg:w-96">
+                    <div
+                      class="bg-white rounded-lg shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+                    >
+                      <img
+                        src="/asset/Susilo bambang yudhoyono bersama habib saggaf aljufri ketika mengunjungi kota palu.jpg"
+                        alt="Contoh foto 5"
+                        class="w-full h-64 object-cover"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x400/d1fae5/44403c?text=Foto+5';"
+                      />
+                      <div class="p-6 flex-grow">
+                        <h4 class="font-bold text-lg text-emerald-800">
+                          Muktamar IX Alkhairaat
+                        </h4>
+                        <p class="mt-2 text-sm text-stone-600 leading-relaxed">
+                          Pada tanggal 26 Agustus 2008, Presiden ke-6 Republik
+                          Indonesia, Susilo Bambang Yudhoyono (SBY), melakukan
+                          kunjungan kenegaraan ke Pondok Pesantren Alkhairaat,
+                          Kampus Madinatul Ilmi Dolo Dalam kunjungan tersebut, SBY
+                          disambut secara khidmat oleh Habib Saggaf Aljufri, Ketua
+                          Utama Alkhairaat saat itu. Habib Saggaf menyambut beliau
+                          dengan menyampirkan sorban putih di pundak Presiden
+                          sebagai simbol kehormatan dan persaudaraan ulama-umara.
+                          Kunjungan ini bertepatan dengan Pembukaan Muktamar Besar
+                          Alkhairaat IX yang dihadiri oleh ribuan masyarakat.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <!-- Pagination -->
-                <div class="swiper-pagination"></div>
-                <!-- Navigation -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
               </div>
             </div>
           </div>
+          <!-- === AKHIR GALERI KISAH === -->
         </div>
       </section>
 
@@ -432,7 +535,6 @@
                   terjangkau.
                 </p>
               </div>
-
               <div
                 class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50"
               >
@@ -448,7 +550,6 @@
                   Membangun Toserba SAL untuk kebutuhan pangan halal dan sehat.
                 </p>
               </div>
-
               <div
                 class="bg-white p-6 rounded-lg shadow-sm border border-stone-200/50"
               >
@@ -477,7 +578,7 @@
           </h2>
           <p class="mt-3 max-w-3xl mx-auto text-stone-600 mb-8">
             Saksikan sekilas perjalanan dan warisan Habib Saggaf Aljufri melalui
-            cuplikan video ini. Ganti URL di bawah dengan video dokumenter Anda.
+            cuplikan video ini.
           </p>
           <div
             class="video-container rounded-lg shadow-xl border-10 border-amber-200"
@@ -500,8 +601,7 @@
             <p class="mt-3 max-w-3xl mx-auto text-stone-600">
               Warisan intelektual Habib Saggaf tidak terletak pada karya tulis,
               melainkan pada dakwah lisan, gagasan moderat, dan pengaruhnya yang
-              luas di ranah sosial dan kebangsaan. Jelajahi pilar-pilar
-              pemikirannya.
+              luas di ranah sosial dan kebangsaan.
             </p>
             <div class="mt-6 flex justify-center space-x-4">
               <button
@@ -539,11 +639,9 @@
               </h3>
               <p class="mt-2 text-sm text-stone-700 leading-relaxed">
                 Fokus dakwah beliau terpusat pada pembangunan lembaga pendidikan
-                dan sosial yang kokoh sebagai warisan berkelanjutan. Selain itu,
-                beliau juga menulis Menjawab Masalah Ummat, berisi fatwa dan
-                nasihat atas persoalan fiqih, akidah, sosial, hingga kehidupan
-                sehari-hari, dengan bahasa yang sederhana namun tetap berbobot
-                dalil.
+                dan sosial yang kokoh. Selain itu, beliau juga menulis Menjawab
+                Masalah Ummat, berisi fatwa dan nasihat atas persoalan fiqih,
+                akidah, sosial, hingga kehidupan sehari-hari.
               </p>
             </div>
             <div
@@ -555,9 +653,7 @@
               <p class="mt-2 text-sm text-stone-700 leading-relaxed">
                 Dikenal sebagai tokoh moderat yang cair dalam pergaulan. Beliau
                 aktif menjalin dialog dengan berbagai kelompok, termasuk non
-                muslim dan Syiah. Ini terlihat dari keterlibatannya dalam dialog
-                lintas menerima kunjungan tokoh Syiah untuk mencari solusi dan
-                mempromosikan toleransi antar-mazhab.
+                muslim dan Syiah untuk mempromosikan toleransi antar-mazhab.
               </p>
             </div>
             <div
@@ -570,7 +666,7 @@
                 Beliau berpesan agar moral agama tidak hilang dalam menata
                 bangsa. Setelah gempa Palu, ia menenangkan umat dengan
                 menyebutnya cobaan, bukan hukuman, menunjukkan perannya sebagai
-                pembimbing spiritual bangsa.
+                pembimbing spiritual.
               </p>
             </div>
             <div
@@ -583,7 +679,7 @@
                 Untuk pertama kalinya dalam sejarah, Alkhairaat di bawahnya
                 mengeluarkan "maklumat politik". Langkah ini menunjukkan
                 pengaruhnya yang besar dalam ranah sipil, mengubah peran lembaga
-                dari non-politis menjadi aktor sosial-politik.
+                menjadi aktor sosial-politik.
               </p>
             </div>
           </div>
@@ -608,9 +704,8 @@
             </h2>
             <p class="mt-3 max-w-3xl mx-auto text-stone-600">
               Salah satu inisiatif paling strategis dari Habib Saggaf adalah
-              pendirian Pondok Pesantren Madinatul Ilmi Dolo. Ini bukan sekadar
-              ekspansi, melainkan solusi visioner untuk menjawab kebutuhan
-              kritis Alkhairaat di masa depan.
+              pendirian Pondok Pesantren Madinatul Ilmi Dolo sebagai solusi
+              visioner untuk menjawab kebutuhan kritis Alkhairaat di masa depan.
             </p>
           </div>
 
@@ -623,14 +718,13 @@
               </h3>
               <p class="text-stone-700 leading-relaxed">
                 Digagas pada Muktamar 1991, Madinatul Ilmi Dolo didirikan untuk
-                mengatasi kelangkaan guru profesional dan kader ulama tingkat
-                menengah yang siap pakai di pedesaan. Ini menunjukkan visi
-                jangka panjang Habib Saggaf yang berfokus pada investasi sumber
-                daya manusia untuk keberlanjutan dakwah.
+                mengatasi kelangkaan guru profesional dan kader ulama. Ini
+                menunjukkan visi jangka panjang Habib Saggaf yang berfokus pada
+                investasi sumber daya manusia.
               </p>
               <img
                 src="asset/alhairaat mdi pict.jpg"
-                alt="Gambar Pesantren Alkhairaat Madinatul Ilmi Dolo"
+                alt="Gambar Pondok Pesantren Alkhairaat Madinatul Ilmi Dolo"
                 class="rounded-lg mt-6 w-full object-cover shadow-md border border-emerald-200"
               />
               <p class="mt-3 text-sm text-stone-600">
@@ -650,9 +744,8 @@
               </h3>
               <p class="mt-1 text-stone-600">
                 Kini, pondok pesantren ini menjadi pusat penting untuk mencetak
-                Abnaulkhairaat (generasi penerus) dan menjadi lokasi utama
-                peringatan Haul tahunan Habib Saggaf, melestarikan memori dan
-                melanjutkan perjuangannya.
+                Abnaulkhairaat dan menjadi lokasi utama peringatan Haul tahunan
+                Habib Saggaf.
               </p>
             </div>
           </div>
@@ -660,15 +753,12 @@
       </section>
     </main>
 
-    <!-- === AKHIR ISI KONTEN === -->
-
     <footer class="bg-emerald-900 text-white py-6">
       <div class="container mx-auto px-6 text-center text-sm text-emerald-200">
         <p>&copy; 2025 Pondok Pesantren Alkhairaat Madinatul Ilmi Dolo</p>
       </div>
     </footer>
 
-    <!-- External JS -->
     <script src="script.js"></script>
   </body>
 </html>

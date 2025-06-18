@@ -1,10 +1,15 @@
+/* General Body and Typography */
 body {
     font-family: 'Inter', sans-serif;
     background-color: #fdfcf9;
+    /* PERBAIKAN UTAMA: Mencegah scroll horizontal di seluruh halaman */
+    overflow-x: hidden; 
 }
 h1, h2, h3 {
     font-family: 'Lora', serif;
 }
+
+/* Chart.js Container */
 .chart-container {
     position: relative;
     width: 100%;
@@ -19,13 +24,17 @@ h1, h2, h3 {
         height: 400px;
     }
 }
+
+/* Timeline Dropdown Content */
 .timeline-item-content {
     transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
+
+/* Video Container */
 .video-container {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
     height: 0;
     overflow: hidden;
     max-width: 900px;
@@ -41,28 +50,8 @@ h1, h2, h3 {
     height: 100%;
     border: 0;
 }
-.swiper-button-next, .swiper-button-prev {
-    color: #ffffff !important;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
-    width: 44px !important;
-    height: 44px !important;
-    transition: background-color 0.3s ease;
-}
-.swiper-button-next:hover, .swiper-button-prev:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-}
-.swiper-button-next::after, .swiper-button-prev::after {
-    font-size: 20px !important;
-    font-weight: bold;
-}
-.swiper-pagination-bullet-active {
-    background: #d97706 !important;
-}
 
-
-
-
+/* Intro Animation Styles */
 @keyframes fadein {
   0% {
     opacity: 0;
@@ -83,21 +72,7 @@ h1, h2, h3 {
   animation-delay: 1.5s;
 }
 
-
-
-
-.scroll-fade {
-  opacity: 0;
-  transform: translateY(3rem);
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-}
-.scroll-fade.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-
+/* Scroll Fade Animation Styles */
 .scroll-fade {
   opacity: 0;
   transform: translateY(3rem);
@@ -107,4 +82,33 @@ h1, h2, h3 {
 .scroll-fade.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Horizontal Scrollbar Styling (Hanya aktif di desktop) */
+@media (min-width: 768px) {
+  .horizontal-scroll-container {
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #d97706 #fdfcf9; /* Firefox */
+  }
+  /* Chrome, Edge, Safari */
+  .horizontal-scroll-container::-webkit-scrollbar {
+    height: 8px;
+  }
+  .horizontal-scroll-container::-webkit-scrollbar-track {
+    background: #fdfcf9;
+  }
+  .horizontal-scroll-container::-webkit-scrollbar-thumb {
+    background-color: #d97706; /* Warna amber-600 dari Tailwind */
+    border-radius: 10px;
+    border: 2px solid #fdfcf9;
+  }
+}
+
+/* Penyesuaian untuk Scroll-snap (opsional tapi bagus) */
+.scroll-snap-x-mandatory {
+    scroll-snap-type: x mandatory;
+}
+
+.scroll-snap-align-start {
+    scroll-snap-align: start;
 }
