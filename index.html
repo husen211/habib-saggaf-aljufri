@@ -6,7 +6,6 @@
 
     <title>Jejak Sang Pembangun: Habib Saggaf Aljufri</title>
 
-    <!-- Meta OG untuk social preview -->
     <meta
       property="og:title"
       content="Jejak Sang Pembangun: Habib Saggaf Aljufri"
@@ -23,7 +22,6 @@
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Tailwind & Library -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -33,10 +31,8 @@
       rel="stylesheet"
     />
 
-    <!-- External CSS -->
     <link rel="stylesheet" href="style.css" />
 
-    <!-- === CSS TAMBAHAN UNTUK GALERI SCROLL === -->
     <style>
       /* Style scrollbar hanya untuk desktop */
       @media (min-width: 768px) {
@@ -57,10 +53,17 @@
           border: 2px solid #fdfcf9;
         }
       }
+      /* Style tambahan untuk kartu testimoni di index.html */
+      .testimoni-card-index {
+        transition: all 0.3s ease-in-out;
+      }
+      .testimoni-card-index:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
     </style>
   </head>
   <body class="text-stone-800">
-    <!-- INTRO ANIMATION -->
     <div
       id="intro"
       class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white text-emerald-900 transition-opacity duration-1000"
@@ -82,6 +85,13 @@
       <div
         class="container mx-auto px-4 py-3 flex justify-between items-center"
       >
+        <a href="/" class="flex items-center space-x-3">
+          <img
+            src="/asset/Logo_alkhairaat.svg.png"
+            alt="Logo Alkhairaat"
+            class="w-10 h-10"
+          />
+          
         <h1 class="text-xl md:text-2xl font-bold text-emerald-800">
           Jejak Sang Pembangun
         </h1>
@@ -101,6 +111,13 @@
             class="text-stone-600 hover:text-emerald-700 transition"
             >Cuplikan Video</a
           >
+
+          <a
+            href="#kesan-mereka-index"
+            class="text-stone-600 hover:text-emerald-700 transition"
+            >Kesan Mereka</a
+          >
+
           <a
             href="#pemikiran"
             class="text-stone-600 hover:text-emerald-700 transition"
@@ -111,6 +128,7 @@
             class="text-stone-600 hover:text-emerald-700 transition"
             >Pusat Kaderisasi</a
           >
+          
         </nav>
         <button
           id="mobile-menu-button"
@@ -151,6 +169,13 @@
           class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
           >Cuplikan Video</a
         >
+
+        <a
+          href="kesan_mereka.html"
+          class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
+          >Habib Saggaf di Mata Mereka</a
+        >
+
         <a
           href="#pemikiran"
           class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
@@ -161,6 +186,7 @@
           class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
           >Pusat Kaderisasi</a
         >
+        
       </div>
     </header>
 
@@ -232,8 +258,7 @@
                   class="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-amber-200"
                 ></div>
                 <div id="timeline-container" class="space-y-16">
-                  <!-- Timeline items will be injected by JavaScript -->
-                </div>
+                  </div>
               </div>
             </div>
           </div>
@@ -256,7 +281,23 @@
             </div>
           </div>
 
-          <!-- === GALERI KISAH (REVISI MOBILE) === -->
+          <div id="haul-invitation" class="scroll-fade opacity-0 translate-y-12 transition duration-700 ease-in-out">
+            <div class="text-center mb-12">
+              <h2 class="text-3xl md:text-4xl font-bold text-emerald-800">
+                Undangan Haul Tahunan
+              </h2>
+              <p class="mt-3 max-w-2xl mx-auto text-stone-600">
+                Informasi terbaru mengenai acara Haul Habib Saggaf Aljufri akan ditampilkan di sini.
+                Mohon pantau halaman ini untuk update terkini setiap tahunnya.
+              </p>
+              <div class="mt-8">
+                <img src="asset/placeholder_invitation.jpg" alt="Undangan Haul Terbaru" class="mx-auto max-w-xl rounded-lg shadow-md border border-stone-200/60" onerror="this.style.display='none';">
+                <p class="mt-4 text-sm text-stone-500">
+                  Gambar atau teks undangan terbaru akan diupdate di sini setiap tahun.
+                </p>
+              </div>
+            </div>
+          </div>
           <div
             class="scroll-fade opacity-0 translate-y-12 transition duration-700 ease-in-out"
           >
@@ -267,14 +308,11 @@
                 Galeri Kisah
               </h3>
 
-              <!-- Kontainer Galeri: Tampilan berbeda di mobile dan desktop -->
               <div
                 class="md:horizontal-scroll-container md:flex md:overflow-x-auto md:gap-8 md:pb-4 md:scroll-snap-x-mandatory"
               >
-                <!-- Wrapper untuk mobile: menjadi grid vertikal -->
                 <div class="grid grid-cols-1 gap-8 md:flex md:flex-shrink-0">
 
-                  <!-- Kartu Foto 1 -->
                   <div class="md:scroll-snap-align-start md:w-80 lg:w-96">
                     <div
                       class="bg-white rounded-lg shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
@@ -304,7 +342,6 @@
                     </div>
                   </div>
 
-                  <!-- Kartu Foto 2 -->
                   <div class="md:scroll-snap-align-start md:w-80 lg:w-96">
                     <div
                       class="bg-white rounded-lg shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
@@ -334,7 +371,6 @@
                     </div>
                   </div>
 
-                  <!-- Kartu Foto 3 -->
                   <div class="md:scroll-snap-align-start md:w-80 lg:w-96">
                     <div
                       class="bg-white rounded-lg shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
@@ -365,7 +401,6 @@
                     </div>
                   </div>
 
-                  <!-- Kartu Foto 4 -->
                   <div class="md:scroll-snap-align-start md:w-80 lg:w-96">
                     <div
                       class="bg-white rounded-lg shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
@@ -397,7 +432,6 @@
                     </div>
                   </div>
 
-                  <!-- Kartu Foto 5 -->
                   <div class="md:scroll-snap-align-start md:w-80 lg:w-96">
                     <div
                       class="bg-white rounded-lg shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
@@ -431,8 +465,7 @@
               </div>
             </div>
           </div>
-          <!-- === AKHIR GALERI KISAH === -->
-        </div>
+          </div>
       </section>
 
       <section id="legasi-alkhairaat" class="py-16 md:py-24 bg-emerald-50/40">
@@ -584,13 +617,79 @@
             class="video-container rounded-lg shadow-xl border-10 border-amber-200"
           >
             <iframe
-              src="/asset/videoo hb saggaf.mp4"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
+                src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                class="w-full h-full absolute top-0 left-0"
             ></iframe>
+          </div>
+          <div class="mt-4">
+              <a href="https://youtube.com/li" target="_blank" rel="noopener noreferrer"
+                 class="inline-block bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-md shadow-lg transition">
+                  Tonton di YouTube
+              </a>
           </div>
         </div>
       </section>
+<section id="kesan-mereka-index" class="py-20 md:py-32 bg #FFFBEB">
+  <div class="container mx-auto px-6 text-center">
+
+   <img
+  src="asset/habib saggaf dimata mereka v15.jpg"
+  alt="Habib Saggaf Aljufri"
+  id="foto-habib"
+  class="w-full h-auto object-cover mx-auto opacity-0 translate-y-8 transition-all duration-[2500ms] ease-out max-w-[85vw] md:max-w-[600px] lg:max-w-[700px]"
+  onerror="this.onerror=null;this.src='https://placehold.co/1600x600/fdfcf9/555555?text=Foto+Habib+Saggaf';"
+/>
+
+
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <div class="bg-white p-8 rounded-lg shadow-md border border-stone-200/60 text-left">
+        <span class="text-amber-500 text-3xl mb-4 block leading-none">“</span>
+        <p class="text-sm text-stone-700 italic mb-6 leading-relaxed">
+          Habib Segaf adalah bagian salaf yang tersisa dan beliau adalah kebanggaan Bani Alawi.
+
+Habib Segaf adalah kanzun, seperti berlian. Lebih dari mutiara. Jarang sekali ada orang seperti beliau. 
+Tidak gampang menjadi seperti Habib Segaf. 
+Beliau menjalankan tugas dan amanat sama seperti yang kakenya terbuat.
+        </p>
+        <div class="flex items-center mt-4">
+          <img src="asset/habib ali aljufri.jpeg" alt="Profil User 1" class="w-12 h-12 rounded-full object-cover mr-4 border-2 border-emerald-500" />
+          <div>
+            <p class="font-semibold text-emerald-800">Al Habib Ali Aljufri</p>
+            <p class="text-xs text-stone-500">Tokoh Agama</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white p-8 rounded-lg shadow-md border border-stone-200/60 text-left">
+        <span class="text-amber-500 text-3xl mb-4 block leading-none">“</span>
+        <p class="text-sm text-stone-700 italic mb-6 leading-relaxed">
+         Kalau kalian gunakan waktu 100 tahun untuk membuat karya ini maka tak akan cukup dalam membuat 
+         karya seperti yang telah Habib Saggaf buat.
+        </p>
+        <div class="flex items-center mt-4">
+          <img src="asset/habib abdullah bharun.jpg" alt="Profil User 2" class="w-12 h-12 rounded-full object-cover mr-4 border-2 border-emerald-500" />
+          <div>
+            <p class="font-semibold text-emerald-800">Habib Abdullah bin Muhammad Baharun</p>
+            <p class="text-xs text-stone-500">Rektor Universitas Al-Ahgaf, Yaman</p>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- 
+    <div class="mt-14">
+      <a href="kesan_mereka.html" class="inline-flex items-center bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-md shadow-lg transition">
+        Lihat Semua Kesan
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+      </a>
+    </div> -->
+  </div>
+</section>
+
+
 
       <section id="pemikiran" class="py-16 md:py-24">
         <div class="container mx-auto px-6">
@@ -755,7 +854,7 @@
 
     <footer class="bg-emerald-900 text-white py-6">
       <div class="container mx-auto px-6 text-center text-sm text-emerald-200">
-        <p>&copy; 2025 Pondok Pesantren Alkhairaat Madinatul Ilmi Dolo</p>
+        <p>© 2025 Jejak Sang Pembangun</p>
       </div>
     </footer>
 

@@ -259,3 +259,20 @@ window.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el));
 });
+
+
+
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.remove('opacity-0', 'translate-y-8');
+        entry.target.classList.add('opacity-100', 'translate-y-0');
+        observer.unobserve(entry.target); // biar animasi cuma sekali
+      }
+    });
+  }, { threshold: 0.4 }); // muncul saat 40% terlihat
+
+  const target = document.getElementById('foto-habib');
+  if (target) observer.observe(target);
+
