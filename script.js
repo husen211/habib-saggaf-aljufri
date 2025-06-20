@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     
     // Mobile Menu Logic
@@ -15,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // === REVISI BAGIAN TIMELINE ===
-    // 1. Menambahkan "imageUrl" untuk setiap item
     const timelineData = [
         { 
             year: '1937', 
@@ -61,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const timelineItem = document.createElement('div');
             timelineItem.className = `relative w-full md:w-2/3 p-4 rounded-lg bg-white shadow-md border border-stone-200/60 mx-auto`;
     
-            // 2. Memperbarui innerHTML untuk memasukkan gambar di dalam dropdown
             timelineItem.innerHTML = `
                 <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-md">
                     ${index + 1}
@@ -104,41 +101,148 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Chart.js - Growth Chart
-    const growthCtx = document.getElementById('growthChart').getContext('2d');
-    new Chart(growthCtx, {
-        type: 'line',
-        data: {
-            labels: ['1969', '1970', '1980', '1986', '1991', '1997', '2007'],
-            datasets: [{
-                label: 'Jumlah Madrasah/Sekolah',
-                data: [420, 450, 556, 732, 1221, 1268, 1561],
-                borderColor: 'rgb(217, 119, 6)',
-                backgroundColor: 'rgba(217, 119, 6, 0.1)',
-                borderWidth: 2,
-                fill: true,
-                tension: 0.3
-            }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { color: '#57534e' } }, x: { ticks: { color: '#57534e' } } }, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#064e3b', titleFont: { size: 14 }, bodyFont: { size: 12 }, padding: 10, cornerRadius: 4 } } }
-    });
+    // Fungsi untuk menggambar Growth Chart
+    let growthChartInstance = null; // Menyimpan instance chart
+    function drawGrowthChart() {
+        const growthCtx = document.getElementById('growthChart');
+        if (!growthCtx) return;
 
-    // Chart.js - Distribution Chart
-    const distributionCtx = document.getElementById('distributionChart').getContext('2d');
-    new Chart(distributionCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Sulteng', 'Maluku & MU', 'Sulut', 'Gorontalo', 'Kaltim', 'Sulbar', 'Papua & PB', 'Sulsel'],
-            datasets: [{
-                label: 'Jumlah Madrasah/Sekolah',
-                data: [1096, 162, 135, 61, 55, 18, 12, 7],
-                backgroundColor: ['rgba(6, 78, 59, 0.7)', 'rgba(16, 185, 129, 0.7)', 'rgba(245, 158, 11, 0.7)', 'rgba(202, 138, 4, 0.7)', 'rgba(120, 113, 108, 0.7)', 'rgba(6, 78, 59, 0.5)', 'rgba(16, 185, 129, 0.5)', 'rgba(245, 158, 11, 0.5)'],
-                borderColor: ['rgb(6, 78, 59)', 'rgb(16, 185, 129)', 'rgb(245, 158, 11)', 'rgb(202, 138, 4)', 'rgb(120, 113, 108)', 'rgb(6, 78, 59)', 'rgb(16, 185, 129)', 'rgb(245, 158, 11)'],
-                borderWidth: 1
-            }]
-        },
-        options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, scales: { x: { beginAtZero: true, ticks: { color: '#57534e' } }, y: { ticks: { color: '#57534e' } } }, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#064e3b', titleFont: { size: 14 }, bodyFont: { size: 12 }, padding: 10, cornerRadius: 4 } } }
-    });
+        // Hancurkan instance chart yang ada jika sudah ada
+        if (growthChartInstance) {
+            growthChartInstance.destroy();
+        }
+
+        growthChartInstance = new Chart(growthCtx.getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['1969', '1970', '1980', '1986', '1991', '1997', '2007'],
+                datasets: [{
+                    label: 'Jumlah Madrasah/Sekolah',
+                    data: [420, 450, 556, 732, 1221, 1268, 1561],
+                    borderColor: 'rgb(217, 119, 6)',
+                    backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#57534e' }
+                    },
+                    x: {
+                        ticks: { color: '#57534e' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { backgroundColor: '#064e3b', titleFont: { size: 14 }, bodyFont: { size: 12 }, padding: 10, cornerRadius: 4 }
+                },
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                }
+            }
+        });
+    }
+
+    // Fungsi untuk menggambar Distribution Chart
+    let distributionChartInstance = null; // Menyimpan instance chart
+    function drawDistributionChart() {
+        const distributionCtx = document.getElementById('distributionChart');
+        if (!distributionCtx) return;
+
+        // Hancurkan instance chart yang ada jika sudah ada
+        if (distributionChartInstance) {
+            distributionChartInstance.destroy();
+        }
+
+        distributionChartInstance = new Chart(distributionCtx.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Sulteng', 'Maluku & MU', 'Sulut', 'Gorontalo', 'Kaltim', 'Sulbar', 'Papua & PB', 'Sulsel'],
+                datasets: [{
+                    label: 'Jumlah Madrasah/Sekolah',
+                    data: [1096, 162, 135, 61, 55, 18, 12, 7],
+                    backgroundColor: ['rgba(6, 78, 59, 0.7)', 'rgba(16, 185, 129, 0.7)', 'rgba(245, 158, 11, 0.7)', 'rgba(202, 138, 4, 0.7)', 'rgba(120, 113, 108, 0.7)', 'rgba(6, 78, 59, 0.5)', 'rgba(16, 185, 129, 0.5)', 'rgba(245, 158, 11, 0.5)'],
+                    borderColor: ['rgb(6, 78, 59)', 'rgb(16, 185, 129)', 'rgb(245, 158, 11)', 'rgb(202, 138, 4)', 'rgb(120, 113, 108)', 'rgb(6, 78, 59)', 'rgb(16, 185, 129)', 'rgb(245, 158, 11)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: { color: '#57534e' }
+                    },
+                    y: {
+                        ticks: { color: '#57534e' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { backgroundColor: '#064e3b', titleFont: { size: 14 }, bodyFont: { size: 12 }, padding: 10, cornerRadius: 4 }
+                },
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                }
+            }
+        });
+    }
+
+    // Observer untuk chart (akan memanggil fungsi gambar saat terlihat)
+    const chartObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (entry.target.id === 'growthChart') {
+                    drawGrowthChart();
+                } else if (entry.target.id === 'distributionChart') {
+                    drawDistributionChart();
+                }
+                observer.unobserve(entry.target); // Hentikan pengamatan setelah chart digambar
+            }
+        });
+    }, { threshold: 0.5 }); // Chart akan digambar ketika 50% terlihat di viewport
+
+    // Amati elemen canvas chart
+    const growthChartCanvas = document.getElementById('growthChart');
+    const distributionChartCanvas = document.getElementById('distributionChart');
+
+    if (growthChartCanvas) {
+        chartObserver.observe(growthChartCanvas);
+    }
+    if (distributionChartCanvas) {
+        chartObserver.observe(distributionChartCanvas);
+    }
+    
+    // Inisialisasi Swiper.js
+    const swiperElement = document.querySelector('.mySwiper');
+    if (swiperElement) { // Hanya inisialisasi jika elemen Swiper ada
+        const swiper = new Swiper(swiperElement, {
+            loop: true,
+            autoplay: {
+                delay: 3500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    }
+
 
     // Gemini API Integration Logic
     const summarizeBtn = document.getElementById('summarize-btn');
@@ -150,10 +254,11 @@ document.addEventListener('DOMContentLoaded', function () {
     let pemikiranText = '';
     pemikiranCards.forEach(card => { pemikiranText += card.textContent + ' '; });
     pemikiranText = pemikiranText.trim();
+
     async function callGeminiAPI(promptText) {
-        llmOutputDiv.classList.remove('hidden');
-        llmLoadingDiv.classList.remove('hidden');
-        llmContentDiv.innerHTML = '';
+        if (llmOutputDiv) llmOutputDiv.classList.remove('hidden');
+        if (llmLoadingDiv) llmLoadingDiv.classList.remove('hidden');
+        if (llmContentDiv) llmContentDiv.innerHTML = '';
         try {
             let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
             const payload = { contents: chatHistory };
@@ -163,15 +268,15 @@ document.addEventListener('DOMContentLoaded', function () {
             const result = await response.json();
             if (result.candidates && result.candidates[0] && result.candidates[0].content && result.candidates[0].content.parts[0]) {
                 const text = result.candidates[0].content.parts[0].text;
-                llmContentDiv.innerHTML = text.replace(/\n/g, '<br>');
+                if (llmContentDiv) llmContentDiv.innerHTML = text.replace(/\n/g, '<br>');
             } else {
-                llmContentDiv.textContent = 'Maaf, tidak dapat menghasilkan respons. Silakan coba lagi.';
+                if (llmContentDiv) llmContentDiv.textContent = 'Maaf, tidak dapat menghasilkan respons. Silakan coba lagi.';
             }
         } catch (error) {
             console.error('Error calling Gemini API:', error);
-            llmContentDiv.textContent = 'Terjadi kesalahan saat berkomunikasi dengan API. Coba lagi nanti.';
+            if (llmContentDiv) llmContentDiv.textContent = 'Terjadi kesalahan saat berkomunikasi dengan API. Coba lagi nanti.';
         } finally {
-            llmLoadingDiv.classList.add('hidden');
+            if (llmLoadingDiv) llmLoadingDiv.classList.add('hidden');
         }
     }
     if (summarizeBtn) {
@@ -232,47 +337,43 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }, { threshold: 0.5 });
     document.querySelectorAll('.count-up').forEach(el => countUpObserver.observe(el));
-    
-});
 
-// Intro Animation & Scroll Reveal
-window.addEventListener("DOMContentLoaded", () => {
-  const intro = document.getElementById("intro");
-  if(intro) {
-      setTimeout(() => {
-        intro.style.opacity = "0";
-        intro.style.pointerEvents = "none";
+    // Intro Animation
+    const intro = document.getElementById("intro");
+    if(intro) {
         setTimeout(() => {
-          intro.style.display = "none";
-        }, 1000);
-      }, 3000);
-  }
+            intro.style.opacity = "0";
+            intro.style.pointerEvents = "none";
+            setTimeout(() => {
+                intro.style.display = "none";
+            }, 1000);
+        }, 3000);
+    }
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('show');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 }); // Mengubah threshold agar lebih cepat ter-trigger
+    // Scroll Reveal Logic (untuk .scroll-fade)
+    const generalScrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+                generalScrollObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 }); // Mengubah threshold agar lebih cepat ter-trigger
 
-  document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el));
+    document.querySelectorAll('.scroll-fade').forEach(el => generalScrollObserver.observe(el));
+
+    // Scroll Reveal Logic (untuk foto-habib di kesan_mereka_index)
+    const fotoHabibTarget = document.getElementById('foto-habib');
+    if (fotoHabibTarget) {
+        const fotoHabibObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('opacity-0', 'translate-y-8');
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    fotoHabibObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.4 }); // muncul saat 40% terlihat
+        fotoHabibObserver.observe(fotoHabibTarget);
+    }
 });
-
-
-
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.remove('opacity-0', 'translate-y-8');
-        entry.target.classList.add('opacity-100', 'translate-y-0');
-        observer.unobserve(entry.target); // biar animasi cuma sekali
-      }
-    });
-  }, { threshold: 0.4 }); // muncul saat 40% terlihat
-
-  const target = document.getElementById('foto-habib');
-  if (target) observer.observe(target);
-
