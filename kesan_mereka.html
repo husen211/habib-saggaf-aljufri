@@ -14,9 +14,9 @@
     />
 
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js"></script>
+    <!-- PERBAIKAN: Memindahkan pemanggilan script.js ke akhir body untuk performa lebih baik -->
   </head>
-  <body class="text-stone-800">
+  <body class="text-stone-800 flex flex-col min-h-screen">
     <header
       id="header"
       class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm"
@@ -24,9 +24,12 @@
       <div
         class="container mx-auto px-4 py-3 flex justify-between items-center"
       >
-        <h1 class="text-xl md:text-2xl font-bold text-emerald-800">
-          Jejak Sang Pembangun
-        </h1>
+        <!-- PERBAIKAN: Membungkus logo dan judul dengan tag <a> agar bisa diklik untuk kembali ke halaman utama -->
+        <a href="/" class="flex items-center space-x-3">
+          <h1 class="text-xl md:text-2xl font-bold text-emerald-800">
+            Jejak Sang Pembangun
+          </h1>
+        </a>
         <nav class="hidden md:flex space-x-6 text-sm font-semibold">
           <a
             href="index.html#jejak-kehidupan"
@@ -84,41 +87,41 @@
         class="hidden md:hidden bg-white border-t border-stone-200"
       >
         <a
-          href="#jejak-kehidupan"
+          href="index.html#jejak-kehidupan"
           class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
           >Jejak Kehidupan</a
         >
         <a
-          href="#legasi-alkhairaat"
+          href="index.html#legasi-alkhairaat"
           class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
           >Legasi Alkhairaat</a
         >
         <a
-          href="#cuplikan-video"
+          href="index.html#cuplikan-video"
           class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
           >Cuplikan Video</a
         >
 
         <a
-          href="#kesan-mereka-index"
-          class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
-          >Kesan Mereka</a
+          href="kesan_mereka.html"
+          class="block px-4 py-3 text-emerald-700 font-bold hover:bg-stone-50 transition"
+          >Habib Saggaf di Mata Mereka</a
         >
 
         <a
-          href="#pemikiran"
+          href="index.html#pemikiran"
           class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
           >Pemikiran & Pengaruh</a
         >
         <a
-          href="#kaderisasi"
+          href="index.html#kaderisasi"
           class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
           >Pusat Kaderisasi</a
         >
       </div>
     </header>
 
-    <main class="py-16 md:py-24 bg-[#fefcf9]">
+    <main class="py-16 md:py-24 bg-[#fefcf9] flex-grow">
       <div class="container mx-auto px-6 text-center">
         <div class="relative w-full overflow-hidden mb-12">
           <img
@@ -155,26 +158,6 @@
                 <p class="text-xs text-stone-500">Tokoh Agama</p>
               </div>
             </div>
-            <a
-              href="#"
-              class="hidden"
-            >
-              Detail
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
           </div>
 
           <div
@@ -199,26 +182,6 @@
                 <p class="text-xs text-stone-500">Gubernur DKI Jakarta (2017-2022)</p>
               </div>
             </div>
-            <a
-              href="#"
-              class="hidden"
-            >
-              Detail
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
           </div>
 
           <div
@@ -238,29 +201,9 @@
               />
               <div>
                 <p class="font-semibold text-emerald-800">Dr Anwar Hafid</p>
-                <p class="text-xs text-stone-500">Gubernur Sulawesi Tengah</p>
+                <p class="text-xs text-stone-500">Anggota DPR RI</p>
               </div>
             </div>
-            <a
-              href="#"
-              class="hidden"
-            >
-              Detail
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
           </div>
 
           <div
@@ -281,29 +224,9 @@
               />
               <div>
                 <p class="font-semibold text-emerald-800">Prof. Dr. KH Nasaruddin Umar, MA</p>
-                <p class="text-xs text-stone-500">Mentri Agama RI</p>
+                <p class="text-xs text-stone-500">Imam Besar Masjid Istiqlal</p>
               </div>
             </div>
-            <a
-              href="#"
-              class="hidden"
-            >
-              Detail
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
           </div>
 
           <div
@@ -313,8 +236,8 @@
             <p
               class="text-sm text-stone-700 italic mb-4 leading-relaxed flex-grow"
             >
-            Beliau begitu gigih di dalam memperjuangkan sesuatu yang nantinya akan menjadi tanggung jawab kita semua. Sampai beliau melupakan kesehatannya, melupakan keluarganya, melupakan harta bendanya, berkorban dengan semuanya itu. 
-            Maksud dan tujuannya adalah supaya Nabi kita Muhammad SAW bergembira karenanya.
+            Beliau begitu gigih di dalam memperjuangkan sesuatu. Sampai beliau melupakan kesehatannya, keluarganya, melupakan harta bendanya. 
+            Tujuannya adalah supaya Nabi kita Muhammad SAW bergembira karenanya.
             </p>
             <div class="flex items-center justify-center mt-4">
               <img
@@ -323,30 +246,10 @@
                 class="w-12 h-12 rounded-full object-cover mr-3 border-2 border-emerald-500"
               />
               <div>
-                <p class="font-semibold text-emerald-800">Dr. Habib Saggaf bin Hasan bin Ahmad Baharun</p>
+                <p class="font-semibold text-emerald-800">Dr. Habib Saggaf bin Hasan Baharun</p>
                 <p class="text-xs text-stone-500">Rektor Universitas Internasional Darul Lughah wa Da'wah</p>
               </div>
             </div>
-            <a
-              href="#"
-              class="hidden"
-            >
-              Detail
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
           </div>
 
           <div
@@ -357,7 +260,7 @@
               class="text-sm text-stone-700 italic mb-4 leading-relaxed flex-grow"
             >
             Al-Habib Saggaf ini luar biasa. Beliau ini bukan hidup dari Al-Khairat, tetapi beliau menghidupi Al-Khairat.
-             Beliau ini hidupnya sederhana dan Beliau sendiri turun tangan untuk mengajarkan (calon-calon guru). 
+             Hidupnya sederhana dan beliau sendiri turun tangan untuk mengajar. 
             </p>
             <div class="flex items-center justify-center mt-4">
               <img
@@ -367,29 +270,9 @@
               />
               <div>
                 <p class="font-semibold text-emerald-800">Prof. Dr. Ir. Fadel Muhammad</p>
-                <p class="text-xs text-stone-500">Wakil Ketua MPR</p>
+                <p class="text-xs text-stone-500">Wakil Ketua MPR RI</p>
               </div>
             </div>
-            <a
-              href="#"
-              class="hidden"
-            >
-              Detail
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
           </div>
 
           <div
@@ -400,10 +283,8 @@
               class="text-sm text-stone-700 italic mb-4 leading-relaxed flex-grow"
             >
             Beliau sangat santun dan ramah sekali.  
-            Bahkan di setiap menerima tamu, selalu dalam keadaan rapi dan wangi-wangi, sehingga tamu yang datang selalu merasa dihormati dan dihargai. 
-
-            Hampir semua tamu yang datang selalu merasa 
-            bahagia dan gembira karena mendapatkan pencerahan dan keilmuan dari beliau
+            Setiap menerima tamu, selalu rapi dan wangi-wangi, sehingga tamu merasa dihormati.
+            Hampir semua tamu pulang dengan bahagia karena mendapatkan pencerahan.
             </p>
             <div class="flex items-center justify-center mt-4">
               <img
@@ -416,26 +297,6 @@
                 <p class="text-xs text-stone-500">Ketua MUI Kota Palu</p>
               </div>
             </div>
-            <a
-              href="#"
-              class="hidden"
-            >
-              Detail
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
           </div>
 
           <div
@@ -445,8 +306,8 @@
             <p
               class="text-sm text-stone-700 italic mb-4 leading-relaxed flex-grow"
             >
-            Beliau pernah berkata kepada saya (ketika menghadapi ujian berat), "Jangan kotori hatimu dengan kebencian. Seseorang yang memilih kebencian, 
-            dia tidak akan bisa membuat sesuatu yang besar."
+            Beliau pernah berkata, "Jangan kotori hatimu. Seseorang yang memilih kebencian, 
+            dia tidak akan bisa membuat sesuatu yang besar karena dia akan selalu sibuk."
             </p>
             <div class="flex items-center justify-center mt-4">
               <img
@@ -459,26 +320,6 @@
                 <p class="text-xs text-stone-500">Ketua Utama Alkhairaat</p>
               </div>
             </div>
-            <a
-              href="#"
-              class="hidden"
-            >
-              Detail
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
           </div>
 
           <div
@@ -488,47 +329,24 @@
             <p
               class="text-sm text-stone-700 italic mb-4 leading-relaxed flex-grow"
             >
-              Visi beliau untuk mempersiapkan kader-kader masa depan sangat
-              nyata melalui Madinatul Ilmi Dolo.
+             Ahlak Habib Saggaf adalah ahlaknya Guru Tua. Tidak ada satu hari kecuali Habib Idrus (Guru Tua) harus menyebut Habib Saggaf. Beliau adalah cucu yang paling dicintai.
             </p>
             <div class="flex items-center justify-center mt-4">
               <img
-                src="https://placehold.co/60x60/d4edda/064e3b?text=U9"
-                alt="Profil User 9"
+                src="https://placehold.co/60x60/d4edda/064e3b?text=SL"
+                alt="Profil K.H. Sofyan Lahilote"
                 class="w-12 h-12 rounded-full object-cover mr-3 border-2 border-emerald-500"
               />
               <div>
-                <p class="font-semibold text-emerald-800">Pendidik</p>
-                <p class="text-xs text-stone-500">Guru Madrasah</p>
+                <p class="font-semibold text-emerald-800">K.H. Sofyan Lahilote</p>
+                <p class="text-xs text-stone-500">Tokoh Senior Alkhairaat</p>
               </div>
             </div>
-            <a
-              href="#"
-              class="hidden"
-            >
-              Detail
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
           </div>
-
-          
-
+        </div>
         
           <div class="mt-8 flex justify-center col-span-full">
-            <a href="Form.html" class="bg-emerald-700 text-white px-6 py-3 rounded-md hover:bg-emerald-800 transition-colors shadow-md ">
+            <a href="form.html" class="bg-emerald-700 text-white px-6 py-3 rounded-md hover:bg-emerald-800 transition-colors shadow-md ">
             Kirim Kesan Anda
             </a>
             </div>
@@ -536,54 +354,15 @@
       </div>
     </main>
 
-    <footer class="bg-emerald-900 text-white py-6 mt-auto">
+    <footer class="bg-emerald-900 text-white py-6">
       <div class="container mx-auto px-6 text-center text-sm text-emerald-200">
         <p>© 2025 Jejak Sang Pembangun ®</p>
       </div>
     </footer>
 
-
-
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        // --- LOGIKA UNTUK MENU MOBILE ---
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-            document.querySelectorAll('#mobile-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                });
-            });
-        }
-        
-        // --- LOGIKA ANIMASI FADE-IN UNTUK KARTU TESTIMONI ---
-        // 1. Buat 'observer' untuk mengamati elemen
-        const testimonialObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                // Jika elemen (kartu) masuk ke dalam layar
-                if (entry.isIntersecting) {
-                    // Tambahkan kelas 'is-visible' untuk memicu animasi CSS
-                    entry.target.classList.add('is-visible');
-                    // Hentikan pengamatan setelah animasi berjalan sekali
-                    testimonialObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1 // Animasi berjalan saat 10% dari kartu terlihat
-        });
-
-        // 2. Pilih semua kartu testimoni dan mulai amati mereka
-        const testimonialCards = document.querySelectorAll('.testimoni-card');
-        testimonialCards.forEach((card, index) => {
-            // Beri jeda (delay) yang berbeda untuk setiap kartu agar muncul satu per satu
-            card.style.transitionDelay = `${index * 100}ms`;
-            testimonialObserver.observe(card);
-        });
-      });
-    </script>
+    <!-- PERBAIKAN: Menghapus seluruh blok <script> inline dari sini. -->
+    <!-- Logika ini sudah ada di dalam file 'script.js' yang dipanggil di <head>, -->
+    <!-- sehingga tidak perlu ditulis ulang di sini untuk menghindari konflik. -->
+    <script src="script.js"></script>
   </body>
 </html>
