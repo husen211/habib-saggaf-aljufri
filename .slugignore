@@ -1,0 +1,11 @@
+# Abaikan semua aset visual
+asset/
+
+# Abaikan semua file HTML
+*.html
+
+# Abaikan file CSS
+*.css
+
+# Abaikan file JavaScript frontend
+script.js
