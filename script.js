@@ -228,6 +228,32 @@ document.addEventListener("DOMContentLoaded", function () {
         questionsBtn.addEventListener("click", () => callGeminiAPI(`Buatlah 3-5 pertanyaan diskusi yang mendalam dan relevan berdasarkan teks berikut tentang pemikiran dan pengaruh Habib Saggaf Aljufri:\n\n${pemikiranText}`));
     }
   
+    // --- FITUR SHARE UNDANGAN HAUL ---
+    const shareBtn = document.getElementById("share-haul-btn");
+    if (shareBtn) {
+      const shareData = {
+        title: "Undangan Haul Habib Saggaf",
+        text: "Undangan Haul Tahunan Habib Saggaf Aljufri",
+        url: window.location.origin + window.location.pathname + "#haul-invitation",
+      };
+      shareBtn.addEventListener("click", async () => {
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+          } catch (err) {
+            console.error("Share failed", err);
+          }
+        } else {
+          try {
+            await navigator.clipboard.writeText(shareData.url);
+            alert("Link undangan disalin ke clipboard!");
+          } catch (e) {
+            prompt("Salin link berikut: ", shareData.url);
+          }
+        }
+      });
+    }
+
     // --- LOGIKA UNTUK COUNTDOWN (Hanya untuk index.html) ---
     const countdownDate = new Date("July 13, 2025 00:00:00").getTime();
     const updateCountdown = setInterval(function () {
