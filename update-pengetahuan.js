@@ -1,69 +1,82 @@
-// File: update-pengetahuan.js
-// Skrip ini dijalankan manual di komputermu untuk meng-update file pengetahuan AI.
+// File: update-pengetahuan.js (Versi BARU dengan kemampuan multi-halaman)
 
 const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
 
-// 1. TENTUKAN URL WEBSITE-MU
-const WEBSITE_URL = 'https://www.jejakhabibsaggaf.com';
+// =========================================================================
+// === PENGATURAN UTAMA ===
+// =========================================================================
 
-// 2. TENTUKAN BAGIAN MANA DARI WEBSITE YANG INGIN DIAMBIL TEKSNYA
-// Kita akan mengambil teks dari section-section penting di websitemu.
-// ID ini harus cocok dengan ID section di file index.html-mu.
-const SECTIONS_TO_SCRAPE = [
-    '#jejak-kehidupan',
-    '#legasi-alkhairaat',
-    '#pemikiran',
-    '#kaderisasi'
+// 1. DAFTAR SEMUA HALAMAN YANG INGIN DI-SCRAPE
+const PAGES_TO_SCRAPE = [
+    {
+        url: 'https://www.jejakhabibsaggaf.com/index.html',
+        selectors: [
+            '#jejak-kehidupan',
+            '#legasi-alkhairaat',
+            '#pemikiran',
+            '#kaderisasi'
+        ]
+    },
+    {
+        url: 'https://www.jejakhabibsaggaf.com/kesan_mereka.html',
+        selectors: [
+            '#kesan-mereka-full' // <-- Ini sekarang sudah benar karena ID-nya sudah kita tambahkan
+        ]
+    }
 ];
 
-async function scrapeWebsite() {
-    console.log(`Memulai proses panen informasi dari ${WEBSITE_URL}...`);
+// =========================================================================
 
-    try {
-        // Ambil konten HTML dari website
-        const response = await fetch(WEBSITE_URL);
-        if (!response.ok) {
-            throw new Error(`Gagal mengambil halaman web: Status ${response.status}`);
-        }
-        const html = await response.text();
+async function scrapeAllPages() {
+    console.log(`Memulai proses panen informasi dari ${PAGES_TO_SCRAPE.length} halaman...`);
+    let allText = '';
 
-        // Gunakan cheerio untuk mem-parsing HTML
-        const $ = cheerio.load(html);
-
-        let allText = '';
-
-        // Loop melalui setiap section yang ingin kita ambil datanya
-        SECTIONS_TO_SCRAPE.forEach(selector => {
-            const section = $(selector);
-            if (section.length > 0) {
-                console.log(`- Menemukan dan memproses section: ${selector}`);
-                // Ambil semua teks dari elemen <p>, <h2>, <h3>, <h4> di dalam section
-                const textFromSection = section.find('h2, h3, h4, p').map((i, el) => $(el).text().trim()).get().join('\n\n');
-                allText += textFromSection + '\n\n';
-            } else {
-                console.warn(`- Peringatan: Section dengan selector '${selector}' tidak ditemukan.`);
+    // Loop melalui setiap halaman yang ada di dalam daftar
+    for (const page of PAGES_TO_SCRAPE) {
+        console.log(`\n--> Memproses halaman: ${page.url}`);
+        try {
+            // Ambil konten HTML dari website
+            const response = await fetch(page.url);
+            if (!response.ok) {
+                console.warn(`    - Peringatan: Gagal mengambil halaman ${page.url} (Status: ${response.status})`);
+                continue; // Lanjut ke halaman berikutnya jika gagal
             }
-        });
+            const html = await response.text();
+            const $ = cheerio.load(html);
 
-        // Bersihkan teks dari spasi atau baris baru yang berlebihan
-        const cleanedText = allText.replace(/\n\s*\n/g, '\n\n').trim();
+            let textFromPage = '';
+            // Loop melalui setiap selector untuk halaman ini
+            page.selectors.forEach(selector => {
+                const section = $(selector);
+                if (section.length > 0) {
+                    console.log(`    - Menemukan dan memproses section: ${selector}`);
+                    // Ambil semua teks dari elemen <p>, <h2>, <h3>, <h4> di dalam section
+                    const textFromSection = section.find('h2, h3, h4, p, blockquote').map((i, el) => $(el).text().trim()).get().join('\n\n');
+                    textFromPage += textFromSection + '\n\n';
+                } else {
+                    console.warn(`    - Peringatan: Section '${selector}' tidak ditemukan di halaman ini.`);
+                }
+            });
 
-        // Tentukan di mana file pengetahuan akan disimpan
-        const outputPath = path.join(__dirname, 'api', 'pengetahuan.txt');
+            allText += textFromPage;
 
-        // Tulis teks yang sudah bersih ke dalam file pengetahuan.txt
-        fs.writeFileSync(outputPath, cleanedText, 'utf8');
-
-        console.log(`\n✅ SUKSES! File pengetahuan.txt telah berhasil diperbarui.`);
-        console.log(`Lokasi file: ${outputPath}`);
-
-    } catch (error) {
-        console.error('\n❌ TERJADI ERROR saat proses panen informasi:');
-        console.error(error);
+        } catch (error) {
+            console.error(`    - ❌ TERJADI ERROR saat memproses halaman ${page.url}:`, error);
+        }
     }
+
+    // Bersihkan teks dari spasi atau baris baru yang berlebihan
+    const cleanedText = allText.replace(/\n\s*\n/g, '\n\n').trim();
+
+    // Tentukan di mana file pengetahuan akan disimpan
+    const outputPath = path.join(__dirname, 'api', 'pengetahuan.txt');
+    fs.writeFileSync(outputPath, cleanedText, 'utf8');
+
+    console.log(`\n✅ SUKSES! File pengetahuan.txt telah berhasil diperbarui dengan informasi dari semua halaman.`);
+    console.log(`Lokasi file: ${outputPath}`);
 }
 
 // Jalankan fungsi utama
-scrapeWebsite();
+scrapeAllPages();
