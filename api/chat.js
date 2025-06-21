@@ -108,8 +108,9 @@ Selalu jawab dengan gaya bahasa yang sopan dan menghormati.
 app.use(express.json());
 
 const allowedOrigins = [
-    'https://www.jejakhabibsaggaf.com/', // GANTI DENGAN DOMAIN ASLI KAMU
-    'http://localhost:5500' 
+    'https://www.jejakhabibsaggaf.com',  // Versi dengan www (tanpa slash)
+    'https://jejakhabibsaggaf.com',      // Versi TANPA www
+    'http://localhost:5500'             // Untuk testing lokalmu
 ];
 app.use(cors({
   origin: function (origin, callback) {
