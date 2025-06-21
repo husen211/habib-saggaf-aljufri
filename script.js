@@ -1,25 +1,21 @@
-// PERBAIKAN: Menggabungkan semua logika ke dalam satu event listener DOMContentLoaded
-// untuk memastikan semua elemen HTML sudah dimuat sebelum skrip dijalankan dan
-// untuk menghindari konflik dari duplikasi kode.
+// File: script.js (Versi Final Lengkap untuk Disalin)
+
 document.addEventListener("DOMContentLoaded", function () {
-  
+
     // --- LOGIKA UNTUK MENU MOBILE ---
-    // Kode ini sekarang menjadi satu-satunya yang mengatur menu mobile.
     const mobileMenuButton = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
     if (mobileMenuButton && mobileMenu) {
         mobileMenuButton.addEventListener("click", () => {
             mobileMenu.classList.toggle("hidden");
         });
-        // Menutup menu ketika salah satu link di dalamnya diklik
         document.querySelectorAll("#mobile-menu a").forEach((link) => {
             link.addEventListener("click", () => {
                 mobileMenu.classList.add("hidden");
             });
         });
     }
-  
-  
+
     // --- LOGIKA UNTUK TIMELINE (Hanya untuk index.html) ---
     const timelineData = [
       {
@@ -107,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       });
     }
-  
+
     // --- LOGIKA UNTUK CHARTS (Hanya untuk index.html) ---
     let growthChartInstance = null;
     function drawGrowthChart() {
@@ -188,45 +184,48 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   
-    // --- LOGIKA UNTUK GEMINI API (Hanya untuk index.html) ---
-    const summarizeBtn = document.getElementById("summarize-btn");
-    const questionsBtn = document.getElementById("questions-btn");
-    const llmOutputDiv = document.getElementById("llm-output");
-    const llmLoadingDiv = document.getElementById("llm-loading");
-    const llmContentDiv = document.getElementById("llm-content");
-    if (summarizeBtn) {
-        const pemikiranCards = document.querySelectorAll("#pemikiran .card p");
-        let pemikiranText = "";
-        pemikiranCards.forEach((card) => { pemikiranText += card.textContent + " "; });
-        pemikiranText = pemikiranText.trim();
+    // // --- LOGIKA UNTUK GEMINI API (LAMA, untuk tombol Ringkasan & Pertanyaan) ---
+    // const summarizeBtn = document.getElementById("summarize-btn");
+    // const questionsBtn = document.getElementById("questions-btn");
+    // const llmOutputDiv = document.getElementById("llm-output");
+    // const llmLoadingDiv = document.getElementById("llm-loading");
+    // const llmContentDiv = document.getElementById("llm-content");
+    // if (summarizeBtn) {
+    //     const pemikiranCards = document.querySelectorAll("#pemikiran .card p");
+    //     let pemikiranText = "";
+    //     pemikiranCards.forEach((card) => { pemikiranText += card.textContent + " "; });
+    //     pemikiranText = pemikiranText.trim();
   
-        async function callGeminiAPI(promptText) {
-            if (llmOutputDiv) llmOutputDiv.classList.remove("hidden");
-            if (llmLoadingDiv) llmLoadingDiv.classList.remove("hidden");
-            if (llmContentDiv) llmContentDiv.innerHTML = "";
-            try {
-                let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
-                const payload = { contents: chatHistory };
-                const apiKey = "";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-                const response = await fetch(apiUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-                const result = await response.json();
-                if (result.candidates && result.candidates[0] && result.candidates[0].content && result.candidates[0].content.parts[0]) {
-                    const text = result.candidates[0].content.parts[0].text;
-                    if (llmContentDiv) llmContentDiv.innerHTML = text.replace(/\n/g, "<br>");
-                } else {
-                    if (llmContentDiv) llmContentDiv.textContent = "Maaf, tidak dapat menghasilkan respons. Silakan coba lagi.";
-                }
-            } catch (error) {
-                console.error("Error calling Gemini API:", error);
-                if (llmContentDiv) llmContentDiv.textContent = "Terjadi kesalahan saat berkomunikasi dengan API. Coba lagi nanti.";
-            } finally {
-                if (llmLoadingDiv) llmLoadingDiv.classList.add("hidden");
-            }
-        }
-        summarizeBtn.addEventListener("click", () => callGeminiAPI(`Ringkaslah poin-poin utama dari teks berikut tentang pemikiran dan pengaruh Habib Saggaf Aljufri:\n\n${pemikiranText}`));
-        questionsBtn.addEventListener("click", () => callGeminiAPI(`Buatlah 3-5 pertanyaan diskusi yang mendalam dan relevan berdasarkan teks berikut tentang pemikiran dan pengaruh Habib Saggaf Aljufri:\n\n${pemikiranText}`));
-    }
+    //     async function callGeminiAPI(promptText) {
+    //         if (llmOutputDiv) llmOutputDiv.classList.remove("hidden");
+    //         if (llmLoadingDiv) llmLoadingDiv.classList.remove("hidden");
+    //         if (llmContentDiv) llmContentDiv.innerHTML = "";
+    //         try {
+    //             // PENTING: Kode ini masih menggunakan API Key di frontend dan tidak aman.
+    //             // Jika ingin membuatnya aman, logika ini juga harus dipindahkan ke backend.
+    //             // Untuk sekarang, kita biarkan sesuai kode asli.
+    //             let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
+    //             const payload = { contents: chatHistory };
+    //             const apiKey = ""; // API Key sengaja dikosongkan agar tidak terekspos
+    //             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    //             const response = await fetch(apiUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+    //             const result = await response.json();
+    //             if (result.candidates && result.candidates[0] && result.candidates[0].content && result.candidates[0].content.parts[0]) {
+    //                 const text = result.candidates[0].content.parts[0].text;
+    //                 if (llmContentDiv) llmContentDiv.innerHTML = text.replace(/\n/g, "<br>");
+    //             } else {
+    //                 if (llmContentDiv) llmContentDiv.textContent = "Maaf, tidak dapat menghasilkan respons. Silakan coba lagi.";
+    //             }
+    //         } catch (error) {
+    //             console.error("Error calling Gemini API:", error);
+    //             if (llmContentDiv) llmContentDiv.textContent = "Terjadi kesalahan saat berkomunikasi dengan API. Coba lagi nanti.";
+    //         } finally {
+    //             if (llmLoadingDiv) llmLoadingDiv.classList.add("hidden");
+    //         }
+    //     }
+    //     summarizeBtn.addEventListener("click", () => callGeminiAPI(`Ringkaslah poin-poin utama dari teks berikut tentang pemikiran dan pengaruh Habib Saggaf Aljufri:\n\n${pemikiranText}`));
+    //     questionsBtn.addEventListener("click", () => callGeminiAPI(`Buatlah 3-5 pertanyaan diskusi yang mendalam dan relevan berdasarkan teks berikut tentang pemikiran dan pengaruh Habib Saggaf Aljufri:\n\n${pemikiranText}`));
+    // }
   
     // --- FITUR SHARE UNDANGAN HAUL ---
     const shareBtn = document.getElementById("share-haul-btn");
@@ -364,5 +363,76 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
   
-  }); // Akhir dari event listener DOMContentLoaded
-  
+    // --- LOGIKA CHATBOT AI BARU YANG AMAN (YANG SUDAH KITA BUAT) ---
+    const chatForm = document.getElementById("chat-form");
+    const chatInput = document.getElementById("chat-input");
+    const chatBox = document.getElementById("chat-box");
+
+    if (chatForm && chatInput && chatBox) {
+        let chatHistory = [];
+
+        const appendMessage = (sender, text) => {
+            const messageElement = document.createElement("p");
+            messageElement.innerHTML = `<strong>${sender}:</strong> ${text}`;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        };
+        
+        appendMessage("AI", "Assalamualaikum, ada yang bisa saya bantu terkait pemikiran Habib Saggaf?");
+
+        chatForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const userText = chatInput.value.trim();
+            if (!userText) return;
+
+            appendMessage("Anda", userText);
+            chatInput.value = "";
+            chatHistory.push({ role: "user", parts: [{ text: userText }] });
+
+            const loadingMsgElement = document.createElement("p");
+            loadingMsgElement.innerHTML = "<strong>AI:</strong> <em>Mengetik...</em>";
+            chatBox.appendChild(loadingMsgElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            try {
+                // =================================================================
+                //  PERHATIAN: Ganti URL di bawah ini dengan URL Web Service Render-mu!
+                // =================================================================
+                const apiUrl = 'https://habib-saggaf-api.onrender.com/api/chat'; 
+                
+                const payload = { chatHistory: chatHistory };
+
+                const res = await fetch(apiUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                });
+                
+                loadingMsgElement.remove();
+
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    throw new Error(errorData.message || "Gagal mendapatkan respons dari server.");
+                }
+
+                const data = await res.json();
+                
+                let aiText = "Maaf, terjadi sedikit kendala. Coba lagi nanti.";
+                if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                    aiText = data.candidates[0].content.parts[0].text;
+                }
+                
+                appendMessage("AI", aiText.replace(/\n/g, "<br>"));
+                chatHistory.push({ role: "model", parts: [{ text: aiText }] });
+
+            } catch (err) {
+                console.error("Error saat berkomunikasi dengan backend:", err);
+                if (loadingMsgElement) {
+                    loadingMsgElement.remove();
+                }
+                appendMessage("AI", `Maaf, terjadi masalah koneksi. (${err.message})`);
+            }
+        });
+    }
+
+}); // <-- Ini adalah AKHIR dari event listener DOMContentLoaded

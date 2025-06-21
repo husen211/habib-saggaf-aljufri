@@ -1,0 +1,14 @@
+{
+    "name": "habib-saggaf-api",
+    "version": "1.0.0",
+    "description": "API proxy for Gemini",
+    "main": "api/chat.js",
+    "scripts": {
+      "start": "node api/chat.js",
+      "install": "npm install"
+    },
+    "dependencies": {
+      "express": "^4.19.2",
+      "cors": "^2.8.5"
+    }
+  }
