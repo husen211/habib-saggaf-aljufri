@@ -1,10 +1,10 @@
-// File: api/chat.js (Versi SANGAT CERDAS dengan Fuse.js untuk anti-typo)
+// File: api/chat.js (Versi FINAL dengan Optimasi Pencarian & Instruksi)
 
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
-const Fuse = require('fuse.js'); // <-- Panggil Pustakawan Profesional kita
+const Fuse = require('fuse.js');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -14,36 +14,30 @@ const pengetahuanPath = path.join(__dirname, 'pengetahuan.txt');
 const SELURUH_PENGETAHUAN = fs.readFileSync(pengetahuanPath, 'utf8');
 const PENGETAHUAN_PER_PARAGRAF = SELURUH_PENGETAHUAN.split(/\n\s*\n/)
     .filter(p => p.trim() !== '')
-    .map((p, index) => ({ id: index, content: p })); // Beri struktur pada data
+    .map((p, index) => ({ id: index, content: p }));
 
-// === 2. SIAPKAN PUSTAKAWAN PROFESIONAL (FUSE.JS) ===
+// === 2. PERBAIKAN 1: PENGATURAN FUSE.JS YANG LEBIH BAIK ===
 const fuseOptions = {
-    includeScore: true,     // Sertakan skor relevansi
-    keys: ['content'],      // Cari di dalam field 'content'
-    threshold: 0.4,         // Tingkat toleransi (0.0 = sempurna, 1.0 = super kabur)
-    ignoreLocation: true,   // Cari di seluruh teks, bukan hanya di awal
+    includeScore: true,
+    keys: ['content'],
+    minMatchCharLength: 3,      // Jangan cari kata kunci yang terlalu pendek
+    threshold: 0.45,            // Sedikit lebih longgar dari sebelumnya (0.4)
+    ignoreLocation: true,
+    useExtendedSearch: true,    // Mengaktifkan operator pencarian (jika diperlukan nanti)
 };
 const fuse = new Fuse(PENGETAHUAN_PER_PARAGRAF, fuseOptions);
 
-// === 3. ATUR PERAN DAN PERINTAH UNTUK AI ===
+// === 3. PERBAIKAN 2: ATURAN MAIN AI YANG LEBIH CERDAS ===
 const SYSTEM_INSTRUCTION = `
-Anda adalah "Pemandu Jejak Digital", seorang asisten AI yang berpengetahuan luas, sopan, dan berdedikasi untuk membahas kehidupan dan pemikiran Habib Saggaf Aljufri. Sumber utamamu adalah teks yang diberikan dalam "KONTEKS YANG DIBERIKAN".
+Anda adalah "Pemandu Jejak Digital", seorang asisten AI yang berpengetahuan, sopan, dan berdedikasi untuk membahas kehidupan dan pemikiran Habib Saggaf Aljufri. Sumber utamamu adalah teks yang diberikan dalam "KONTEKS YANG DIBERIKAN".
 
-Tugasmu memiliki DUA mode:
-
-1.  **MODE JAWAB FAKTA (Jika ada konteks relevan):**
-    * Jika pengguna bertanya sesuatu yang spesifik DAN "KONTEKS YANG DIBERIKAN" berisi informasi yang relevan, jawab pertanyaan tersebut secara langsung dan akurat berdasarkan HANYA pada konteks itu.
-    * Jangan pernah menambah informasi dari luar konteks yang diberikan.
-
-2.  **MODE PEMANDU DISKUSI (Jika tidak ada konteks atau pertanyaan umum):**
-    * Jika "KONTEKS YANG DIBERIKAN" kosong, ATAU jika pertanyaan pengguna bersifat sangat umum (contoh: "halo", "ceritakan tentang beliau", "saya ingin berdiskusi"), JANGAN langsung berkata "saya tidak menemukan informasi".
-    * Sebaliknya, bersikaplah proaktif dan ramah. Lakukan salah satu dari ini:
-        * **Ajak lebih spesifik:** Jika pengguna bilang "saya ingin berdiskusi tentang pemikiran beliau", jawab dengan ramah seperti: "Tentu, saya siap membantu. Ada topik spesifik dari pemikiran beliau yang ingin Anda diskusikan? Misalnya tentang moderasi beragama, pendidikan, atau nasihat kebangsaan beliau?"
-        * **Berikan saran topik:** "Anda bisa bertanya tentang masa kecilnya, pendidikannya di Al-Azhar, perannya di Alkhairaat, atau testimoni para tokoh tentang beliau."
-        * **Jawab sapaan:** Jika pengguna menyapa, balas sapaannya dengan ramah.
-
-ATURAN UTAMA: Selalu berikan jawaban yang terkesan alami dan membantu. Tujuan utamamu adalah memandu pengguna untuk menjelajahi informasi yang ada dengan cara yang menyenangkan.
+ATURAN UTAMA:
+1.  **Jika ada konteks**, JANGAN bertanya lagi untuk mempersempit. Langsung jawab pertanyaan pengguna sebaik mungkin berdasarkan konteks yang ada. Setelah menjawab, Anda BOLEH menawarkan untuk mendalami topik lebih lanjut. Contoh: "Berdasarkan informasi yang saya miliki, pandangan kebangsaan beliau adalah... Apakah ada aspek spesifik dari ini yang ingin Anda ketahui lebih dalam?"
+2.  **Jika tidak ada konteks SAMA SEKALI**, barulah Anda masuk ke mode pemandu. Jangan langsung bilang "tidak ada informasi". Alih-alih, berikan saran topik umum yang Anda tahu ada di dalam data. Contoh: "Saya bisa membantu Anda dengan topik seputar riwayat hidup beliau, pemikirannya tentang pendidikan, atau testimoni para tokoh. Mana yang paling menarik untuk Anda?"
+3.  JANGAN pernah mengarang fakta. Semua jawaban harus berakar dari "KONTEKS YANG DIBERIKAN".
 `;
+
+
 // --- Bagian teknis server (tetap sama) ---
 app.use(express.json());
 
@@ -52,7 +46,6 @@ const allowedOrigins = [
     'https://jejakhabibsaggaf.com',
     'http://localhost:5500' 
 ];
-// ... Logika CORS tetap sama ...
 app.use(cors({ origin: function (origin, callback) { if (!origin || allowedOrigins.indexOf(origin) !== -1) { callback(null, true); } else { callback(new Error('Not allowed by CORS')); } } }));
 
 app.post('/api/chat', async (req, res) => {
@@ -64,31 +57,39 @@ app.post('/api/chat', async (req, res) => {
             return res.status(500).json({ message: "API Key tidak dikonfigurasi di server." });
         }
 
-        // === 4. GUNAKAN FUSE.JS UNTUK MENCARI KONTEKS ANTI-TYPO ===
         const pertanyaanTerakhir = chatHistory[chatHistory.length - 1].parts[0].text;
         
-        // Fuse.js akan mencari paragraf yang paling cocok, bahkan jika ada typo
+        // Ambil hingga 4 paragraf paling relevan
         const hasilPencarian = fuse.search(pertanyaanTerakhir);
-
-        // Ambil 3 paragraf paling relevan dari hasil pencarian
         const konteksRelevan = hasilPencarian
-            .slice(0, 3)
+            .slice(0, 4) 
             .map(result => result.item.content)
             .join("\n\n");
 
         const fullPrompt = `
-          ${SYSTEM_INSTRUCTION}
-
-          ---
           KONTEKS YANG DIBERIKAN:
-          ${konteksRelevan || "Tidak ada konteks yang relevan ditemukan."}
           ---
-
-          Pertanyaan dari pengguna adalah:
-          "${pertanyaanTerakhir}"
+          ${konteksRelevan || ""}
+          ---
+          Berdasarkan konteks di atas, jawab pertanyaan pengguna berikut: "${pertanyaanTerakhir}"
         `;
+        
+        // Memasukkan chat history dan instruksi sistem dengan benar
+        const contents = [
+            ...chatHistory.slice(0, -1), // Ambil semua history kecuali pertanyaan terakhir
+            {
+                role: "user",
+                parts: [{ text: fullPrompt }]
+            }
+        ];
 
-        const payload = { contents: [{ role: "user", parts: [{ text: fullPrompt }] }] };
+        const payload = { 
+            contents: contents,
+            systemInstruction: {
+                parts: [{ text: SYSTEM_INSTRUCTION }]
+            }
+        };
+
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
         const apiResponse = await fetch(apiUrl, {
