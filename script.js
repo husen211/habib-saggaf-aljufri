@@ -18,91 +18,104 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // --- LOGIKA UNTUK TIMELINE (Hanya untuk index.html) ---
     const timelineData = [
-      {
-        year: "1937",
-        title: "Kelahiran Sang Cahaya",
-        description:
-          "Lahir di Pekalongan, Jawa Tengah, 17 Agustus 1937 Masehi. Kelahirannya yang bertepatan dengan tanggal kemerdekaan menjadi simbol keterikatannya dengan bangsa Indonesia.",
-        imageUrl: "asset/kota pekalongan.jpg",
-      },
-      {
-        year: "1951",
-        title: "Hijrah ke Palu",
-        description:
-          "Pindah dan menetap di Palu, Sulawesi Tengah, memulai babak baru hidupnya di jantung komunitas Alkhairaat yang akan dipimpinnya kelak.",
-        imageUrl: "asset/kota palu.jpeg",
-      },
-      {
-        year: "1959-1967",
-        title: "Menimba Ilmu di Al-Azhar",
-        description:
-          "Melanjutkan studi di Universitas Al-Azhar, Kairo, Mesir. Meraih gelar Sarjana dan Master, membangun fondasi keilmuan yang mendalam.",
-        imageUrl: "asset/al azhar.jpg",
-      },
-      {
-        year: "1974",
-        title: "Memegang Amanah Kepemimpinan",
-        description:
-          "Diangkat menjadi Ketua Utama Alkhairaat, melanjutkan estafet kepemimpinan dari Guru Tua dan memulai era transformasi besar.",
-        imageUrl: "asset/habib saggaf pict.jpg",
-      },
-      {
-        year: "1991",
-        title: "Gagasan Visioner",
-        description:
-          "Pada Muktamar Alkhairaat VI, beliau menggagas pendirian Pondok Pesantren Madinatul Ilmi Dolo sebagai solusi strategis untuk krisis kader pengajar.",
-        imageUrl: "asset/ponpes madinatul ilmi old.jpeg",
-      },
-      {
-        year: "2021",
-        title: "Berpulang ke Rahmatullah",
-        description:
-          "Wafat pada 3 Agustus di Palu, meninggalkan warisan institusi yang kokoh dan jutaan Abnaulkhairaat yang melanjutkan perjuangannya.",
-        imageUrl: "asset/habib saggaf meninggal.jpg",
-      },
-    ];
-  
-    const timelineContainer = document.getElementById("timeline-container");
-    if (timelineContainer) {
-      timelineData.forEach((item, index) => {
-        const timelineItem = document.createElement("div");
-        timelineItem.className = `relative w-full md:w-2/3 p-4 rounded-lg bg-white shadow-md border border-stone-200/60 mx-auto`;
-        timelineItem.innerHTML = `
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-md">
-              ${index + 1}
-          </div>
-          <p class="font-bold text-lg text-amber-700 text-center">${item.year}</p>
-          <h4 class="font-semibold text-emerald-800 mt-1 text-center cursor-pointer flex justify-center items-center gap-2">
-              ${item.title}
-              <svg class="h-4 w-4 text-emerald-700 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-          </h4>
-          <div class="timeline-item-content overflow-hidden max-h-0 opacity-0 transition-all duration-500 ease-in-out">
-              <div class="pt-4 space-y-4">
-                  <img src="${item.imageUrl}" alt="Ilustrasi untuk ${item.title}" class="w-full h-auto rounded-lg shadow-md object-cover" onerror="this.style.display='none'">
-                  <p class="text-sm text-stone-600 mt-2 text-center">${item.description}</p>
-              </div>
-          </div>
-        `;
-        timelineContainer.appendChild(timelineItem);
-        const titleElement = timelineItem.querySelector("h4");
-        const contentElement = timelineItem.querySelector(".timeline-item-content");
-        const iconElement = timelineItem.querySelector("svg");
-        titleElement.addEventListener("click", () => {
-          const isOpen = contentElement.style.maxHeight && contentElement.style.maxHeight !== "0px";
-          if (isOpen) {
-            contentElement.style.maxHeight = "0px";
-            contentElement.style.opacity = "0";
-            iconElement.style.transform = "rotate(0deg)";
-          } else {
-            contentElement.style.maxHeight = contentElement.scrollHeight + "px";
-            contentElement.style.opacity = "1";
-            iconElement.style.transform = "rotate(180deg)";
-          }
+        {
+          year: "1937",
+          title: "Kelahiran Sang Cahaya",
+          description: "Lahir di Pekalongan, Jawa Tengah, 17 Agustus 1937 Masehi...",
+          imageUrl: "asset/kota pekalongan.jpg",
+          sectionLabel: "MASA KELAHIRAN & PENDIDIKAN AWAL",
+        },
+        {
+          year: "1951",
+          title: "Hijrah ke Palu",
+          description: "Pindah dan menetap di Palu, Sulawesi Tengah...",
+          imageUrl: "asset/kota palu.jpeg",
+          sectionLabel: "HIJRAH DAN PENEMPAN KARAKTER",
+        },
+        {
+          year: "1959-1967",
+          title: "Menimba Ilmu di Al-Azhar",
+          description: "Melanjutkan studi di Universitas Al-Azhar, Kairo...",
+          imageUrl: "asset/al azhar.jpg",
+          sectionLabel: "PERJALANAN ILMIAH",
+        },
+        {
+          year: "1974",
+          title: "Memegang Amanah Kepemimpinan",
+          description: "Diangkat menjadi Ketua Utama Alkhairaat...",
+          imageUrl: "asset/habib saggaf pict.jpg",
+          sectionLabel: "KEPEMIMPINAN ALKHAIRAAT",
+        },
+        {
+          year: "1991",
+          title: "Gagasan Visioner",
+          description: "Pada Muktamar Alkhairaat VI...",
+          imageUrl: "asset/ponpes madinatul ilmi old.jpeg",
+          sectionLabel: "GAGASAN DAN LEGACY",
+        },
+        {
+          year: "2021",
+          title: "Berpulang ke Rahmatullah",
+          description: "Wafat pada 3 Agustus di Palu...",
+          imageUrl: "asset/habib saggaf meninggal.jpg",
+          sectionLabel: "AKHIR HAYAT",
+        },
+      ];
+      
+      const timelineContainer = document.getElementById("timeline-container");
+      
+      if (timelineContainer) {
+        timelineData.forEach((item, index) => {
+          // SECTION TITLE
+          const label = document.createElement("h5");
+          label.textContent = item.sectionLabel;
+          label.className = "text-sm font-semibold text-orange-600 text-center tracking-wider mb-2 mt-12 relative z-10";
+          timelineContainer.appendChild(label);
+      
+          // CARD
+          const timelineItem = document.createElement("div");
+          timelineItem.className = "relative w-full md:w-2/3 p-4 rounded-lg bg-white shadow-md border border-stone-200/60 mx-auto";
+      
+          timelineItem.innerHTML = `
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-md z-20">
+                ${index + 1}
+            </div>
+            <p class="font-bold text-lg text-amber-700 text-center">${item.year}</p>
+            <h4 class="font-semibold text-emerald-800 mt-1 text-center cursor-pointer flex justify-center items-center gap-2">
+                ${item.title}
+                <svg class="h-4 w-4 text-emerald-700 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </h4>
+            <div class="timeline-item-content overflow-hidden max-h-0 opacity-0 transition-all duration-500 ease-in-out">
+                <div class="pt-4 space-y-4">
+                    <img src="${item.imageUrl}" alt="Ilustrasi untuk ${item.title}" class="w-full h-auto rounded-lg shadow-md object-cover" onerror="this.style.display='none'">
+                    <p class="text-sm text-stone-600 mt-2 text-center">${item.description}</p>
+                </div>
+            </div>
+          `;
+      
+          timelineContainer.appendChild(timelineItem);
+      
+          // INTERAKSI COLLAPSE
+          const titleElement = timelineItem.querySelector("h4");
+          const contentElement = timelineItem.querySelector(".timeline-item-content");
+          const iconElement = timelineItem.querySelector("svg");
+          titleElement.addEventListener("click", () => {
+            const isOpen = contentElement.style.maxHeight && contentElement.style.maxHeight !== "0px";
+            if (isOpen) {
+              contentElement.style.maxHeight = "0px";
+              contentElement.style.opacity = "0";
+              iconElement.style.transform = "rotate(0deg)";
+            } else {
+              contentElement.style.maxHeight = contentElement.scrollHeight + "px";
+              contentElement.style.opacity = "1";
+              iconElement.style.transform = "rotate(180deg)";
+            }
+          });
         });
-      });
-    }
+      }
+      
 
     // --- LOGIKA UNTUK CHARTS (Hanya untuk index.html) ---
     let growthChartInstance = null;
@@ -354,7 +367,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         }, {
-            threshold: 0.1
+            threshold: 0.2
         });
   
         testimonialCards.forEach((card, index) => {
@@ -363,7 +376,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
   
-    // --- LOGIKA CHATBOT AI BARU YANG AMAN (YANG SUDAH KITA BUAT) ---
+   
+
+    // --- BATASI PREVIEW GALERI DI INDEX HANYA 3 KARTU ---
+    const previewContainer = document.getElementById('galeri-preview');
+    if (previewContainer && previewContainer.children.length > 3) {
+        for (let i = previewContainer.children.length - 1; i >= 3; i--) {
+            previewContainer.removeChild(previewContainer.children[i]);
+        }
+    }
+
+    // --- LOGIKA CHATBOT AI BARU YANG AMAN  ---
     const chatForm = document.getElementById("chat-form");
     const chatInput = document.getElementById("chat-input");
     const chatBox = document.getElementById("chat-box");
@@ -378,7 +401,7 @@ document.addEventListener("DOMContentLoaded", function () {
             chatBox.scrollTop = chatBox.scrollHeight;
         };
         
-        appendMessage("AI", "Assalamualaikum, ada yang bisa saya bantu terkait pemikiran Habib Saggaf?");
+        appendMessage("AI", "Assalamualaikum, ada yang bisa saya bantu terkait pemikiran dan kisah Habib Saggaf?");
 
         chatForm.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -395,9 +418,9 @@ document.addEventListener("DOMContentLoaded", function () {
             chatBox.scrollTop = chatBox.scrollHeight;
 
             try {
-                // =================================================================
-                //  PERHATIAN: Ganti URL di bawah ini dengan URL Web Service Render-mu!
-                // =================================================================
+                
+                // URL di bawah  URL Web Service Render
+               
                 const apiUrl = 'https://habib-saggaf-api.onrender.com/api/chat'; 
                 
                 const payload = { chatHistory: chatHistory };
@@ -435,4 +458,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-}); // <-- Ini adalah AKHIR dari event listener DOMContentLoaded
+}); // <--  AKHIR dari event listener DOMContentLoaded
