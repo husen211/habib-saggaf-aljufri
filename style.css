@@ -304,7 +304,7 @@ body {
 /* style.css */
 /* --- Gaya Halaman Reels --- */
 
-/* Mencegah scroll horizontal dan hidden scrollbar */
+/* mencegah scroll horizontal & hidden scrollbar */
 body.reels-page,
 html.reels-page {
   overflow: hidden;
@@ -320,7 +320,7 @@ html.reels-page {
   overflow-y: scroll;
 }
 
-/* masing-masing item reels */
+/* masing-masing reels item */
 .reel-item {
   position: relative;
   width: 100%;
@@ -329,7 +329,7 @@ html.reels-page {
   overflow: hidden;
 }
 
-/* video iframe area */
+/* video area */
 .video-placeholder,
 .reel-item iframe {
   position: absolute;
@@ -340,47 +340,51 @@ html.reels-page {
   object-fit: cover;
 }
 
-/* info profil & judul reels */
+/* profil + judul, pindah ke atas */
 .reel-info {
   position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
+  top: calc(env(safe-area-inset-top, 0px) + 60px);
   left: 20px;
   color: white;
-  z-index: 10;
+  z-index: 20;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
 }
 .reel-info .profile-pic {
-  width: 40px;
-  height: 40px;
-  border-radius: 9999px;
-  object-fit: cover;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   border: 2px solid white;
+  object-fit: cover;
 }
-.reel-info h3 {
+.reel-info .reel-text {
+  display: flex;
+  flex-direction: column;
+}
+.reel-info .reel-text h3 {
   margin: 0;
   font-size: 14px;
   font-weight: 700;
 }
-.reel-info p {
+.reel-info .reel-text p {
   margin: 0;
   font-size: 12px;
   opacity: 0.9;
-  margin-top: 4px;
 }
 
-/* aksi reels (like, comment, share) */
+/* tombol aksi di kanan vertikal */
 .reel-actions {
   position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 20px) + 110px); /* seragam sama info */
   right: 20px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  z-index: 10;
+  gap: 18px;
+  align-items: center;
   color: white;
+  z-index: 20;
 }
 .reel-actions .action-button {
   display: flex;
@@ -389,39 +393,38 @@ html.reels-page {
   cursor: pointer;
 }
 .reel-actions .action-button i {
-  font-size: 20px;
+  font-size: 22px;
 }
 .reel-actions .action-button span {
   font-size: 12px;
-  font-weight: 600;
   margin-top: 4px;
 }
 .reel-actions .fa-heart.liked {
   color: #ff3b5c;
 }
 
-/* --- Tombol Mute / Unmute --- */
+/* tombol mute di kiri bawah (lebih gampang dijangkau jempol) */
 .mute-button {
   position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 20px) + 90px); /* dinaikkan jauh +90px */
-  right: 20px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
+  left: 20px;
   background-color: rgba(0,0,0,0.7);
   border-radius: 50%;
-  padding: 16px;
+  padding: 14px;
   cursor: pointer;
   z-index: 20;
   color: white;
   transition: 0.3s ease;
 }
 .mute-button i {
-  font-size: 28px;
+  font-size: 24px;
 }
 .mute-button:hover {
   background-color: rgba(0,0,0,0.9);
   transform: scale(1.1);
 }
 
-/* ikon interaksi (like di tengah) */
+/* ikon interaksi (play / like muncul di tengah) */
 .interaction-icon {
   position: absolute;
   color: white;
@@ -429,7 +432,7 @@ html.reels-page {
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s ease;
-  z-index: 15;
+  z-index: 30;
 }
 .play-pause-icon {
   top: 50%;
@@ -468,4 +471,5 @@ html.reels-page {
   font-weight: 600;
   font-size: 1rem;
 }
+
 
