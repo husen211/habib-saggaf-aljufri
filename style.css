@@ -403,11 +403,11 @@ html.reels-page {
   color: #ff3b5c;
 }
 
-/* tombol mute di kiri bawah (lebih gampang dijangkau jempol) */
+/* tombol mute di kanan atas, jauh dari like */
 .mute-button {
   position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
-  left: 20px;
+  top: calc(env(safe-area-inset-top, 0px) + 60px);
+  right: 20px;
   background-color: rgba(0,0,0,0.7);
   border-radius: 50%;
   padding: 14px;
