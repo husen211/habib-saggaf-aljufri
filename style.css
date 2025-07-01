@@ -374,7 +374,7 @@ html.reels-page {
 /* aksi reels (like, comment, share) */
 .reel-actions {
   position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
+  bottom: calc(env(safe-area-inset-bottom, 20px) + 110px); /* seragam sama info */
   right: 20px;
   display: flex;
   flex-direction: column;
@@ -400,11 +400,11 @@ html.reels-page {
   color: #ff3b5c;
 }
 
-/* mute button */
+/* --- Tombol Mute / Unmute --- */
 .mute-button {
   position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 60px);
-  right: 80px;
+  bottom: calc(env(safe-area-inset-bottom, 20px) + 90px); /* dinaikkan jauh +90px */
+  right: 20px;
   background-color: rgba(0,0,0,0.7);
   border-radius: 50%;
   padding: 16px;
