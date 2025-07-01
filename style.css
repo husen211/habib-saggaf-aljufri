@@ -1,7 +1,7 @@
 /* General Body and Typography */
 body {
   font-family: "Inter", sans-serif;
-  background-color: #fdfcf9;
+  background-color: #ffffff;
   /* PERBAIKAN UTAMA: Mencegah scroll horizontal di seluruh halaman */
   overflow-x: hidden;
 }
@@ -143,14 +143,14 @@ h3 {
 @media (min-width: 768px) {
   .horizontal-scroll-container {
     scrollbar-width: thin; /* Firefox */
-    scrollbar-color: #d97706 #fdfcf9; /* Firefox */
+    scrollbar-color: #d97706 #ffffff; /* Firefox */
   }
   /* Chrome, Edge, Safari */
   .horizontal-scroll-container::-webkit-scrollbar {
     height: 8px;
   }
   .horizontal-scroll-container::-webkit-scrollbar-track {
-    background: #fdfcf9;
+    background: #ffffff;
   }
   .horizontal-scroll-container::-webkit-scrollbar-thumb {
     background-color: #d97706; /* Warna amber-600 dari Tailwind */
@@ -294,3 +294,196 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+
+
+
+
+/* Reels style */
+
+/* style.css */
+/* --- Gaya Halaman Reels --- */
+
+/* Global styling halaman reels */
+body.reels-page,
+html.reels-page {
+  overflow: hidden;
+  height: 100%;
+  background-color: #000;
+}
+
+/* Container utama reels */
+#reels-container {
+  width: 100%;
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+}
+
+/* Item reels individual */
+.reel-item {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+
+/* Placeholder video */
+.video-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-placeholder iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlay info */
+.reel-info {
+  position: absolute;
+  bottom: 80px;
+  left: 20px;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reel-info .profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.reel-info h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.reel-info p {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+/* Tombol aksi reels (like, comment, share) */
+.reel-actions {
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 10;
+  color: white;
+}
+
+.reel-actions .action-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.reel-actions .action-button i {
+  font-size: 20px;
+}
+
+.reel-actions .action-button span {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.reel-actions .fa-heart.liked {
+  color: #ff3b5c;
+}
+
+/* Ikon interaksi (play/pause/like) */
+.interaction-icon {
+  position: absolute;
+  color: white;
+  font-size: 48px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 15;
+}
+
+.play-pause-icon {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.like-icon {
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.interaction-icon.show {
+  opacity: 1;
+  transform: scale(1.2) translate(-50%, -50%);
+}
+
+/* Tombol mute/unmute */
+.mute-button {
+  position: absolute;
+  bottom: 20px;
+  right: 80px;
+  background-color: rgba(0,0,0,0.7);
+  border-radius: 50%;
+  padding: 16px;
+  cursor: pointer;
+  z-index: 20;
+  color: white;
+  transition: 0.3s ease;
+}
+
+.mute-button i {
+  font-size: 28px;
+}
+
+.mute-button:hover {
+  background-color: rgba(0,0,0,0.9);
+  transform: scale(1.1);
+}
+
+/* Header reels */
+.reels-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  z-index: 50;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.reels-header .back-button {
+  position: absolute;
+  left: 15px;
+}
+
+.reels-header .header-title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
