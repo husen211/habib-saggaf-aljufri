@@ -562,216 +562,249 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // --- LOGIKA UNTUK HALAMAN REELS (VERSI FULL dengan MUTE BUTTON) ---
+
+
+});// <--  AKHIR dari event listener DOMContentLoaded
+
+
+// --- LOGIKA UNTUK HALAMAN REELS (VERSI FINAL DENGAN SCOPE YANG BENAR) ---
+
+/**
+ * Fungsi ini HARUS berada di lingkup global agar bisa dipanggil oleh script YouTube API.
+ * Fungsi ini akan dipanggil secara otomatis ketika YouTube IFrame Player API sudah siap.
+ */
+function onYouTubeIframeAPIReady() {
+  console.log("YouTube API is ready."); // Pesan untuk debugging
+  setupReelsPage();
+}
+
+/**
+ * Fungsi untuk memuat script YouTube API secara dinamis.
+ * Fungsi ini juga kita letakkan di global scope untuk kerapian.
+ */
+function loadYouTubeAPI() {
+  console.log("Loading YouTube API..."); // Pesan untuk debugging
+  // Cek jika API sudah dimuat atau sedang dimuat
+  if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api"; // URL yang sudah benar
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  } else {
+    // Jika API sudah ada, langsung jalankan setup
+    onYouTubeIframeAPIReady();
+  }
+}
+
+/**
+ * Fungsi utama untuk men-setup semua elemen dan logika di halaman reels.
+ */
+function setupReelsPage() {
+  console.log("Setting up reels page..."); // Pesan untuk debugging
+  const reelsContainer = document.getElementById("reels-container");
+  if (!reelsContainer) return;
+
+  document.body.classList.add("reels-page");
+
+  // --- STATE MANAGEMENT ---
   let isGlobalMuted = true;
+  const players = {};
+  let activePlayer = null;
 
-  function setupReelsPage() {
-    const reelsContainer = document.getElementById("reels-container");
-    if (!reelsContainer) return;
-
-    document.body.classList.add("reels-page");
-
-    const reelsData = [
-    {
-      youtubeVideoId: "JORR7-LOV_A",
-      title: "Nasihat Tentang Keikhlasan",
-      likes: "12.3k",
-      shares: "1.2k",
-    },
-    {
-      youtubeVideoId: "aFQ9O0s3m-U",
-      title: "Pertemuan Habib Ali Aljufri Dan Habib Saggaf",
-      likes: "25.1k",
-      shares: "3.4k",
-    },
-    {
-      youtubeVideoId: "TfAM7HliI74",
-      title: "Pesan Habib Saggaf",
-      likes: "18.7k",
-      shares: "2.1k",
-    },
-    {
-      youtubeVideoId: "Uszc2__wiOU",
-      title: "Jalankan Tugas Dengan Ikhlas",
-      likes: "30.2k",
-      shares: "4.5k",
-    },
-    {
-      youtubeVideoId: "XKWCvDG_4zM",
-      title: "Cinta Tanah Air",
-      likes: "22.8k",
-      shares: "3.9k",
-    },
-    {
-      youtubeVideoId: "CbFGNKeXZFI",
-      title: "Nasehat Habib Saggaf",
-      likes: "15.6k",
-      shares: "2.8k",
-    },
+  const reelsData = [
+    { youtubeVideoId: "JORR7-LOV_A", title: "Nasihat Tentang Keikhlasan", likes: "12.3k", shares: "1.2k" },
+    { youtubeVideoId: "aFQ9O0s3m-U", title: "Pertemuan Habib Ali Aljufri Dan Habib Saggaf", likes: "25.1k", shares: "3.4k" },
+    { youtubeVideoId: "TfAM7HliI74", title: "Pesan Habib Saggaf", likes: "18.7k", shares: "2.1k" },
+    { youtubeVideoId: "Uszc2__wiOU", title: "Jalankan Tugas Dengan Ikhlas", likes: "30.2k", shares: "4.5k" },
+    { youtubeVideoId: "XKWCvDG_4zM", title: "Cinta Tanah Air", likes: "22.8k", shares: "3.9k" },
+    { youtubeVideoId: "hVSQE6typX8", title: "Karomah Habib Saggaf", likes: "25.1k", shares: "3.4k" },
+    { youtubeVideoId: "CbFGNKeXZFI", title: "Nasehat Habib Saggaf", likes: "15.6k", shares: "2.8k" },
+    { youtubeVideoId: "RM_qmGZGr3M", title: "Habib Saggaf Pict", likes: "15.6k", shares: "2.8k" },
+    { youtubeVideoId: "JdEszEfcS9k", title: "Menceritakan Perkataan Habib Idrus bin Salim", likes: "15.6k", shares: "2.8k" },
+    { youtubeVideoId: "iXQ0dziYif8", title: "Pesan Toleransi Habib Saggaf", likes: "102k", shares: "12k" },
+    { youtubeVideoId: "o2ef003w6a8", title: "Pesan Habib Idrus kepada Habib Saggaf", likes: "2.4k", shares: "1.2k" },
+    { youtubeVideoId: "r_MZcvKyHP8", title: "Habib Syech Assegaf Sowan", likes: "2.7k", shares: "1.6k" }
   ];
 
-    function createReelElement(video) {
-      const reelElement = document.createElement("div");
-      reelElement.className = "reel-item";
-      reelElement.dataset.videoId = video.youtubeVideoId;
+  // (Sisa kodenya sama persis seperti sebelumnya, kita salin lagi di sini untuk kelengkapan)
 
-      reelElement.innerHTML = `
-        <div class="video-placeholder"></div>
-        <i class="fas fa-play interaction-icon play-pause-icon"></i>
-        <i class="fas fa-heart interaction-icon like-icon"></i>
+  function createReelElement(video, index) {
+    const reelElement = document.createElement("div");
+    reelElement.className = "reel-item";
+    reelElement.dataset.videoId = video.youtubeVideoId;
+    reelElement.dataset.index = index;
 
-        <div class="reel-info">
-          <img src="/asset/logo hbib.jpg" alt="profil" class="profile-pic">
-          <div>
-            <h3>@jejakhabibsaggaf</h3>
-            <p>${video.title}</p>
-          </div>
+    const iframeId = `ytplayer-${video.youtubeVideoId}-${index}`;
+    reelElement.dataset.iframeId = iframeId;
+
+    reelElement.innerHTML = `
+      <div class="video-placeholder" id="${iframeId}"></div>
+      <i class="fas fa-heart interaction-icon like-icon"></i>
+      <i class="fas fa-play interaction-icon play-icon"></i>
+      <i class="fas fa-pause interaction-icon pause-icon"></i>
+
+      <div class="reel-info">
+        <img src="/asset/logo hbib.jpg" alt="profil" class="profile-pic">
+        <div>
+          <h3>@jejakhabibsaggaf</h3>
+          <p>${video.title}</p>
         </div>
+      </div>
 
-        <div class="reel-actions">
-          <div class="action-button like-button">
-            <i class="fas fa-heart"></i>
-            <span class="likes-count">${video.likes}</span>
-          </div>
-          <div class="action-button">
-            <i class="fas fa-comment-dots"></i>
-            <span>...</span>
-          </div>
-          <div class="action-button">
-            <i class="fas fa-share"></i>
-            <span class="shares-count">${video.shares}</span>
-          </div>
+      <div class="reel-actions">
+        <div class="action-button like-button">
+          <i class="fas fa-heart"></i>
+          <span class="likes-count">${video.likes}</span>
         </div>
-      `;
+        <div class="action-button comment-button">
+          <i class="fas fa-comment-dots"></i>
+          <span>...</span>
+        </div>
+        <div class="action-button share-button">
+          <i class="fas fa-share"></i>
+          <span class="shares-count">${video.shares}</span>
+        </div>
+      </div>
+    `;
+    addInteractions(reelElement, video);
+    return reelElement;
+  }
+  
+  const globalMuteBtn = document.createElement("div");
+  globalMuteBtn.className = "global-mute-button";
+  document.body.appendChild(globalMuteBtn);
+  updateMuteButtonIcon();
 
-      const muteButton = document.createElement("div");
-      muteButton.className = "mute-button";
-      muteButton.innerHTML = `<i class="fas fa-volume-mute"></i>`;
-      reelElement.appendChild(muteButton);
-
-      // logic interaksi
-      addInteractions(reelElement, muteButton);
-
-      return reelElement;
-    }
-
-    function addInteractions(reelElement, muteButton) {
-      const likeButton = reelElement.querySelector(".like-button .fa-heart");
-      const likeIcon = reelElement.querySelector(".like-icon");
-      const playPauseIcon = reelElement.querySelector(".play-pause-icon");
-      let isLiked = false;
-
-      // double tap like
-      reelElement.addEventListener("dblclick", () => {
-        if (!isLiked) {
-          isLiked = true;
-          likeButton.classList.add("liked");
-          showInteractionIcon(likeIcon);
+  function addInteractions(reelElement, video) {
+    const likeButtonIcon = reelElement.querySelector(".like-button .fa-heart");
+    const likeIcon = reelElement.querySelector(".like-icon");
+    let isLiked = false;
+    
+    reelElement.addEventListener("click", (e) => {
+        if (e.target.classList.contains('reel-item') || e.target.classList.contains('video-placeholder')) {
+            togglePlayPause(reelElement.dataset.iframeId);
         }
-      });
+    });
 
-      // mute button
-      muteButton.addEventListener("click", () => {
-        if (reelElement.player) {
-          if (isGlobalMuted) {
-            reelElement.player.unMute();
-            muteButton.innerHTML = `<i class="fas fa-volume-up"></i>`;
-            isGlobalMuted = false;
-          } else {
-            reelElement.player.mute();
-            muteButton.innerHTML = `<i class="fas fa-volume-mute"></i>`;
-            isGlobalMuted = true;
-          }
-        }
-      });
-
-      // like button
-      likeButton.parentElement.addEventListener("click", () => {
-        isLiked = !isLiked;
-        likeButton.classList.toggle("liked");
-      });
-    }
-
-    function showInteractionIcon(iconElement, stay = false) {
-      iconElement.classList.add("show");
-      if (!stay) {
-        setTimeout(() => {
-          iconElement.classList.remove("show");
-        }, 600);
+    reelElement.addEventListener("dblclick", () => {
+      if (!isLiked) {
+        isLiked = true;
+        likeButtonIcon.classList.add("liked");
+        showInteractionIcon(likeIcon);
       }
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const reelElement = entry.target;
-          const videoPlaceholder =
-            reelElement.querySelector(".video-placeholder");
-          const muteButton = reelElement.querySelector(".mute-button");
-          const videoId = reelElement.dataset.videoId;
-
-          if (entry.isIntersecting) {
-            if (!videoPlaceholder.querySelector("iframe")) {
-              const iframeId = `ytplayer-${videoId}`;
-              const videoUrl = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&modestbranding=1&rel=0`;
-              videoPlaceholder.innerHTML = `
-                <iframe id="${iframeId}"
-                  src="${videoUrl}"
-                  frameborder="0"
-                  allow="autoplay; encrypted-media"
-                ></iframe>`;
-
-              setTimeout(() => {
-                const player = new YT.Player(iframeId, {
-                  events: {
-                    onReady: () => {
-                      reelElement.player = player;
-                      player.playVideo();
-                      // cek status global + update tombol
-                      if (!isGlobalMuted) {
-                        player.unMute();
-                        muteButton.innerHTML = `<i class="fas fa-volume-up"></i>`;
-                      } else {
-                        player.mute();
-                        muteButton.innerHTML = `<i class="fas fa-volume-mute"></i>`;
-                      }
-                    },
-                  },
-                });
-              }, 500);
-            } else {
-              if (reelElement.player) {
-                reelElement.player.playVideo();
-                if (!isGlobalMuted) {
-                  reelElement.player.unMute();
-                  reelElement.querySelector(
-                    ".mute-button"
-                  ).innerHTML = `<i class="fas fa-volume-up"></i>`;
-                } else {
-                  reelElement.player.mute();
-                  reelElement.querySelector(
-                    ".mute-button"
-                  ).innerHTML = `<i class="fas fa-volume-mute"></i>`;
-                }
-              }
-            }
-          } else {
-            if (reelElement.player) {
-              reelElement.player.pauseVideo();
-              reelElement.player.mute();
-            }
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    reelsData.forEach((video) => {
-      const reelElement = createReelElement(video);
-      reelsContainer.appendChild(reelElement);
-      observer.observe(reelElement);
+    });
+    
+    reelElement.querySelector(".like-button").addEventListener("click", () => {
+      isLiked = !isLiked;
+      likeButtonIcon.classList.toggle("liked");
+    });
+    
+    reelElement.querySelector(".share-button").addEventListener("click", () => {
+      const shareUrl = `https://www.jejakhabibsaggaf.com/reels.html?video=${video.youtubeVideoId}`;
+      if (navigator.share) {
+        navigator.share({ title: `Kisah Habib Saggaf: ${video.title}`, url: shareUrl }).catch(err => console.error("Gagal share", err));
+      } else {
+        alert("Fitur share tidak didukung di browser ini.");
+      }
     });
   }
+  
+  globalMuteBtn.addEventListener("click", () => {
+    isGlobalMuted = !isGlobalMuted;
+    updateMuteButtonIcon();
+    if (activePlayer) {
+      isGlobalMuted ? activePlayer.mute() : activePlayer.unMute();
+    }
+  });
 
-  setupReelsPage();
-}); // <--  AKHIR dari event listener DOMContentLoaded
+  function updateMuteButtonIcon() {
+    globalMuteBtn.innerHTML = isGlobalMuted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+  }
+
+  function showInteractionIcon(iconElement) {
+    iconElement.classList.add("show");
+    setTimeout(() => iconElement.classList.remove("show"), 600);
+  }
+
+  function togglePlayPause(iframeId) {
+    const player = players[iframeId];
+    if (!player || typeof player.getPlayerState !== 'function') return;
+
+    const playerState = player.getPlayerState();
+    if (playerState === YT.PlayerState.PLAYING) {
+      player.pauseVideo();
+      showInteractionIcon(document.querySelector(`[data-iframe-id="${iframeId}"] .pause-icon`));
+    } else {
+      player.playVideo();
+      showInteractionIcon(document.querySelector(`[data-iframe-id="${iframeId}"] .play-icon`));
+    }
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const reelElement = entry.target;
+      const iframeId = reelElement.dataset.iframeId;
+
+      if (entry.isIntersecting) {
+        if (!players[iframeId]) {
+          createPlayer(reelElement);
+        } else {
+          const player = players[iframeId];
+          player.playVideo();
+          activePlayer = player;
+          isGlobalMuted ? player.mute() : player.unMute();
+        }
+      } else {
+        const player = players[iframeId];
+        if (player && typeof player.pauseVideo === 'function') {
+          player.pauseVideo();
+        }
+        if (activePlayer === player) {
+            activePlayer = null;
+        }
+      }
+    });
+  }, { threshold: 0.7 });
+
+  function createPlayer(reelElement) {
+    const videoId = reelElement.dataset.videoId;
+    const iframeId = reelElement.dataset.iframeId;
+    const player = new YT.Player(iframeId, {
+      height: '100%',
+      width: '100%',
+      videoId: videoId,
+      playerVars: { autoplay: 1, mute: 1, controls: 0, rel: 0, showinfo: 0, modestbranding: 1, loop: 1, playlist: videoId },
+      events: { 'onReady': (event) => onPlayerReady(event, iframeId) }
+    });
+    players[iframeId] = player;
+  }
+
+  function onPlayerReady(event, iframeId) {
+    const player = event.target;
+    player.playVideo();
+    if (isGlobalMuted) {
+      player.mute();
+    } else {
+      player.unMute();
+    }
+    activePlayer = player;
+  }
+  
+  reelsData.forEach((video, index) => {
+    const reelElement = createReelElement(video, index);
+    reelsContainer.appendChild(reelElement);
+    observer.observe(reelElement);
+  });
+}
+
+// --- TITIK AWAL EKSEKUSI ---
+// Listener ini akan menunggu seluruh halaman (HTML) dimuat terlebih dahulu.
+document.addEventListener("DOMContentLoaded", function() {
+    // Cek apakah kita berada di halaman reels dengan mencari elemen #reels-container
+    if (document.getElementById("reels-container")) {
+        // Jika ya, mulai proses dengan memuat API YouTube.
+        loadYouTubeAPI();
+    }
+    
+    // Anda bisa meletakkan logika untuk halaman LAIN (timeline, chart, dll) di sini.
+});

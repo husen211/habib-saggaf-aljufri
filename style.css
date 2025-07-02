@@ -299,16 +299,15 @@ body {
 
 
 
-/* Reels style */
+/* === REELS REFACTORED STYLES === */
 
-body.reels-page, html.reels-page {
-  margin: 0;
-  padding: 0;
+/* Mencegah scrolling pada body saat di halaman reels */
+body.reels-page {
   background-color: #000;
-  height: 100%;
+  height: 100dvh; /* Gunakan dynamic viewport height */
   width: 100%;
-  overflow: hidden;
-  position: fixed; /* biar ga overscroll */
+  overflow: hidden; /* Mencegah scroll di body */
+  position: fixed; /* Mencegah overscroll/bounce effect */
 }
 
 #reels-container {
@@ -316,47 +315,49 @@ body.reels-page, html.reels-page {
   inset: 0;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch; /* Scrolling mulus di iOS */
 }
 
 .reel-item {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100dvh; /* Pastikan setiap reel mengisi seluruh viewport dinamis */
   scroll-snap-align: start;
+  background-color: #000; /* Latar belakang hitam jika video lambat loading */
 }
 
-/* video placeholder iframe */
+/* Kontainer untuk iframe agar responsif sempurna */
+.video-placeholder,
 .video-placeholder iframe {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  aspect-ratio: 9/16;
-  object-fit: cover;
+  border: none;
+  /* Pastikan video mengisi layar, bukan letter-boxing (area hitam) */
+  object-fit: cover; 
 }
 
-/* header reels */
+/* Header yang tetap di atas dengan safe area */
 .reels-header {
   position: fixed;
-  top: calc(env(safe-area-inset-top, 0px) + 10px);
+  top: 0;
   left: 0;
   right: 0;
   padding: 12px 20px;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 12px); /* Penyesuaian untuk notch iPhone */
   color: white;
   z-index: 50;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(4px);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent); /* Gradien halus */
 }
 .reels-header .back-button {
   position: absolute;
   left: 16px;
   color: white;
-  background: transparent;
-  border: none;
   font-size: 16px;
 }
 .reels-header .header-title {
@@ -364,100 +365,125 @@ body.reels-page, html.reels-page {
   font-size: 1rem;
 }
 
-/* profil + judul */
+/* Info Profil & Judul di atas tombol navigasi browser */
 .reel-info {
   position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 100px);
+  /* NAIKKAN POSISI DARI BAWAH AGAR TIDAK TERTUTUP BROWSER UI */
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 80px); 
   left: 16px;
+  right: 80px; /* Beri ruang agar tidak tabrakan dengan tombol aksi */
   z-index: 15;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Tambah shadow agar mudah dibaca */
 }
 .reel-info .profile-pic {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 2px solid white;
   object-fit: cover;
+  flex-shrink: 0; /* Mencegah gambar menyusut */
 }
-.reel-info .reel-text h3 {
-  margin: 0;
+.reel-info h3 {
+  font-weight: 700;
+  font-size: 14px;
+}
+.reel-info p {
   font-size: 13px;
-}
-.reel-info .reel-text p {
-  margin: 0;
-  font-size: 11px;
   opacity: 0.9;
-  max-width: 180px;
+  line-height: 1.3;
 }
 
-/* tombol aksi */
+
+/* Tombol Aksi di Kanan */
 .reel-actions {
   position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 100px);
-  right: 16px;
+  /* NAIKKAN POSISI DARI BAWAH */
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
+  right: 12px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 20px;
   color: white;
   z-index: 15;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 .reel-actions .action-button {
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.reel-actions .action-button:active {
+  transform: scale(0.9);
 }
 .reel-actions .action-button i {
-  font-size: 22px;
+  font-size: 28px;
 }
 .reel-actions .action-button span {
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 500;
 }
 .reel-actions .fa-heart.liked {
   color: #ff3b5c;
+  animation: heart-pop 0.3s ease;
 }
 
-/* tombol mute */
-.mute-button {
+@keyframes heart-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* Tombol Mute/Unmute Global */
+.global-mute-button {
   position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 60px);
   right: 16px;
-  top: calc(env(safe-area-inset-top, 0px) + 80px);
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0,0,0,0.5);
+  backdrop-filter: blur(5px);
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   z-index: 55;
   color: white;
-  transition: 0.3s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
-.mute-button i {
-  font-size: 22px;
+.global-mute-button:active {
+  transform: scale(0.9);
 }
-.mute-button:hover {
-  background: rgba(0,0,0,0.9);
-  transform: scale(1.05);
+.global-mute-button i {
+  font-size: 20px;
 }
 
-
-/* interaksi icon */
+/* Ikon Interaksi di Tengah (Like, Play/Pause) */
 .interaction-icon {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%) scale(0);
-  color: white;
+  transform: translate(-50%, -50%) scale(0);
+  color: rgba(255, 255, 255, 0.9);
   opacity: 0;
-  font-size: 48px;
+  font-size: 72px; /* Perbesar ikon */
   z-index: 25;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+  pointer-events: none; /* Agar tidak mengganggu double-tap */
 }
 .interaction-icon.show {
   opacity: 1;
-  transform: translate(-50%,-50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
+
+/* Tambahkan ini untuk memastikan tidak ada duplikasi dari style lama */
+.mute-button { display: none; }
 
 
 
