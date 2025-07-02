@@ -487,3 +487,38 @@ body.reels-page {
 
 
 
+/* === WELCOME OVERLAY STYLES === */
+.welcome-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+}
+
+.welcome-overlay.hidden {
+  opacity: 0;
+  pointer-events: none; /* Agar tidak bisa diklik lagi setelah hilang */
+}
+
+.play-button-outer {
+  width: 80px;
+  height: 80px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.play-button-inner {
+  font-size: 36px;
+  color: white;
+  margin-left: 6px; /* Penyesuaian agar ikon play terlihat di tengah */
+}

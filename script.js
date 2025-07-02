@@ -569,10 +569,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // --- LOGIKA UNTUK HALAMAN REELS (VERSI FINAL DENGAN SCOPE YANG BENAR) ---
 
-/**
- * Fungsi ini HARUS berada di lingkup global agar bisa dipanggil oleh script YouTube API.
- * Fungsi ini akan dipanggil secara otomatis ketika YouTube IFrame Player API sudah siap.
- */
 function onYouTubeIframeAPIReady() {
   console.log("YouTube API is ready."); // Pesan untuk debugging
   setupReelsPage();
@@ -580,18 +576,15 @@ function onYouTubeIframeAPIReady() {
 
 /**
  * Fungsi untuk memuat script YouTube API secara dinamis.
- * Fungsi ini juga kita letakkan di global scope untuk kerapian.
  */
 function loadYouTubeAPI() {
   console.log("Loading YouTube API..."); // Pesan untuk debugging
-  // Cek jika API sudah dimuat atau sedang dimuat
   if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
     const tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api"; // URL yang sudah benar
+    tag.src = "https://www.youtube.com/iframe_api";
     const firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   } else {
-    // Jika API sudah ada, langsung jalankan setup
     onYouTubeIframeAPIReady();
   }
 }
@@ -600,9 +593,14 @@ function loadYouTubeAPI() {
  * Fungsi utama untuk men-setup semua elemen dan logika di halaman reels.
  */
 function setupReelsPage() {
-  console.log("Setting up reels page..."); // Pesan untuk debugging
+  console.log("Setting up reels page...");
   const reelsContainer = document.getElementById("reels-container");
-  if (!reelsContainer) return;
+  const welcomeOverlay = document.getElementById("welcome-overlay");
+
+  if (!reelsContainer || !welcomeOverlay) {
+    console.error("Reels container or Welcome overlay not found!");
+    return;
+  }
 
   document.body.classList.add("reels-page");
 
@@ -626,8 +624,30 @@ function setupReelsPage() {
     { youtubeVideoId: "r_MZcvKyHP8", title: "Habib Syech Assegaf Sowan", likes: "2.7k", shares: "1.6k" }
   ];
 
-  // (Sisa kodenya sama persis seperti sebelumnya, kita salin lagi di sini untuk kelengkapan)
+  // --- LOGIKA UNTUK WELCOME OVERLAY (FIX AUTOPLAY HP) ---
+  function grantAutoplayPermission() {
+    welcomeOverlay.classList.add("hidden");
 
+    // Coba putar video pertama untuk "membangunkan" browser
+    // Ini adalah bagian terpenting untuk fix di HP
+    const firstPlayerKey = Object.keys(players)[0];
+    const firstPlayer = players[firstPlayerKey];
+    
+    if (firstPlayer && typeof firstPlayer.playVideo === 'function') {
+      firstPlayer.playVideo();
+      // Pastikan status mute diterapkan dengan benar saat pertama kali play
+      if(isGlobalMuted) {
+          firstPlayer.mute();
+      } else {
+          firstPlayer.unMute();
+      }
+    }
+    // Hapus listener agar tidak berjalan lagi
+    welcomeOverlay.removeEventListener('click', grantAutoplayPermission);
+  }
+  welcomeOverlay.addEventListener('click', grantAutoplayPermission);
+
+  // --- PEMBUATAN ELEMEN & INTERAKSI ---
   function createReelElement(video, index) {
     const reelElement = document.createElement("div");
     reelElement.className = "reel-item";
@@ -642,7 +662,6 @@ function setupReelsPage() {
       <i class="fas fa-heart interaction-icon like-icon"></i>
       <i class="fas fa-play interaction-icon play-icon"></i>
       <i class="fas fa-pause interaction-icon pause-icon"></i>
-
       <div class="reel-info">
         <img src="/asset/logo hbib.jpg" alt="profil" class="profile-pic">
         <div>
@@ -650,22 +669,17 @@ function setupReelsPage() {
           <p>${video.title}</p>
         </div>
       </div>
-
       <div class="reel-actions">
         <div class="action-button like-button">
-          <i class="fas fa-heart"></i>
-          <span class="likes-count">${video.likes}</span>
+          <i class="fas fa-heart"></i> <span class="likes-count">${video.likes}</span>
         </div>
         <div class="action-button comment-button">
-          <i class="fas fa-comment-dots"></i>
-          <span>...</span>
+          <i class="fas fa-comment-dots"></i> <span>...</span>
         </div>
         <div class="action-button share-button">
-          <i class="fas fa-share"></i>
-          <span class="shares-count">${video.shares}</span>
+          <i class="fas fa-share"></i> <span class="shares-count">${video.shares}</span>
         </div>
-      </div>
-    `;
+      </div>`;
     addInteractions(reelElement, video);
     return reelElement;
   }
@@ -740,6 +754,7 @@ function setupReelsPage() {
     }
   }
 
+  // --- OBSERVER & PLAYER LIFECYCLE ---
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       const reelElement = entry.target;
@@ -781,15 +796,19 @@ function setupReelsPage() {
 
   function onPlayerReady(event, iframeId) {
     const player = event.target;
-    player.playVideo();
+    // Autoplay ditangani oleh observer dan overlay, di sini kita cukup pastikan status mute benar
     if (isGlobalMuted) {
       player.mute();
     } else {
       player.unMute();
     }
-    activePlayer = player;
+    // Jika ini video pertama yang ready, set sebagai active player
+    if (!activePlayer) {
+        activePlayer = player;
+    }
   }
   
+  // --- INISIALISASI ---
   reelsData.forEach((video, index) => {
     const reelElement = createReelElement(video, index);
     reelsContainer.appendChild(reelElement);
@@ -797,12 +816,13 @@ function setupReelsPage() {
   });
 }
 
-// --- TITIK AWAL EKSEKUSI ---
-// Listener ini akan menunggu seluruh halaman (HTML) dimuat terlebih dahulu.
+/**
+ * --- TITIK AWAL EKSEKUSI ---
+ * Listener ini akan menunggu seluruh halaman (HTML) dimuat terlebih dahulu.
+ */
 document.addEventListener("DOMContentLoaded", function() {
     // Cek apakah kita berada di halaman reels dengan mencari elemen #reels-container
     if (document.getElementById("reels-container")) {
-        // Jika ya, mulai proses dengan memuat API YouTube.
         loadYouTubeAPI();
     }
     
