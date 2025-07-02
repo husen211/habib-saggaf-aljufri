@@ -301,56 +301,79 @@ body {
 
 /* Reels style */
 
-/* style.css */
-/* --- Gaya Halaman Reels --- */
-
-/* mencegah scroll horizontal & hidden scrollbar */
-body.reels-page,
-html.reels-page {
-  overflow: hidden;
-  height: 100%;
+body.reels-page, html.reels-page {
+  margin: 0;
+  padding: 0;
   background-color: #000;
-}
-
-/* container reels utama */
-#reels-container {
+  height: 100%;
   width: 100%;
-  height: 100vh;
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
+  overflow: hidden;
+  position: fixed; /* biar ga overscroll */
 }
 
-/* masing-masing reels item */
+#reels-container {
+  position: fixed;
+  inset: 0;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
 .reel-item {
   position: relative;
   width: 100%;
   height: 100vh;
   scroll-snap-align: start;
-  overflow: hidden;
 }
 
-/* video area */
-.video-placeholder,
-.reel-item iframe {
+/* video placeholder iframe */
+.video-placeholder iframe {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  aspect-ratio: 9/16;
   object-fit: cover;
 }
 
-/* profil + judul, pindah ke atas */
+/* header reels */
+.reels-header {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 10px);
+  left: 0;
+  right: 0;
+  padding: 12px 20px;
+  color: white;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(4px);
+}
+.reels-header .back-button {
+  position: absolute;
+  left: 16px;
+  color: white;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+}
+.reels-header .header-title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* profil + judul */
 .reel-info {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 60px);
-  left: 20px;
-  color: white;
-  z-index: 20;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 100px);
+  left: 16px;
+  z-index: 15;
   display: flex;
   align-items: center;
   gap: 8px;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+  color: white;
 }
 .reel-info .profile-pic {
   width: 36px;
@@ -359,32 +382,27 @@ html.reels-page {
   border: 2px solid white;
   object-fit: cover;
 }
-.reel-info .reel-text {
-  display: flex;
-  flex-direction: column;
-}
 .reel-info .reel-text h3 {
   margin: 0;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 13px;
 }
 .reel-info .reel-text p {
   margin: 0;
-  font-size: 12px;
+  font-size: 11px;
   opacity: 0.9;
+  max-width: 180px;
 }
 
-/* tombol aksi di kanan vertikal */
+/* tombol aksi */
 .reel-actions {
   position: absolute;
-  right: 20px;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 100px);
+  right: 16px;
   display: flex;
   flex-direction: column;
   gap: 18px;
-  align-items: center;
   color: white;
-  z-index: 20;
+  z-index: 15;
 }
 .reel-actions .action-button {
   display: flex;
@@ -396,80 +414,50 @@ html.reels-page {
   font-size: 22px;
 }
 .reel-actions .action-button span {
-  font-size: 12px;
-  margin-top: 4px;
+  font-size: 11px;
 }
 .reel-actions .fa-heart.liked {
   color: #ff3b5c;
 }
 
-/* tombol mute di kanan atas, jauh dari like */
+/* tombol mute */
 .mute-button {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 60px);
-  right: 20px;
-  background-color: rgba(0,0,0,0.7);
+  right: 16px;
+  top: calc(env(safe-area-inset-top, 0px) + 80px);
+  background-color: rgba(0,0,0,0.6);
   border-radius: 50%;
-  padding: 14px;
+  padding: 12px;
   cursor: pointer;
-  z-index: 20;
+  z-index: 55;
   color: white;
   transition: 0.3s ease;
 }
 .mute-button i {
-  font-size: 24px;
+  font-size: 22px;
 }
 .mute-button:hover {
-  background-color: rgba(0,0,0,0.9);
-  transform: scale(1.1);
+  background: rgba(0,0,0,0.9);
+  transform: scale(1.05);
 }
 
-/* ikon interaksi (play / like muncul di tengah) */
+
+/* interaksi icon */
 .interaction-icon {
   position: absolute;
-  color: white;
-  font-size: 48px;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s ease;
-  z-index: 30;
-}
-.play-pause-icon {
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-}
-.like-icon {
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%,-50%) scale(0);
+  color: white;
+  opacity: 0;
+  font-size: 48px;
+  z-index: 25;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 .interaction-icon.show {
   opacity: 1;
-  transform: scale(1.2);
+  transform: translate(-50%,-50%) scale(1);
 }
 
-/* header reels */
-.reels-header {
-  position: fixed;
-  top: calc(env(safe-area-inset-top, 0px) + 10px);
-  left: 0;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-  z-index: 50;
-  color: white;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-}
-.reels-header .back-button {
-  position: absolute;
-  left: 15px;
-}
-.reels-header .header-title {
-  font-weight: 600;
-  font-size: 1rem;
-}
 
 
