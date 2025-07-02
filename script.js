@@ -142,11 +142,20 @@ document.addEventListener("DOMContentLoaded", function () {
     growthChartInstance = new Chart(growthCtx.getContext("2d"), {
       type: "line",
       data: {
-        labels: ["1969", "1970", "1980", "1986", "1991", "1997", "2007"],
+        labels: [
+          "1969",
+          "1970",
+          "1980",
+          "1986",
+          "1991",
+          "1997",
+          "2007",
+          "2021",
+        ],
         datasets: [
           {
             label: "Jumlah Madrasah/Sekolah",
-            data: [420, 450, 556, 732, 1221, 1268, 1561],
+            data: [420, 450, 556, 732, 1221, 1268, 1561, 1700],
             borderColor: "rgb(217, 119, 6)",
             backgroundColor: "rgba(217, 119, 6, 0.1)",
             borderWidth: 2,
@@ -187,8 +196,8 @@ document.addEventListener("DOMContentLoaded", function () {
       data: {
         labels: [
           "Sulteng",
-          "Maluku & MU",
           "Sulut",
+          "Maluku & MU",
           "Gorontalo",
           "Kaltim",
           "Sulbar",
@@ -198,27 +207,18 @@ document.addEventListener("DOMContentLoaded", function () {
         datasets: [
           {
             label: "Jumlah Madrasah/Sekolah",
-            data: [1096, 162, 135, 61, 55, 18, 12, 7],
+            data: [1550, 195, 166, 61, 55, 18, 13, 27],
             backgroundColor: [
               "rgba(6, 78, 59, 0.7)",
               "rgba(16, 185, 129, 0.7)",
               "rgba(245, 158, 11, 0.7)",
               "rgba(202, 138, 4, 0.7)",
-              "rgba(120, 113, 108, 0.7)",
+              "rgba(120, 113, , 0.7)",
               "rgba(6, 78, 59, 0.5)",
               "rgba(16, 185, 129, 0.5)",
               "rgba(245, 158, 11, 0.5)",
             ],
-            borderColor: [
-              "rgb(6, 78, 59)",
-              "rgb(16, 185, 129)",
-              "rgb(245, 158, 11)",
-              "rgb(202, 138, 4)",
-              "rgb(120, 113, 108)",
-              "rgb(6, 78, 59)",
-              "rgb(16, 185, 129)",
-              "rgb(245, 158, 11)",
-            ],
+            
             borderWidth: 4,
           },
         ],
@@ -259,6 +259,10 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     { threshold: 0.5 }
   );
+
+  // Logika KHUSUS untuk halaman "Peta"
+  initInteractiveMap();
+
   const growthChartCanvas = document.getElementById("growthChart");
   const distributionChartCanvas = document.getElementById("distributionChart");
   if (growthChartCanvas) chartObserver.observe(growthChartCanvas);
@@ -561,11 +565,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-
-
-
-});// <--  AKHIR dari event listener DOMContentLoaded
-
+}); // <--  AKHIR dari event listener DOMContentLoaded
 
 // --- LOGIKA UNTUK HALAMAN REELS (VERSI FINAL DENGAN SCOPE YANG BENAR) ---
 
@@ -579,10 +579,10 @@ function onYouTubeIframeAPIReady() {
  */
 function loadYouTubeAPI() {
   console.log("Loading YouTube API..."); // Pesan untuk debugging
-  if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
-    const tag = document.createElement('script');
+  if (typeof YT === "undefined" || typeof YT.Player === "undefined") {
+    const tag = document.createElement("script");
     tag.src = "https://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName('script')[0];
+    const firstScriptTag = document.getElementsByTagName("script")[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   } else {
     onYouTubeIframeAPIReady();
@@ -608,10 +608,10 @@ function onYouTubeIframeAPIReady() {
  */
 function loadYouTubeAPI() {
   console.log("Loading YouTube API...");
-  if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
-    const tag = document.createElement('script');
+  if (typeof YT === "undefined" || typeof YT.Player === "undefined") {
+    const tag = document.createElement("script");
     tag.src = "https://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName('script')[0];
+    const firstScriptTag = document.getElementsByTagName("script")[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   } else {
     onYouTubeIframeAPIReady();
@@ -625,10 +625,12 @@ function setupReelsPage() {
   console.log("Setting up reels page...");
   const reelsContainer = document.getElementById("reels-container");
   const welcomeOverlay = document.getElementById("welcome-overlay");
-  const silentAudio = document.getElementById('silent-audio');
+  const silentAudio = document.getElementById("silent-audio");
 
   if (!reelsContainer || !welcomeOverlay || !silentAudio) {
-    console.error("Elemen penting (reels, overlay, atau audio) tidak ditemukan!");
+    console.error(
+      "Elemen penting (reels, overlay, atau audio) tidak ditemukan!"
+    );
     return;
   }
 
@@ -640,27 +642,91 @@ function setupReelsPage() {
   let activePlayer = null;
 
   const reelsData = [
-    { youtubeVideoId: "JORR7-LOV_A", title: "Nasihat Tentang Keikhlasan", likes: "12.3k", shares: "1.2k" },
-    { youtubeVideoId: "aFQ9O0s3m-U", title: "Pertemuan Habib Ali Aljufri Dan Habib Saggaf", likes: "25.1k", shares: "3.4k" },
-    { youtubeVideoId: "TfAM7HliI74", title: "Pesan Habib Saggaf", likes: "18.7k", shares: "2.1k" },
-    { youtubeVideoId: "Uszc2__wiOU", title: "Jalankan Tugas Dengan Ikhlas", likes: "30.2k", shares: "4.5k" },
-    { youtubeVideoId: "XKWCvDG_4zM", title: "Cinta Tanah Air", likes: "22.8k", shares: "3.9k" },
-    { youtubeVideoId: "hVSQE6typX8", title: "Karomah Habib Saggaf", likes: "25.1k", shares: "3.4k" },
-    { youtubeVideoId: "CbFGNKeXZFI", title: "Nasehat Habib Saggaf", likes: "15.6k", shares: "2.8k" },
-    { youtubeVideoId: "RM_qmGZGr3M", title: "Habib Saggaf Pict", likes: "15.6k", shares: "2.8k" },
-    { youtubeVideoId: "JdEszEfcS9k", title: "Menceritakan Perkataan Habib Idrus bin Salim", likes: "15.6k", shares: "2.8k" },
-    { youtubeVideoId: "iXQ0dziYif8", title: "Pesan Toleransi Habib Saggaf", likes: "102k", shares: "12k" },
-    { youtubeVideoId: "o2ef003w6a8", title: "Pesan Habib Idrus kepada Habib Saggaf", likes: "2.4k", shares: "1.2k" },
-    { youtubeVideoId: "r_MZcvKyHP8", title: "Habib Syech Assegaf Sowan", likes: "2.7k", shares: "1.6k" }
+    {
+      youtubeVideoId: "JORR7-LOV_A",
+      title: "Nasihat Tentang Keikhlasan",
+      likes: "12.3k",
+      shares: "1.2k",
+    },
+    {
+      youtubeVideoId: "aFQ9O0s3m-U",
+      title: "Pertemuan Habib Ali Aljufri Dan Habib Saggaf",
+      likes: "25.1k",
+      shares: "3.4k",
+    },
+    {
+      youtubeVideoId: "TfAM7HliI74",
+      title: "Pesan Habib Saggaf",
+      likes: "18.7k",
+      shares: "2.1k",
+    },
+    {
+      youtubeVideoId: "Uszc2__wiOU",
+      title: "Jalankan Tugas Dengan Ikhlas",
+      likes: "30.2k",
+      shares: "4.5k",
+    },
+    {
+      youtubeVideoId: "XKWCvDG_4zM",
+      title: "Cinta Tanah Air",
+      likes: "22.8k",
+      shares: "3.9k",
+    },
+    {
+      youtubeVideoId: "hVSQE6typX8",
+      title: "Karomah Habib Saggaf",
+      likes: "25.1k",
+      shares: "3.4k",
+    },
+    {
+      youtubeVideoId: "CbFGNKeXZFI",
+      title: "Nasehat Habib Saggaf",
+      likes: "15.6k",
+      shares: "2.8k",
+    },
+    {
+      youtubeVideoId: "RM_qmGZGr3M",
+      title: "Habib Saggaf Pict",
+      likes: "15.6k",
+      shares: "2.8k",
+    },
+    {
+      youtubeVideoId: "JdEszEfcS9k",
+      title: "Menceritakan Perkataan Habib Idrus bin Salim",
+      likes: "15.6k",
+      shares: "2.8k",
+    },
+    {
+      youtubeVideoId: "iXQ0dziYif8",
+      title: "Pesan Toleransi Habib Saggaf",
+      likes: "102k",
+      shares: "12k",
+    },
+    {
+      youtubeVideoId: "o2ef003w6a8",
+      title: "Pesan Habib Idrus kepada Habib Saggaf",
+      likes: "2.4k",
+      shares: "1.2k",
+    },
+    {
+      youtubeVideoId: "r_MZcvKyHP8",
+      title: "Habib Syech Assegaf Sowan",
+      likes: "2.7k",
+      shares: "1.6k",
+    },
   ];
 
   // --- LOGIKA UNTUK IZIN AUTOPLAY SAFARI ---
   function grantAutoplayPermission() {
-    silentAudio.play().catch(e => console.warn("Gagal memutar audio sunyi, tapi tidak apa-apa."));
+    silentAudio
+      .play()
+      .catch((e) =>
+        console.warn("Gagal memutar audio sunyi, tapi tidak apa-apa.")
+      );
     welcomeOverlay.classList.add("hidden");
-    welcomeOverlay.removeEventListener('click', grantAutoplayPermission);
+    welcomeOverlay.removeEventListener("click", grantAutoplayPermission);
   }
-  welcomeOverlay.addEventListener('click', grantAutoplayPermission);
+  welcomeOverlay.addEventListener("click", grantAutoplayPermission);
 
   // --- PEMBUATAN ELEMEN & INTERAKSI ---
   function createReelElement(video, index) {
@@ -686,7 +752,7 @@ function setupReelsPage() {
     addInteractions(reelElement, video);
     return reelElement;
   }
-  
+
   const globalMuteBtn = document.createElement("div");
   globalMuteBtn.className = "global-mute-button";
   document.body.appendChild(globalMuteBtn);
@@ -697,7 +763,10 @@ function setupReelsPage() {
     const likeIcon = reelElement.querySelector(".like-icon");
     let isLiked = false;
     reelElement.addEventListener("click", (e) => {
-      if (e.target.classList.contains('reel-item') || e.target.classList.contains('video-placeholder')) {
+      if (
+        e.target.classList.contains("reel-item") ||
+        e.target.classList.contains("video-placeholder")
+      ) {
         togglePlayPause(reelElement.dataset.iframeId);
       }
     });
@@ -715,13 +784,15 @@ function setupReelsPage() {
     reelElement.querySelector(".share-button").addEventListener("click", () => {
       const shareUrl = `https://www.jejakhabibsaggaf.com/reels.html?video=${video.youtubeVideoId}`;
       if (navigator.share) {
-        navigator.share({ title: `Kisah Habib Saggaf: ${video.title}`, url: shareUrl }).catch(err => console.error("Gagal share:", err));
+        navigator
+          .share({ title: `Kisah Habib Saggaf: ${video.title}`, url: shareUrl })
+          .catch((err) => console.error("Gagal share:", err));
       } else {
         alert("Fitur share tidak didukung di browser ini.");
       }
     });
   }
-  
+
   globalMuteBtn.addEventListener("click", () => {
     isGlobalMuted = !isGlobalMuted;
     updateMuteButtonIcon();
@@ -731,7 +802,9 @@ function setupReelsPage() {
   });
 
   function updateMuteButtonIcon() {
-    globalMuteBtn.innerHTML = isGlobalMuted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+    globalMuteBtn.innerHTML = isGlobalMuted
+      ? '<i class="fas fa-volume-mute"></i>'
+      : '<i class="fas fa-volume-up"></i>';
   }
 
   function showInteractionIcon(iconElement) {
@@ -741,48 +814,66 @@ function setupReelsPage() {
 
   function togglePlayPause(iframeId) {
     const player = players[iframeId];
-    if (!player || typeof player.getPlayerState !== 'function') return;
+    if (!player || typeof player.getPlayerState !== "function") return;
     const playerState = player.getPlayerState();
     if (playerState === YT.PlayerState.PLAYING) {
       player.pauseVideo();
-      showInteractionIcon(document.querySelector(`[data-iframe-id="${iframeId}"] .pause-icon`));
+      showInteractionIcon(
+        document.querySelector(`[data-iframe-id="${iframeId}"] .pause-icon`)
+      );
     } else {
       player.playVideo();
-      showInteractionIcon(document.querySelector(`[data-iframe-id="${iframeId}"] .play-icon`));
+      showInteractionIcon(
+        document.querySelector(`[data-iframe-id="${iframeId}"] .play-icon`)
+      );
     }
   }
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const iframeId = entry.target.dataset.iframeId;
-      if (entry.isIntersecting) {
-        if (!players[iframeId]) {
-          createPlayer(entry.target);
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const iframeId = entry.target.dataset.iframeId;
+        if (entry.isIntersecting) {
+          if (!players[iframeId]) {
+            createPlayer(entry.target);
+          } else {
+            const player = players[iframeId];
+            player.playVideo();
+            activePlayer = player;
+            isGlobalMuted ? player.mute() : player.unMute();
+          }
         } else {
           const player = players[iframeId];
-          player.playVideo();
-          activePlayer = player;
-          isGlobalMuted ? player.mute() : player.unMute();
+          if (player && typeof player.pauseVideo === "function") {
+            player.pauseVideo();
+          }
+          if (activePlayer === player) {
+            activePlayer = null;
+          }
         }
-      } else {
-        const player = players[iframeId];
-        if (player && typeof player.pauseVideo === 'function') {
-          player.pauseVideo();
-        }
-        if (activePlayer === player) {
-          activePlayer = null;
-        }
-      }
-    });
-  }, { threshold: 0.7 });
+      });
+    },
+    { threshold: 0.7 }
+  );
 
   function createPlayer(reelElement) {
     const videoId = reelElement.dataset.videoId;
     const iframeId = reelElement.dataset.iframeId;
     const player = new YT.Player(iframeId, {
-      height: '100%', width: '100%', videoId: videoId,
-      playerVars: { autoplay: 1, mute: 1, controls: 0, rel: 0, showinfo: 0, modestbranding: 1, loop: 1, playlist: videoId },
-      events: { 'onReady': onPlayerReady }
+      height: "100%",
+      width: "100%",
+      videoId: videoId,
+      playerVars: {
+        autoplay: 1,
+        mute: 1,
+        controls: 0,
+        rel: 0,
+        showinfo: 0,
+        modestbranding: 1,
+        loop: 1,
+        playlist: videoId,
+      },
+      events: { onReady: onPlayerReady },
     });
     players[iframeId] = player;
   }
@@ -798,7 +889,7 @@ function setupReelsPage() {
       activePlayer = player;
     }
   }
-  
+
   reelsData.forEach((video, index) => {
     const reelElement = createReelElement(video, index);
     reelsContainer.appendChild(reelElement);
@@ -810,9 +901,219 @@ function setupReelsPage() {
  * --- TITIK AWAL EKSEKUSI ---
  * Listener ini akan menunggu seluruh halaman (HTML) dimuat terlebih dahulu.
  */
-document.addEventListener("DOMContentLoaded", function() {
-    // Logika KHUSUS untuk halaman "Lensa Kisah"
-    if (document.getElementById("reels-container")) {
-        loadYouTubeAPI();
-    }
+document.addEventListener("DOMContentLoaded", function () {
+  // Logika KHUSUS untuk halaman "Lensa Kisah"
+  if (document.getElementById("reels-container")) {
+    loadYouTubeAPI();
+  }
 });
+
+// DATA LOKASI BARU YANG LEBIH DETAIL (berdasarkan PDF)
+const alkhairaatLokasi = [
+  // Sulawesi Tengah
+  {
+    kota: "Kota Palu",
+    provinsi: "Sulawesi Tengah",
+    coords: [-0.8983, 119.8707],
+  },
+  {
+    kota: "Kab. Donggala",
+    provinsi: "Sulawesi Tengah",
+    coords: [-0.6833, 119.7333],
+  },
+  {
+    kota: "Kab. Sigi",
+    provinsi: "Sulawesi Tengah",
+    coords: [-1.3989, 119.9774],
+  },
+  {
+    kota: "Kab. Parigi Moutong",
+    provinsi: "Sulawesi Tengah",
+    coords: [-1.1594, 120.2122],
+  },
+  {
+    kota: "Kab. Poso",
+    provinsi: "Sulawesi Tengah",
+    coords: [-1.3958, 120.7519],
+  },
+  {
+    kota: "Kab. Tojo Una-Una",
+    provinsi: "Sulawesi Tengah",
+    coords: [-1.025, 121.575],
+  },
+  {
+    kota: "Kab. Tolitoli",
+    provinsi: "Sulawesi Tengah",
+    coords: [1.0456, 120.8175],
+  },
+  {
+    kota: "Kab. Buol",
+    provinsi: "Sulawesi Tengah",
+    coords: [1.1333, 121.4333],
+  },
+  {
+    kota: "Kab. Morowali",
+    provinsi: "Sulawesi Tengah",
+    coords: [-2.1167, 121.5667],
+  },
+  {
+    kota: "Kab. Banggai",
+    provinsi: "Sulawesi Tengah",
+    coords: [-0.9667, 122.7833],
+  },
+
+  // Sulawesi Utara & Gorontalo
+  {
+    kota: "Kota Manado",
+    provinsi: "Sulawesi Utara",
+    coords: [1.4748, 124.8421],
+  },
+  {
+    kota: "Kota Bitung",
+    provinsi: "Sulawesi Utara",
+    coords: [1.4422, 125.1892],
+  },
+  {
+    kota: "Bolaang Mongondow",
+    provinsi: "Sulawesi Utara",
+    coords: [0.7583, 124.0322],
+  },
+  { kota: "Kota Gorontalo", provinsi: "Gorontalo", coords: [0.5435, 123.0596] },
+  { kota: "Kab. Pohuwato", provinsi: "Gorontalo", coords: [0.55, 121.8333] },
+
+  // Sulawesi Selatan & Tenggara
+  {
+    kota: "Kota Makassar",
+    provinsi: "Sulawesi Selatan",
+    coords: [-5.1477, 119.4238],
+  },
+  {
+    kota: "Kota Kendari",
+    provinsi: "Sulawesi Tenggara",
+    coords: [-3.9926, 122.5149],
+  },
+
+  // Maluku & Maluku Utara
+  { kota: "Kota Ambon", provinsi: "Maluku", coords: [-3.6563, 128.1906] },
+  {
+    kota: "Kota Ternate",
+    provinsi: "Maluku Utara",
+    coords: [0.7812, 127.3633],
+  },
+  { kota: "Kota Tidore", provinsi: "Maluku Utara", coords: [0.6583, 127.4475] },
+  {
+    kota: "Halmahera Utara",
+    provinsi: "Maluku Utara",
+    coords: [1.75, 127.8833],
+  },
+  {
+    kota: "Halmahera Selatan",
+    provinsi: "Maluku Utara",
+    coords: [-0.6, 127.5],
+  },
+  {
+    kota: "Kepulauan Sula",
+    provinsi: "Maluku Utara",
+    coords: [-2.25, 125.4167],
+  },
+
+  // Papua & Papua Barat
+  { kota: "Kab. Fakfak", provinsi: "Papua Barat", coords: [-2.9167, 132.3] },
+  {
+    kota: "Kab. Kaimana",
+    provinsi: "Papua Barat",
+    coords: [-3.6667, 133.7833],
+  },
+  { kota: "Kota Sorong", provinsi: "Papua Barat", coords: [-0.8833, 131.25] },
+  { kota: "Kota Jayapura", provinsi: "Papua", coords: [-2.5333, 140.7167] },
+
+  // Kalimantan
+  {
+    kota: "Kota Tarakan",
+    provinsi: "Kalimantan Utara",
+    coords: [3.3167, 117.6333],
+  },
+  {
+    kota: "Kab. Nunukan",
+    provinsi: "Kalimantan Utara",
+    coords: [4.1333, 117.6667],
+  },
+  {
+    kota: "Kota Balikpapan",
+    provinsi: "Kalimantan Timur",
+    coords: [-1.2651, 116.8285],
+  },
+  {
+    kota: "Kota Samarinda",
+    provinsi: "Kalimantan Timur",
+    coords: [-0.5021, 117.1536],
+  },
+  {
+    kota: "Kota Banjarmasin",
+    provinsi: "Kalimantan Selatan",
+    coords: [-3.3167, 114.59],
+  },
+];
+
+// FUNGSI PETA BARU DENGAN ANIMASI MARKER
+// FUNGSI PETA FINAL (TANPA CLUSTERING)
+function initInteractiveMap() {
+  const mapContainer = document.getElementById('map');
+  if (!mapContainer) return; 
+
+  const mapOverlay = document.getElementById('map-overlay');
+
+  const map = L.map('map', {
+      scrollWheelZoom: false,
+      dragging: false,
+      touchZoom: false,
+  }).setView([-2.5, 118], 4.5);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+
+  // Fungsi untuk animasi marker satu per satu
+  function addMarkersSequentially() {
+      let index = 0;
+      const interval = setInterval(() => {
+          if (index >= alkhairaatLokasi.length) {
+              clearInterval(interval);
+              return;
+          }
+
+          const data = alkhairaatLokasi[index];
+
+          // Siapkan konten popup
+          let jumlahInfo = '';
+          if (data.jumlah && data.jumlah > 0) {
+              jumlahInfo = `<p style="font-size: 12px; margin: 0; padding-top: 5px; border-top: 1px solid #eee;">Jumlah: <strong>${data.jumlah} lembaga</strong></p>`;
+          }
+          const popupContent = `
+              <div style="font-family: Inter, sans-serif; line-height: 1.5;">
+                  <h4 style="font-weight: 700; font-size: 14px; margin: 0 0 4px 0;">${data.kota}</h4>
+                  <p style="font-size: 12px; margin: 0; color: #555;">${data.provinsi}</p>
+                  ${jumlahInfo}
+              </div>
+          `;
+
+          // PERUBAHAN UTAMA: Langsung tambahkan marker ke peta, bukan ke cluster group
+          const marker = L.marker(data.coords).addTo(map);
+          marker.bindPopup(popupContent);
+          
+          index++;
+      }, 200); 
+  }
+
+  // Aktifkan peta dan mulai animasi saat overlay diklik
+  mapOverlay.addEventListener('click', function() {
+      map.scrollWheelZoom.enable();
+      map.dragging.enable();
+      map.touchZoom.enable();
+      this.style.opacity = '0';
+      this.style.pointerEvents = 'none';
+      addMarkersSequentially();
+  });
+}
+

@@ -546,3 +546,39 @@ body.reels-page {
 .global-mute-button i {
   font-size: 22px; /* Perbesar juga ukuran ikon di dalamnya */
 }
+
+
+
+/* === MAP STYLES === */
+#map {
+  height: 500px;
+  width: 100%;
+}
+
+.map-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1000; /* Pastikan di atas layer peta */
+  transition: opacity 0.3s ease;
+  font-weight: 600;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+/* Penyesuaian tinggi peta di mobile */
+@media (max-width: 767px) {
+  #map {
+    height: 400px;
+  }
+}
+
+

@@ -1,0 +1,56 @@
+/* === BIOGRAPHY PAGE STYLES === */
+
+/* Style untuk Konten Artikel */
+.biography-content p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    color: #44403c; /* text-stone-700 */
+    text-align: justify;
+}
+
+.biography-content h2 {
+    border-left: 4px solid #f59e0b; /* Warna amber-500 */
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.biography-quote {
+    border-left: 3px solid #10b981; /* Warna emerald-500 */
+    padding-left: 1.5rem;
+    margin: 2rem 1rem;
+    font-style: italic;
+    font-size: 1.125rem;
+    color: #064e3b; /* text-emerald-800 */
+}
+
+/* Style untuk Navigasi/Daftar Isi */
+.toc-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #4b5563; /* text-stone-600 */
+    border-left: 3px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+.toc-link:hover {
+    color: #059669; /* text-emerald-600 */
+    background-color: #f0fdf4; /* emerald-50 */
+}
+
+.toc-link.active {
+    color: #047857; /* text-emerald-700 */
+    font-weight: 700;
+    border-left-color: #059669; /* text-emerald-600 */
+    transform: translateX(5px);
+}
+
+/* Responsive untuk mobile */
+@media (max-width: 767px) {
+    aside {
+        position: static;
+        width: 100%;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 1rem;
+    }
+}
