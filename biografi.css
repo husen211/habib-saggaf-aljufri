@@ -44,6 +44,40 @@
     transform: translateX(5px);
 }
 
+/* === DARK MODE OVERRIDES === */
+html.dark body {
+    background-color: #1f2937; /* slate-800 */
+    color: #d1d5db; /* slate-300 */
+}
+
+html.dark .bg-white {
+    background-color: #1f2937 !important;
+}
+
+html.dark .text-stone-700,
+html.dark .text-stone-600,
+html.dark .biography-content p {
+    color: #d1d5db !important;
+}
+
+html.dark .biography-quote {
+    color: #bbf7d0; /* green-200 */
+    border-left-color: #34d399; /* green-400 */
+}
+
+html.dark .toc-link {
+    color: #9ca3af;
+}
+
+html.dark .toc-link:hover {
+    background-color: #374151; /* slate-700 */
+}
+
+html.dark .toc-link.active {
+    color: #d1fae5;
+    border-left-color: #10b981;
+}
+
 /* Responsive untuk mobile */
 @media (max-width: 767px) {
     aside {

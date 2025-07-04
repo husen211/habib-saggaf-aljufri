@@ -3,32 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Dakwah Reels - Jejak Sang Pembangun</title>
+    <title>Lensa Kisah - Jejak Sang Pembangun</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-black">
+<body class="bg-black overflow-hidden">
 
-    <header class="reels-header">
-        <a href="index.html" class="back-button">
-            <i class="fas fa-arrow-left"></i> Kembali
-        </a>
+    <!-- Header -->
+    <header class="modern-reels-header">
+        <button class="back-btn" onclick="window.location.href='index.html'">
+            <i class="fas fa-arrow-left"></i>
+        </button>
         <h1 class="header-title">Lensa Kisah</h1>
+        <button class="header-menu-btn">
+            <i class="fas fa-ellipsis-v"></i>
+        </button>
     </header>
 
-    <main id="reels-container" class="reels-container">
-    </main>
-    
-    <div id="welcome-overlay" class="welcome-overlay">
-        <div class="play-button-outer">
-            <i class="fas fa-play play-button-inner"></i>
-        </div>
-        <p class="mt-4 text-lg">Sentuh untuk Memulai Lensa Kisah</p>
+    <!-- Global Controls -->
+    <div class="global-controls">
+        <button id="global-sound-btn" class="sound-control-btn muted" title="Suara">
+            <i class="fas fa-volume-mute"></i>
+            <i class="fas fa-volume-up"></i>
+        </button>
     </div>
-    <audio id="silent-audio" muted playsinline></audio>
+
+    <!-- Main Reels Container -->
+    <main id="reels-container" class="modern-reels-container">
+        <!-- Videos akan di-generate oleh JavaScript -->
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+        </div>
+        <p class="loading-text">Memuat Lensa Kisah...</p>
+    </div>
+
+    <!-- Welcome Overlay -->
+    <div id="welcome-overlay" class="welcome-overlay">
+        <div class="welcome-content">
+            <div class="welcome-icon">
+                <i class="fas fa-play"></i>
+            </div>
+            <h2 class="welcome-title">Lensa Kisah</h2>
+            <p class="welcome-subtitle">Kisah inspiratif Habib Saggaf Aljufri</p>
+            <button class="start-btn" onclick="startReels()">
+                Mulai Menonton
+            </button>
+        </div>
+    </div>
+
+    <!-- Like Animation -->
+    <div id="like-animation" class="like-animation">
+        <i class="fas fa-heart"></i>
+    </div>
+
+    <!-- Share Modal -->
+    <div id="share-modal" class="share-modal hidden">
+        <div class="share-content">
+            <div class="share-header">
+                <h3>Bagikan Video</h3>
+                <button onclick="closeShareModal()" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="share-options">
+                <button class="share-option" data-platform="whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </button>
+                <button class="share-option" data-platform="facebook">
+                    <i class="fab fa-facebook"></i>
+                    <span>Facebook</span>
+                </button>
+                <button class="share-option" data-platform="twitter">
+                    <i class="fab fa-twitter"></i>
+                    <span>Twitter</span>
+                </button>
+                <button class="share-option" data-platform="copy">
+                    <i class="fas fa-copy"></i>
+                    <span>Salin Link</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="silent-audio" muted playsinline loop>
+        <source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAAAQESWAAAAAAAAAAABAAgAZGF0YQQAAAAAAA==" type="audio/wav">
+    </audio>
+
     <script src="script.js"></script>
-    
 </body>
 </html>

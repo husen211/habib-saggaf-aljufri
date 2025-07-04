@@ -1,4 +1,3 @@
-// File: script.js (Versi Final Lengkap untuk Disalin)
 
 document.addEventListener("DOMContentLoaded", function () {
   // --- LOGIKA UNTUK MENU MOBILE ---
@@ -15,123 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // --- LOGIKA UNTUK TIMELINE (Hanya untuk index.html) ---
-  const timelineData = [
-    {
-      year: "1937",
-      title: "Kelahiran Sang Cahaya",
-      description:
-        "Lahir di Pekalongan, Jawa Tengah, 17 Agustus 1937 Masehi. Kelahirannya yang bertepatan dengan tanggal kemerdekaan menjadi simbol keterikatannya dengan bangsa Indonesia.",
-      imageUrl: "asset/kota pekalongan.jpg",
-      sectionLabel: "MASA KELAHIRAN & PENDIDIKAN AWAL",
-    },
-    {
-      year: "1951",
-      title: "Hijrah ke Palu",
-      description:
-        "Pindah dan menetap di Palu, Sulawesi Tengah, memulai babak baru hidupnya di jantung komunitas Alkhairaat yang akan dipimpinnya kelak.",
-      imageUrl: "asset/kota palu.jpeg",
-      sectionLabel: "HIJRAH DAN PENEMPAN KARAKTER",
-    },
-    {
-      year: "1959-1967",
-      title: "Menimba Ilmu di Al-Azhar",
-      description:
-        "Melanjutkan studi di Universitas Al-Azhar, Kairo, Mesir. Meraih gelar Sarjana dan Master, membangun fondasi keilmuan yang mendalam.",
-      imageUrl: "asset/al azhar.jpg",
-      sectionLabel: "PERJALANAN ILMIAH",
-    },
-    {
-      year: "1974",
-      title: "Memegang Amanah Kepemimpinan",
-      description:
-        "Diangkat menjadi Ketua Utama Alkhairaat, melanjutkan estafet kepemimpinan dari Guru Tua dan memulai era transformasi besar.",
-      imageUrl: "asset/habib saggaf pict.jpg",
-      sectionLabel: "KEPEMIMPINAN ALKHAIRAAT",
-    },
-    {
-      year: "1991",
-      title: "Gagasan Visioner",
-      description:
-        "Pada Muktamar Alkhairaat VI, beliau menggagas pendirian Pondok Pesantren Madinatul Ilmi Dolo sebagai solusi strategis untuk krisis kader pengajar.",
-      imageUrl: "asset/ponpes madinatul ilmi old.jpeg",
-      sectionLabel: "GAGASAN DAN LEGACY",
-    },
-    {
-      year: "2021",
-      title: "Berpulang ke Rahmatullah",
-      description:
-        "Wafat pada 3 Agustus di Palu, meninggalkan warisan institusi yang kokoh dan jutaan Abnaulkhairaat yang melanjutkan perjuangannya.",
-      imageUrl: "asset/habib saggaf meninggal.jpg",
-      sectionLabel: "AKHIR HAYAT",
-    },
-  ];
 
-  const timelineContainer = document.getElementById("timeline-container");
-
-  if (timelineContainer) {
-    timelineData.forEach((item, index) => {
-      // SECTION TITLE
-      const label = document.createElement("h5");
-      label.textContent = item.sectionLabel;
-      label.className =
-        "text-sm font-semibold text-orange-600 text-center tracking-wider mb-2 mt-12 relative z-10";
-      timelineContainer.appendChild(label);
-
-      // CARD
-      const timelineItem = document.createElement("div");
-      timelineItem.className =
-        "relative w-full md:w-2/3 p-4 rounded-lg bg-white shadow-md border border-stone-200/60 mx-auto";
-
-      timelineItem.innerHTML = `
-            <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-md z-20">
-                ${index + 1}
-            </div>
-            <p class="font-bold text-lg text-amber-700 text-center">${
-              item.year
-            }</p>
-            <h4 class="font-semibold text-emerald-800 mt-1 text-center cursor-pointer flex justify-center items-center gap-2">
-                ${item.title}
-                <svg class="h-4 w-4 text-emerald-700 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-            </h4>
-            <div class="timeline-item-content overflow-hidden max-h-0 opacity-0 transition-all duration-500 ease-in-out">
-                <div class="pt-4 space-y-4">
-                    <img src="${item.imageUrl}" alt="Ilustrasi untuk ${
-        item.title
-      }" class="w-full h-auto rounded-lg shadow-md object-cover" onerror="this.style.display='none'">
-                    <p class="text-sm text-stone-600 mt-2 text-center">${
-                      item.description
-                    }</p>
-                </div>
-            </div>
-          `;
-
-      timelineContainer.appendChild(timelineItem);
-
-      // INTERAKSI COLLAPSE
-      const titleElement = timelineItem.querySelector("h4");
-      const contentElement = timelineItem.querySelector(
-        ".timeline-item-content"
-      );
-      const iconElement = timelineItem.querySelector("svg");
-      titleElement.addEventListener("click", () => {
-        const isOpen =
-          contentElement.style.maxHeight &&
-          contentElement.style.maxHeight !== "0px";
-        if (isOpen) {
-          contentElement.style.maxHeight = "0px";
-          contentElement.style.opacity = "0";
-          iconElement.style.transform = "rotate(0deg)";
-        } else {
-          contentElement.style.maxHeight = contentElement.scrollHeight + "px";
-          contentElement.style.opacity = "1";
-          iconElement.style.transform = "rotate(180deg)";
-        }
-      });
-    });
-  }
+ 
 
   // --- LOGIKA UNTUK CHARTS (Hanya untuk index.html) ---
   let growthChartInstance = null;
@@ -218,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
               "rgba(16, 185, 129, 0.5)",
               "rgba(245, 158, 11, 0.5)",
             ],
-            
+
             borderWidth: 4,
           },
         ],
@@ -260,8 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
     { threshold: 0.5 }
   );
 
-  // Logika KHUSUS untuk halaman "Peta"
-  initInteractiveMap();
+
 
   const growthChartCanvas = document.getElementById("growthChart");
   const distributionChartCanvas = document.getElementById("distributionChart");
@@ -282,48 +165,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // // --- LOGIKA UNTUK GEMINI API (LAMA, untuk tombol Ringkasan & Pertanyaan) ---
-  // const summarizeBtn = document.getElementById("summarize-btn");
-  // const questionsBtn = document.getElementById("questions-btn");
-  // const llmOutputDiv = document.getElementById("llm-output");
-  // const llmLoadingDiv = document.getElementById("llm-loading");
-  // const llmContentDiv = document.getElementById("llm-content");
-  // if (summarizeBtn) {
-  //     const pemikiranCards = document.querySelectorAll("#pemikiran .card p");
-  //     let pemikiranText = "";
-  //     pemikiranCards.forEach((card) => { pemikiranText += card.textContent + " "; });
-  //     pemikiranText = pemikiranText.trim();
-
-  //     async function callGeminiAPI(promptText) {
-  //         if (llmOutputDiv) llmOutputDiv.classList.remove("hidden");
-  //         if (llmLoadingDiv) llmLoadingDiv.classList.remove("hidden");
-  //         if (llmContentDiv) llmContentDiv.innerHTML = "";
-  //         try {
-  //             // PENTING: Kode ini masih menggunakan API Key di frontend dan tidak aman.
-  //             // Jika ingin membuatnya aman, logika ini juga harus dipindahkan ke backend.
-  //             // Untuk sekarang, kita biarkan sesuai kode asli.
-  //             let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
-  //             const payload = { contents: chatHistory };
-  //             const apiKey = ""; // API Key sengaja dikosongkan agar tidak terekspos
-  //             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-  //             const response = await fetch(apiUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-  //             const result = await response.json();
-  //             if (result.candidates && result.candidates[0] && result.candidates[0].content && result.candidates[0].content.parts[0]) {
-  //                 const text = result.candidates[0].content.parts[0].text;
-  //                 if (llmContentDiv) llmContentDiv.innerHTML = text.replace(/\n/g, "<br>");
-  //             } else {
-  //                 if (llmContentDiv) llmContentDiv.textContent = "Maaf, tidak dapat menghasilkan respons. Silakan coba lagi.";
-  //             }
-  //         } catch (error) {
-  //             console.error("Error calling Gemini API:", error);
-  //             if (llmContentDiv) llmContentDiv.textContent = "Terjadi kesalahan saat berkomunikasi dengan API. Coba lagi nanti.";
-  //         } finally {
-  //             if (llmLoadingDiv) llmLoadingDiv.classList.add("hidden");
-  //         }
-  //     }
-  //     summarizeBtn.addEventListener("click", () => callGeminiAPI(`Ringkaslah poin-poin utama dari teks berikut tentang pemikiran dan pengaruh Habib Saggaf Aljufri:\n\n${pemikiranText}`));
-  //     questionsBtn.addEventListener("click", () => callGeminiAPI(`Buatlah 3-5 pertanyaan diskusi yang mendalam dan relevan berdasarkan teks berikut tentang pemikiran dan pengaruh Habib Saggaf Aljufri:\n\n${pemikiranText}`));
-  // }
 
   // --- FITUR SHARE UNDANGAN HAUL ---
   const shareBtn = document.getElementById("share-haul-btn");
@@ -473,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       },
       {
-        threshold: 0.2,
+        threshold: 0.1,
       }
     );
 
@@ -565,7 +406,599 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+  
+   // ===== TIMELINE DETAIL FUNCTIONALITY =====
+  
+  // Setup timeline detail buttons
+  const timelineCards = document.querySelectorAll('.timeline-card');
+  
+  timelineCards.forEach(card => {
+    const detailButton = card.querySelector('.detail-button');
+    const titleElement = card.querySelector('h4[onclick]');
+    
+    // Tambahkan event listener untuk button
+    if (detailButton) {
+      detailButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const detailContent = card.querySelector('.timeline-detail-content');
+        toggleTimelineDetailContent(detailContent, this);
+      });
+    }
+    
+    // Tambahkan event listener untuk title
+    if (titleElement) {
+      titleElement.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const detailContent = card.querySelector('.timeline-detail-content');
+        const button = card.querySelector('.detail-button');
+        toggleTimelineDetailContent(detailContent, button);
+      });
+      
+      // Tambahkan cursor pointer
+      titleElement.style.cursor = 'pointer';
+    }
+  });
+  
+  // Fungsi helper untuk toggle detail content
+  function toggleTimelineDetailContent(detailContent, button) {
+    if (!detailContent) return;
+    
+    const isExpanded = detailContent.classList.contains('expanded');
+    
+    if (isExpanded) {
+      // Tutup detail
+      detailContent.classList.remove('expanded');
+      detailContent.style.maxHeight = '0px';
+      if (button) button.textContent = 'Lihat Detail';
+      
+      // Rotate arrow icon
+      const arrowIcon = detailContent.parentElement.querySelector('.arrow-icon');
+      if (arrowIcon) {
+        arrowIcon.style.transform = 'rotate(0deg)';
+      }
+    } else {
+      // Buka detail
+      detailContent.classList.add('expanded');
+      detailContent.style.maxHeight = detailContent.scrollHeight + 'px';
+      if (button) button.textContent = 'Sembunyikan';
+      
+      // Rotate arrow icon
+      const arrowIcon = detailContent.parentElement.querySelector('.arrow-icon');
+      if (arrowIcon) {
+        arrowIcon.style.transform = 'rotate(180deg)';
+      }
+    }
+  }
+  
+  // ===== TIMELINE ANIMATION IMPROVEMENTS =====
+  
+  // Enhanced timeline observer untuk animasi yang lebih smooth
+  const timelineObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index * 200); // Stagger animation
+          
+          timelineObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+  
+  // Apply observer ke timeline items
+  document.querySelectorAll('.timeline-item').forEach((item) => {
+    timelineObserver.observe(item);
+  });
+  
+  // ===== MOBILE TIMELINE FIXES =====
+  
+  function handleTimelineResponsive() {
+    const isMobile = window.innerWidth <= 768;
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    
+    timelineItems.forEach((item, index) => {
+      const card = item.querySelector('.timeline-card');
+      
+      if (isMobile) {
+        // Force semua cards ke kiri di mobile
+        if (card) {
+          card.classList.remove('timeline-card-right');
+          card.classList.add('timeline-card-left');
+        }
+      } else {
+        // Alternatif kiri-kanan di desktop
+        if (card) {
+          if (index % 2 === 0) {
+            card.classList.remove('timeline-card-right');
+            card.classList.add('timeline-card-left');
+          } else {
+            card.classList.remove('timeline-card-left');
+            card.classList.add('timeline-card-right');
+          }
+        }
+      }
+    });
+  }
+  
+  // Jalankan saat load dan resize
+  handleTimelineResponsive();
+  window.addEventListener('resize', handleTimelineResponsive);
+  
+  // ===== DEBUGGING TOOLS =====
+  
+  // Fungsi untuk debug timeline issues
+  window.debugTimeline = function() {
+    console.log('=== TIMELINE DEBUG INFO ===');
+    
+    const timelineContainer = document.querySelector('.timeline-container');
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    const milestoneItems = document.querySelectorAll('.milestone-timeline .timeline-item');
+    
+    console.log('Timeline Container:', timelineContainer);
+    console.log('Timeline Items:', timelineItems.length);
+    console.log('Milestone Items:', milestoneItems.length);
+    
+    timelineItems.forEach((item, index) => {
+      const rect = item.getBoundingClientRect();
+      console.log(`Item ${index}:`, {
+        element: item,
+        position: rect,
+        hasDataNumber: item.hasAttribute('data-number'),
+        classes: item.className
+      });
+    });
+  };
+  
+  // Fungsi untuk reset timeline jika ada masalah
+  window.resetTimeline = function() {
+    console.log('Resetting timeline...');
+    
+    // Reset semua timeline detail states
+    const detailContents = document.querySelectorAll('.timeline-detail-content');
+    detailContents.forEach(content => {
+      content.classList.remove('expanded');
+      content.style.maxHeight = '0px';
+    });
+    
+    // Reset semua button texts
+    const detailButtons = document.querySelectorAll('.detail-button');
+    detailButtons.forEach(button => {
+      button.textContent = 'Lihat Detail';
+    });
+    
+    // Reset arrow icons
+    const arrowIcons = document.querySelectorAll('.arrow-icon');
+    arrowIcons.forEach(icon => {
+      icon.style.transform = 'rotate(0deg)';
+    });
+    
+    console.log('Timeline reset complete');
+  };
+  
+  // Auto-fix untuk masalah umum
+  function autoFixTimelineIssues() {
+    // Pastikan semua timeline items punya z-index yang benar
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    timelineItems.forEach((item, index) => {
+      item.style.zIndex = 10 + index;
+    });
+    
+    // Pastikan tidak ada garis yang mengganggu
+    const problemElements = document.querySelectorAll('.timeline-container::before, .timeline-container::after');
+    problemElements.forEach(el => {
+      if (el) el.style.display = 'none';
+    });
+  }
+  
+  autoFixTimelineIssues();
+
+
 }); // <--  AKHIR dari event listener DOMContentLoaded
+
+// ===== TIMELINE JAVASCRIPT FIXES =====
+
+// Fungsi toggleTimelineDetail yang hilang
+function toggleTimelineDetail(element) {
+  const detailContent = element.parentElement.querySelector('.timeline-detail-content');
+  const button = element.parentElement.querySelector('.detail-button');
+  const arrowIcon = element.querySelector('.arrow-icon');
+  
+  if (!detailContent) return;
+  
+  const isExpanded = detailContent.classList.contains('expanded');
+  
+  if (isExpanded) {
+    // Tutup detail
+    detailContent.classList.remove('expanded');
+    detailContent.style.maxHeight = '0px';
+    button.textContent = 'Lihat Detail';
+    if (arrowIcon) {
+      arrowIcon.style.transform = 'rotate(0deg)';
+    }
+  } else {
+    // Buka detail
+    detailContent.classList.add('expanded');
+    detailContent.style.maxHeight = detailContent.scrollHeight + 'px';
+    button.textContent = 'Sembunyikan';
+    if (arrowIcon) {
+      arrowIcon.style.transform = 'rotate(180deg)';
+    }
+  }
+}
+
+
+// ===== GLOBAL TIMELINE FUNCTIONS =====
+
+// Fungsi global untuk digunakan di HTML onclick
+window.toggleTimelineDetail = toggleTimelineDetail;
+
+// Export functions untuk testing
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    toggleTimelineDetail,
+    debugTimeline: window.debugTimeline,
+    resetTimeline: window.resetTimeline
+  };
+}
+
+// ===== ENHANCED MAP FUNCTIONALITY (FIXED) =====
+
+// Global map variables
+let currentMap = null;
+let mapMarkers = [];
+let isMapActive = false;
+
+// Enhanced alkhairaatLokasi data (pastikan ini ada)
+const alkhairaatLokasi = [
+  // Sulawesi Tengah
+  { kota: "Kota Palu", provinsi: "Sulawesi Tengah", coords: [-0.8983, 119.8707] },
+  { kota: "Kab. Donggala", provinsi: "Sulawesi Tengah", coords: [-0.6833, 119.7333] },
+  { kota: "Kab. Sigi", provinsi: "Sulawesi Tengah", coords: [-1.3989, 119.9774] },
+  { kota: "Kab. Parigi Moutong", provinsi: "Sulawesi Tengah", coords: [-1.1594, 120.2122] },
+  { kota: "Kab. Poso", provinsi: "Sulawesi Tengah", coords: [-1.3958, 120.7519] },
+  { kota: "Kab. Tojo Una-Una", provinsi: "Sulawesi Tengah", coords: [-1.025, 121.575] },
+  { kota: "Kab. Tolitoli", provinsi: "Sulawesi Tengah", coords: [1.0456, 120.8175] },
+  { kota: "Kab. Buol", provinsi: "Sulawesi Tengah", coords: [1.1333, 121.4333] },
+  { kota: "Kab. Morowali", provinsi: "Sulawesi Tengah", coords: [-2.1167, 121.5667] },
+  { kota: "Kab. Banggai", provinsi: "Sulawesi Tengah", coords: [-0.9667, 122.7833] },
+  
+  // Sulawesi Utara & Gorontalo
+  { kota: "Kota Manado", provinsi: "Sulawesi Utara", coords: [1.4748, 124.8421] },
+  { kota: "Kota Bitung", provinsi: "Sulawesi Utara", coords: [1.4422, 125.1892] },
+  { kota: "Bolaang Mongondow", provinsi: "Sulawesi Utara", coords: [0.7583, 124.0322] },
+  { kota: "Kota Gorontalo", provinsi: "Gorontalo", coords: [0.5435, 123.0596] },
+  { kota: "Kab. Pohuwato", provinsi: "Gorontalo", coords: [0.55, 121.8333] },
+  
+  // Maluku & Maluku Utara
+  { kota: "Kota Ambon", provinsi: "Maluku", coords: [-3.6563, 128.1906] },
+  { kota: "Kota Ternate", provinsi: "Maluku Utara", coords: [0.7812, 127.3633] },
+  { kota: "Kota Tidore", provinsi: "Maluku Utara", coords: [0.6583, 127.4475] },
+  { kota: "Halmahera Utara", provinsi: "Maluku Utara", coords: [1.75, 127.8833] },
+  
+  // Lainnya
+  { kota: "Kota Makassar", provinsi: "Sulawesi Selatan", coords: [-5.1477, 119.4238] },
+  { kota: "Kota Kendari", provinsi: "Sulawesi Tenggara", coords: [-3.9926, 122.5149] },
+  { kota: "Kota Sorong", provinsi: "Papua Barat", coords: [-0.8833, 131.25] },
+  { kota: "Kota Jayapura", provinsi: "Papua", coords: [-2.5333, 140.7167] },
+  { kota: "Kota Balikpapan", provinsi: "Kalimantan Timur", coords: [-1.2651, 116.8285] }
+];
+
+// Activate map function (global scope)
+function activateMap() {
+  const overlay = document.getElementById('map-overlay');
+  const loading = document.getElementById('map-loading');
+  
+  if (!overlay || !loading) {
+    console.error('Map elements not found');
+    return;
+  }
+  
+  overlay.style.opacity = '0';
+  loading.classList.remove('hidden');
+  
+  setTimeout(() => {
+    overlay.style.display = 'none';
+    initEnhancedMap();
+  }, 500);
+}
+
+// Enhanced map initialization
+function initEnhancedMap() {
+  const mapElement = document.getElementById("map");
+  if (!mapElement) {
+    console.error('Map element not found');
+    return;
+  }
+
+  try {
+    if (!currentMap) {
+      currentMap = L.map("map", {
+        scrollWheelZoom: true,
+        dragging: true,
+        touchZoom: true,
+        zoomControl: true
+      }).setView([-2.5, 118], 5);
+
+      // Add tile layer
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(currentMap);
+
+      addEnhancedMarkers();
+    }
+    
+    setTimeout(() => {
+      const loadingElement = document.getElementById('map-loading');
+      if (loadingElement) {
+        loadingElement.classList.add('hidden');
+      }
+      isMapActive = true;
+      animateRegionalStats();
+    }, 1500);
+    
+  } catch (error) {
+    console.error('Error initializing map:', error);
+    // Fallback: hide loading and show basic message
+    const loadingElement = document.getElementById('map-loading');
+    if (loadingElement) {
+      loadingElement.innerHTML = '<p>Peta tidak dapat dimuat. Silakan refresh halaman.</p>';
+    }
+  }
+}
+
+// Enhanced markers with error handling
+function addEnhancedMarkers() {
+  if (!currentMap || !Array.isArray(alkhairaatLokasi)) {
+    console.error('Map or location data not available');
+    return;
+  }
+
+  alkhairaatLokasi.forEach((location, index) => {
+    try {
+      // Determine marker class based on location
+      let markerClass = 'low-density';
+      if (location.kota === 'Kota Palu') {
+        markerClass = 'high-density';
+      } else if (['Kota Manado', 'Kota Ambon', 'Kota Ternate'].includes(location.kota)) {
+        markerClass = 'medium-density';
+      }
+
+      // Simple popup content
+      const popupContent = `
+        <div style="font-family: Inter, sans-serif; min-width: 200px;">
+          <h4 style="margin: 0 0 8px 0; color: #1f2937; font-size: 1.1rem;">${location.kota}</h4>
+          <p style="margin: 0 0 8px 0; color: #6b7280; font-size: 0.875rem;">${location.provinsi}</p>
+          <div style="display: flex; justify-content: space-between; font-size: 0.875rem;">
+            <span style="color: #6b7280;">Estimasi:</span>
+            <span style="color: #10b981; font-weight: 600;">${getLocationCount(location.kota)}</span>
+          </div>
+          <button onclick="showLocationDetails('${location.kota}', '${location.provinsi}')" 
+                  style="width: 100%; margin-top: 12px; padding: 8px; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer;">
+            Lihat Detail
+          </button>
+        </div>
+      `;
+
+      const marker = L.marker(location.coords)
+        .addTo(currentMap)
+        .bindPopup(popupContent);
+
+      // Store marker for filtering
+      mapMarkers.push({
+        marker: marker,
+        location: location,
+        region: getRegionCode(location.provinsi)
+      });
+
+    } catch (error) {
+      console.error(`Error adding marker for ${location.kota}:`, error);
+    }
+  });
+}
+
+// Get estimated count for location (safe function)
+function getLocationCount(kota) {
+  const counts = {
+    'Kota Palu': '1,200+',
+    'Kab. Donggala': '150+',
+    'Kab. Sigi': '120+',
+    'Kota Manado': '80+',
+    'Kota Bitung': '45+',
+    'Kota Ambon': '60+',
+    'Kota Ternate': '40+',
+    'Kota Gorontalo': '35+',
+    'Kota Makassar': '15+',
+    'Kota Kendari': '12+'
+  };
+  return counts[kota] || '5-20';
+}
+
+// Get region code for filtering (safe function)
+function getRegionCode(provinsi) {
+  const regionMap = {
+    'Sulawesi Tengah': 'sulteng',
+    'Sulawesi Utara': 'sulut',
+    'Maluku': 'maluku',
+    'Maluku Utara': 'maluku',
+    'Gorontalo': 'gorontalo',
+    'Kalimantan Timur': 'kaltim',
+    'Kalimantan Utara': 'kaltim',
+    'Papua': 'papua',
+    'Papua Barat': 'papua',
+    'Sulawesi Selatan': 'sulsel',
+    'Sulawesi Barat': 'sulbar',
+    'Sulawesi Tenggara': 'sulsel'
+  };
+  return regionMap[provinsi] || 'other';
+}
+
+// Show location details (global scope)
+function showLocationDetails(kota, provinsi) {
+  const infoPanel = document.getElementById('map-info-panel');
+  const infoTitle = document.getElementById('info-title');
+  const infoContent = document.getElementById('info-content');
+  
+  if (!infoPanel || !infoTitle || !infoContent) {
+    alert(`Detail untuk ${kota}, ${provinsi}\nEstimasi: ${getLocationCount(kota)} institusi`);
+    return;
+  }
+  
+  infoTitle.textContent = kota;
+  infoContent.innerHTML = `
+    <div style="font-size: 0.875rem;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #f3f4f6;">
+        <span style="color: #6b7280;">Provinsi:</span>
+        <span style="color: #1f2937; font-weight: 600;">${provinsi}</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #f3f4f6;">
+        <span style="color: #6b7280;">Estimasi Institusi:</span>
+        <span style="color: #1f2937; font-weight: 600;">${getLocationCount(kota)}</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #f3f4f6;">
+        <span style="color: #6b7280;">Jenis:</span>
+        <span style="color: #1f2937; font-weight: 600;">Madrasah, Sekolah</span>
+      </div>
+      <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #f3f4f6;">
+        <p style="color: #6b7280; line-height: 1.5; margin: 0;">
+          ${getLocationDescription(kota)}
+        </p>
+      </div>
+    </div>
+  `;
+  
+  infoPanel.classList.remove('hidden');
+}
+
+// Get location description (safe function)
+function getLocationDescription(kota) {
+  const descriptions = {
+    'Kota Palu': 'Pusat utama Alkhairaat dan tempat berkedudukan Ketua Utama. Memiliki konsentrasi institusi pendidikan terbesar.',
+    'Kab. Donggala': 'Salah satu kabupaten dengan sejarah panjang Alkhairaat di Sulawesi Tengah.',
+    'Kota Manado': 'Pusat pengembangan Alkhairaat di Sulawesi Utara dengan pertumbuhan pesat.',
+    'Kota Ambon': 'Representasi Alkhairaat di wilayah Maluku dengan fokus pendidikan multikultural.',
+    'Kota Ternate': 'Gerbang utama Alkhairaat di Maluku Utara.',
+    'Kota Gorontalo': 'Pusat pendidikan Alkhairaat di Provinsi Gorontalo.'
+  };
+  return descriptions[kota] || 'Bagian dari jaringan institusi pendidikan Alkhairaat yang tersebar di Indonesia Timur.';
+}
+
+// Close info panel (global scope)
+function closeInfoPanel() {
+  const infoPanel = document.getElementById('map-info-panel');
+  if (infoPanel) {
+    infoPanel.classList.add('hidden');
+  }
+}
+
+// Filter markers by region (safe function)
+function filterByRegion(regionCode) {
+  if (!isMapActive || !Array.isArray(mapMarkers)) return;
+  
+  mapMarkers.forEach(({ marker, region }) => {
+    if (regionCode === 'all' || region === regionCode) {
+      if (currentMap && marker) {
+        marker.addTo(currentMap);
+      }
+    } else {
+      if (currentMap && marker) {
+        currentMap.removeLayer(marker);
+      }
+    }
+  });
+}
+
+// Reset map view (global scope)
+function resetMapView() {
+  if (!isMapActive || !currentMap) return;
+  
+  // Show all markers
+  mapMarkers.forEach(({ marker }) => {
+    if (marker && currentMap) {
+      marker.addTo(currentMap);
+    }
+  });
+  
+  // Reset view
+  currentMap.setView([-2.5, 118], 5);
+  
+  // Reset filter
+  const regionFilter = document.getElementById('region-filter');
+  if (regionFilter) {
+    regionFilter.value = 'all';
+  }
+  
+  // Close info panel
+  closeInfoPanel();
+}
+
+// Animate regional stats (safe function)
+function animateRegionalStats() {
+  const regionalCards = document.querySelectorAll('.regional-card');
+  
+  regionalCards.forEach((card, index) => {
+    setTimeout(() => {
+      const numberElement = card.querySelector('.regional-number');
+      const progressBar = card.querySelector('.progress-bar-regional');
+      
+      if (numberElement && progressBar) {
+        const targetNumber = parseInt(numberElement.textContent.replace(/,/g, ''));
+        animateNumber(numberElement, 0, targetNumber, 2000);
+        
+        setTimeout(() => {
+          const percentage = Math.min((targetNumber / 1550) * 100, 100);
+          progressBar.style.width = `${percentage}%`;
+        }, 500);
+      }
+    }, index * 200);
+  });
+}
+
+// Animate number counting (safe function)
+function animateNumber(element, start, end, duration) {
+  const startTime = Date.now();
+  const timer = setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+    const current = Math.floor(start + (end - start) * easeOutQuart);
+    
+    element.textContent = current.toLocaleString('id-ID');
+    
+    if (progress === 1) {
+      clearInterval(timer);
+      element.textContent = end.toLocaleString('id-ID');
+    }
+  }, 16);
+}
+
+// Initialize map controls when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+  // Region filter
+  const regionFilter = document.getElementById('region-filter');
+  if (regionFilter) {
+    regionFilter.addEventListener('change', function() {
+      filterByRegion(this.value);
+    });
+  }
+  
+  // Reset button
+  const resetButton = document.getElementById('reset-map');
+  if (resetButton) {
+    resetButton.addEventListener('click', function() {
+      resetMapView();
+    });
+  }
+});
+
+
 
 // --- LOGIKA UNTUK HALAMAN REELS (VERSI FINAL DENGAN SCOPE YANG BENAR) ---
 
@@ -589,531 +1022,746 @@ function loadYouTubeAPI() {
   }
 }
 
-/**
- * Fungsi utama untuk men-setup semua elemen dan logika di halaman reels.
- */
-// GANTI SELURUH FUNGSI setupReelsPage DENGAN INI
+// ===== MODERN REELS SYSTEM =====
 
-/**
- * Fungsi ini HARUS berada di lingkup global agar bisa dipanggil oleh script YouTube API.
- * Fungsi ini akan dipanggil secara otomatis ketika YouTube IFrame Player API sudah siap.
- */
-function onYouTubeIframeAPIReady() {
-  console.log("YouTube API is ready.");
-  setupReelsPage();
-}
-
-/**
- * Fungsi untuk memuat script YouTube API secara dinamis.
- */
-function loadYouTubeAPI() {
-  console.log("Loading YouTube API...");
-  if (typeof YT === "undefined" || typeof YT.Player === "undefined") {
-    const tag = document.createElement("script");
-    tag.src = "https://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName("script")[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-  } else {
-    onYouTubeIframeAPIReady();
-  }
-}
-
-/**
- * Fungsi utama untuk men-setup semua elemen dan logika di halaman Lensa Kisah.
- */
-function setupReelsPage() {
-  console.log("Setting up reels page...");
-  const reelsContainer = document.getElementById("reels-container");
-  const welcomeOverlay = document.getElementById("welcome-overlay");
-  const silentAudio = document.getElementById("silent-audio");
-
-  if (!reelsContainer || !welcomeOverlay || !silentAudio) {
-    console.error(
-      "Elemen penting (reels, overlay, atau audio) tidak ditemukan!"
-    );
-    return;
-  }
-
-  document.body.classList.add("reels-page");
-
-  // --- STATE MANAGEMENT ---
-  let isGlobalMuted = true;
-  const players = {};
-  let activePlayer = null;
-
-  const reelsData = [
-    {
-      youtubeVideoId: "JORR7-LOV_A",
-      title: "Nasihat Tentang Keikhlasan",
-      likes: "12.3k",
-      shares: "1.2k",
-    },
-    {
-      youtubeVideoId: "aFQ9O0s3m-U",
-      title: "Pertemuan Habib Ali Aljufri Dan Habib Saggaf",
-      likes: "25.1k",
-      shares: "3.4k",
-    },
-    {
-      youtubeVideoId: "TfAM7HliI74",
-      title: "Pesan Habib Saggaf",
-      likes: "18.7k",
-      shares: "2.1k",
-    },
-    {
-      youtubeVideoId: "Uszc2__wiOU",
-      title: "Jalankan Tugas Dengan Ikhlas",
-      likes: "30.2k",
-      shares: "4.5k",
-    },
-    {
-      youtubeVideoId: "XKWCvDG_4zM",
-      title: "Cinta Tanah Air",
-      likes: "22.8k",
-      shares: "3.9k",
-    },
-    {
-      youtubeVideoId: "hVSQE6typX8",
-      title: "Karomah Habib Saggaf",
-      likes: "25.1k",
-      shares: "3.4k",
-    },
-    {
-      youtubeVideoId: "CbFGNKeXZFI",
-      title: "Nasehat Habib Saggaf",
-      likes: "15.6k",
-      shares: "2.8k",
-    },
-    {
-      youtubeVideoId: "RM_qmGZGr3M",
-      title: "Habib Saggaf Pict",
-      likes: "15.6k",
-      shares: "2.8k",
-    },
-    {
-      youtubeVideoId: "JdEszEfcS9k",
-      title: "Menceritakan Perkataan Habib Idrus bin Salim",
-      likes: "15.6k",
-      shares: "2.8k",
-    },
-    {
-      youtubeVideoId: "iXQ0dziYif8",
-      title: "Pesan Toleransi Habib Saggaf",
-      likes: "102k",
-      shares: "12k",
-    },
-    {
-      youtubeVideoId: "o2ef003w6a8",
-      title: "Pesan Habib Idrus kepada Habib Saggaf",
-      likes: "2.4k",
-      shares: "1.2k",
-    },
-    {
-      youtubeVideoId: "r_MZcvKyHP8",
-      title: "Habib Syech Assegaf Sowan",
-      likes: "2.7k",
-      shares: "1.6k",
-    },
-  ];
-
-  // --- LOGIKA UNTUK IZIN AUTOPLAY SAFARI ---
-  function grantAutoplayPermission() {
-    silentAudio
-      .play()
-      .catch((e) =>
-        console.warn("Gagal memutar audio sunyi, tapi tidak apa-apa.")
-      );
-    welcomeOverlay.classList.add("hidden");
-    welcomeOverlay.removeEventListener("click", grantAutoplayPermission);
-  }
-  welcomeOverlay.addEventListener("click", grantAutoplayPermission);
-
-  // --- PEMBUATAN ELEMEN & INTERAKSI ---
-  function createReelElement(video, index) {
-    const reelElement = document.createElement("div");
-    reelElement.className = "reel-item";
-    reelElement.dataset.videoId = video.youtubeVideoId;
-    const iframeId = `ytplayer-${video.youtubeVideoId}-${index}`;
-    reelElement.dataset.iframeId = iframeId;
-    reelElement.innerHTML = `
-      <div class="video-placeholder" id="${iframeId}"></div>
-      <i class="fas fa-heart interaction-icon like-icon"></i>
-      <i class="fas fa-play interaction-icon play-icon"></i>
-      <i class="fas fa-pause interaction-icon pause-icon"></i>
-      <div class="reel-info">
-        <img src="/asset/logo hbib.jpg" alt="profil" class="profile-pic">
-        <div><h3>@jejakhabibsaggaf</h3><p>${video.title}</p></div>
-      </div>
-      <div class="reel-actions">
-        <div class="action-button like-button"><i class="fas fa-heart"></i><span class="likes-count">${video.likes}</span></div>
-        <div class="action-button comment-button"><i class="fas fa-comment-dots"></i><span>...</span></div>
-        <div class="action-button share-button"><i class="fas fa-share"></i><span class="shares-count">${video.shares}</span></div>
-      </div>`;
-    addInteractions(reelElement, video);
-    return reelElement;
-  }
-
-  const globalMuteBtn = document.createElement("div");
-  globalMuteBtn.className = "global-mute-button";
-  document.body.appendChild(globalMuteBtn);
-  updateMuteButtonIcon();
-
-  function addInteractions(reelElement, video) {
-    const likeButtonIcon = reelElement.querySelector(".like-button .fa-heart");
-    const likeIcon = reelElement.querySelector(".like-icon");
-    let isLiked = false;
-    reelElement.addEventListener("click", (e) => {
-      if (
-        e.target.classList.contains("reel-item") ||
-        e.target.classList.contains("video-placeholder")
-      ) {
-        togglePlayPause(reelElement.dataset.iframeId);
-      }
-    });
-    reelElement.addEventListener("dblclick", () => {
-      if (!isLiked) {
-        isLiked = true;
-        likeButtonIcon.classList.add("liked");
-        showInteractionIcon(likeIcon);
-      }
-    });
-    reelElement.querySelector(".like-button").addEventListener("click", () => {
-      isLiked = !isLiked;
-      likeButtonIcon.classList.toggle("liked");
-    });
-    reelElement.querySelector(".share-button").addEventListener("click", () => {
-      const shareUrl = `https://www.jejakhabibsaggaf.com/reels.html?video=${video.youtubeVideoId}`;
-      if (navigator.share) {
-        navigator
-          .share({ title: `Kisah Habib Saggaf: ${video.title}`, url: shareUrl })
-          .catch((err) => console.error("Gagal share:", err));
-      } else {
-        alert("Fitur share tidak didukung di browser ini.");
-      }
-    });
-  }
-
-  globalMuteBtn.addEventListener("click", () => {
-    isGlobalMuted = !isGlobalMuted;
-    updateMuteButtonIcon();
-    if (activePlayer) {
-      isGlobalMuted ? activePlayer.mute() : activePlayer.unMute();
-    }
-  });
-
-  function updateMuteButtonIcon() {
-    globalMuteBtn.innerHTML = isGlobalMuted
-      ? '<i class="fas fa-volume-mute"></i>'
-      : '<i class="fas fa-volume-up"></i>';
-  }
-
-  function showInteractionIcon(iconElement) {
-    iconElement.classList.add("show");
-    setTimeout(() => iconElement.classList.remove("show"), 600);
-  }
-
-  function togglePlayPause(iframeId) {
-    const player = players[iframeId];
-    if (!player || typeof player.getPlayerState !== "function") return;
-    const playerState = player.getPlayerState();
-    if (playerState === YT.PlayerState.PLAYING) {
-      player.pauseVideo();
-      showInteractionIcon(
-        document.querySelector(`[data-iframe-id="${iframeId}"] .pause-icon`)
-      );
-    } else {
-      player.playVideo();
-      showInteractionIcon(
-        document.querySelector(`[data-iframe-id="${iframeId}"] .play-icon`)
-      );
-    }
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        const iframeId = entry.target.dataset.iframeId;
-        if (entry.isIntersecting) {
-          if (!players[iframeId]) {
-            createPlayer(entry.target);
-          } else {
-            const player = players[iframeId];
-            player.playVideo();
-            activePlayer = player;
-            isGlobalMuted ? player.mute() : player.unMute();
-          }
-        } else {
-          const player = players[iframeId];
-          if (player && typeof player.pauseVideo === "function") {
-            player.pauseVideo();
-          }
-          if (activePlayer === player) {
-            activePlayer = null;
-          }
-        }
-      });
-    },
-    { threshold: 0.7 }
-  );
-
-  function createPlayer(reelElement) {
-    const videoId = reelElement.dataset.videoId;
-    const iframeId = reelElement.dataset.iframeId;
-    const player = new YT.Player(iframeId, {
-      height: "100%",
-      width: "100%",
-      videoId: videoId,
-      playerVars: {
-        autoplay: 1,
-        mute: 1,
-        controls: 0,
-        rel: 0,
-        showinfo: 0,
-        modestbranding: 1,
-        loop: 1,
-        playlist: videoId,
-      },
-      events: { onReady: onPlayerReady },
-    });
-    players[iframeId] = player;
-  }
-
-  function onPlayerReady(event) {
-    const player = event.target;
-    if (isGlobalMuted) {
-      player.mute();
-    } else {
-      player.unMute();
-    }
-    if (!activePlayer) {
-      activePlayer = player;
-    }
-  }
-
-  reelsData.forEach((video, index) => {
-    const reelElement = createReelElement(video, index);
-    reelsContainer.appendChild(reelElement);
-    observer.observe(reelElement);
-  });
-}
-
-/**
- * --- TITIK AWAL EKSEKUSI ---
- * Listener ini akan menunggu seluruh halaman (HTML) dimuat terlebih dahulu.
- */
-document.addEventListener("DOMContentLoaded", function () {
-  // Logika KHUSUS untuk halaman "Lensa Kisah"
-  if (document.getElementById("reels-container")) {
-    loadYouTubeAPI();
-  }
-});
-
-// DATA LOKASI BARU YANG LEBIH DETAIL (berdasarkan PDF)
-const alkhairaatLokasi = [
-  // Sulawesi Tengah
+let reelsData = [
   {
-    kota: "Kota Palu",
-    provinsi: "Sulawesi Tengah",
-    coords: [-0.8983, 119.8707],
+    youtubeVideoId: "JORR7-LOV_A",
+    title: "Nasihat Tentang Keikhlasan",
+    likes: "12.3k",
+    shares: "1.2k",
   },
   {
-    kota: "Kab. Donggala",
-    provinsi: "Sulawesi Tengah",
-    coords: [-0.6833, 119.7333],
+    youtubeVideoId: "aFQ9O0s3m-U",
+    title: "Pertemuan Habib Ali Aljufri Dan Habib Saggaf",
+    likes: "25.1k",
+    shares: "3.4k",
   },
   {
-    kota: "Kab. Sigi",
-    provinsi: "Sulawesi Tengah",
-    coords: [-1.3989, 119.9774],
+    youtubeVideoId: "TfAM7HliI74",
+    title: "Pesan Habib Saggaf",
+    likes: "18.7k",
+    shares: "2.1k",
   },
   {
-    kota: "Kab. Parigi Moutong",
-    provinsi: "Sulawesi Tengah",
-    coords: [-1.1594, 120.2122],
+    youtubeVideoId: "Uszc2__wiOU",
+    title: "Jalankan Tugas Dengan Ikhlas",
+    likes: "30.2k",
+    shares: "4.5k",
   },
   {
-    kota: "Kab. Poso",
-    provinsi: "Sulawesi Tengah",
-    coords: [-1.3958, 120.7519],
+    youtubeVideoId: "XKWCvDG_4zM",
+    title: "Cinta Tanah Air",
+    likes: "22.8k",
+    shares: "3.9k",
   },
   {
-    kota: "Kab. Tojo Una-Una",
-    provinsi: "Sulawesi Tengah",
-    coords: [-1.025, 121.575],
+    youtubeVideoId: "hVSQE6typX8",
+    title: "Habib Ali Aljufri Silaturahmi ke Habib Saggaf",
+    likes: "25.1k",
+    shares: "3.4k",
   },
   {
-    kota: "Kab. Tolitoli",
-    provinsi: "Sulawesi Tengah",
-    coords: [1.0456, 120.8175],
+    youtubeVideoId: "CbFGNKeXZFI",
+    title: "Nasehat Habib Saggaf",
+    likes: "15.6k",
+    shares: "2.8k",
   },
   {
-    kota: "Kab. Buol",
-    provinsi: "Sulawesi Tengah",
-    coords: [1.1333, 121.4333],
+    youtubeVideoId: "RM_qmGZGr3M",
+    title: "Habib Saggaf Pict",
+    likes: "15.6k",
+    shares: "2.8k",
   },
   {
-    kota: "Kab. Morowali",
-    provinsi: "Sulawesi Tengah",
-    coords: [-2.1167, 121.5667],
+    youtubeVideoId: "JdEszEfcS9k",
+    title: "Menceritakan Perkataan Habib Idrus bin Salim",
+    likes: "15.6k",
+    shares: "2.8k",
   },
   {
-    kota: "Kab. Banggai",
-    provinsi: "Sulawesi Tengah",
-    coords: [-0.9667, 122.7833],
+    youtubeVideoId: "iXQ0dziYif8",
+    title: "Pesan Toleransi Habib Saggaf",
+    likes: "102k",
+    shares: "12k",
   },
+  {
+    youtubeVideoId: "o2ef003w6a8",
+    title: "Pesan Habib Idrus kepada Habib Saggaf",
+    likes: "2.4k",
+    shares: "1.2k",
+  },
+  {
+    youtubeVideoId: "r_MZcvKyHP8",
+    title: "Habib Syech Assegaf Sowan",
+    likes: "2.7k",
+    shares: "1.6k",
+  },
+  {
+    youtubeVideoId: "7TB79Qmiztw",
+    title: "Nasehat Habib Saggaf",
+    likes: "2.4k",
+    shares: "1.2k",
+  },
+  {
+    youtubeVideoId: "52Anr4u81fo",
+    title: "Pesan Habib Saggaf ketika gempa palu",
+    likes: "5.7k",
+    shares: "1.2k",
+  },
+  {
+    youtubeVideoId: "LqrEWoYVTQ0",
+    title: "Pesan Habib Saggaf Tentang menuntut ilmu",
+    likes: "400",
+    shares: "89",
+  },
+  {
+    youtubeVideoId: "FA8x5EFKJNM",
+    title: "Quote Habib Saggaf",
+    likes: "8.2k",
+    shares: "1.2k",
+  },
+  {
+    youtubeVideoId: "0V4Uy530z44",
+    title: "Ribuan Jamaah mengantarkan habib saggaf",
+    likes: "9.4k",
+    shares: "1.9k",
+  },
+  {
+    youtubeVideoId: "kj10LebuRFY",
+    title: "Ilmu Pengetahuan",
+    likes: "5.4k",
+    shares: "1.2k",
 
-  // Sulawesi Utara & Gorontalo
-  {
-    kota: "Kota Manado",
-    provinsi: "Sulawesi Utara",
-    coords: [1.4748, 124.8421],
-  },
-  {
-    kota: "Kota Bitung",
-    provinsi: "Sulawesi Utara",
-    coords: [1.4422, 125.1892],
-  },
-  {
-    kota: "Bolaang Mongondow",
-    provinsi: "Sulawesi Utara",
-    coords: [0.7583, 124.0322],
-  },
-  { kota: "Kota Gorontalo", provinsi: "Gorontalo", coords: [0.5435, 123.0596] },
-  { kota: "Kab. Pohuwato", provinsi: "Gorontalo", coords: [0.55, 121.8333] },
 
-  // Sulawesi Selatan & Tenggara
-  {
-    kota: "Kota Makassar",
-    provinsi: "Sulawesi Selatan",
-    coords: [-5.1477, 119.4238],
-  },
-  {
-    kota: "Kota Kendari",
-    provinsi: "Sulawesi Tenggara",
-    coords: [-3.9926, 122.5149],
-  },
-
-  // Maluku & Maluku Utara
-  { kota: "Kota Ambon", provinsi: "Maluku", coords: [-3.6563, 128.1906] },
-  {
-    kota: "Kota Ternate",
-    provinsi: "Maluku Utara",
-    coords: [0.7812, 127.3633],
-  },
-  { kota: "Kota Tidore", provinsi: "Maluku Utara", coords: [0.6583, 127.4475] },
-  {
-    kota: "Halmahera Utara",
-    provinsi: "Maluku Utara",
-    coords: [1.75, 127.8833],
-  },
-  {
-    kota: "Halmahera Selatan",
-    provinsi: "Maluku Utara",
-    coords: [-0.6, 127.5],
-  },
-  {
-    kota: "Kepulauan Sula",
-    provinsi: "Maluku Utara",
-    coords: [-2.25, 125.4167],
-  },
-
-  // Papua & Papua Barat
-  { kota: "Kab. Fakfak", provinsi: "Papua Barat", coords: [-2.9167, 132.3] },
-  {
-    kota: "Kab. Kaimana",
-    provinsi: "Papua Barat",
-    coords: [-3.6667, 133.7833],
-  },
-  { kota: "Kota Sorong", provinsi: "Papua Barat", coords: [-0.8833, 131.25] },
-  { kota: "Kota Jayapura", provinsi: "Papua", coords: [-2.5333, 140.7167] },
-
-  // Kalimantan
-  {
-    kota: "Kota Tarakan",
-    provinsi: "Kalimantan Utara",
-    coords: [3.3167, 117.6333],
-  },
-  {
-    kota: "Kab. Nunukan",
-    provinsi: "Kalimantan Utara",
-    coords: [4.1333, 117.6667],
-  },
-  {
-    kota: "Kota Balikpapan",
-    provinsi: "Kalimantan Timur",
-    coords: [-1.2651, 116.8285],
-  },
-  {
-    kota: "Kota Samarinda",
-    provinsi: "Kalimantan Timur",
-    coords: [-0.5021, 117.1536],
-  },
-  {
-    kota: "Kota Banjarmasin",
-    provinsi: "Kalimantan Selatan",
-    coords: [-3.3167, 114.59],
   },
 ];
 
-// FUNGSI PETA BARU DENGAN ANIMASI MARKER
-// FUNGSI PETA FINAL (TANPA CLUSTERING)
-function initInteractiveMap() {
-  const mapContainer = document.getElementById('map');
-  if (!mapContainer) return; 
-
-  const mapOverlay = document.getElementById('map-overlay');
-
-  const map = L.map('map', {
-      scrollWheelZoom: false,
-      dragging: false,
-      touchZoom: false,
-  }).setView([-2.5, 118], 4.5);
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  }).addTo(map);
-
-  // Fungsi untuk animasi marker satu per satu
-  function addMarkersSequentially() {
-      let index = 0;
-      const interval = setInterval(() => {
-          if (index >= alkhairaatLokasi.length) {
-              clearInterval(interval);
-              return;
-          }
-
-          const data = alkhairaatLokasi[index];
-
-          // Siapkan konten popup
-          let jumlahInfo = '';
-          if (data.jumlah && data.jumlah > 0) {
-              jumlahInfo = `<p style="font-size: 12px; margin: 0; padding-top: 5px; border-top: 1px solid #eee;">Jumlah: <strong>${data.jumlah} lembaga</strong></p>`;
-          }
-          const popupContent = `
-              <div style="font-family: Inter, sans-serif; line-height: 1.5;">
-                  <h4 style="font-weight: 700; font-size: 14px; margin: 0 0 4px 0;">${data.kota}</h4>
-                  <p style="font-size: 12px; margin: 0; color: #555;">${data.provinsi}</p>
-                  ${jumlahInfo}
-              </div>
-          `;
-
-          // PERUBAHAN UTAMA: Langsung tambahkan marker ke peta, bukan ke cluster group
-          const marker = L.marker(data.coords).addTo(map);
-          marker.bindPopup(popupContent);
-          
-          index++;
-      }, 200); 
+class ModernReelsSystem {
+  constructor() {
+    this.currentIndex = 0;
+    this.players = new Map();
+    this.isGlobalMuted = true;
+    this.isInitialized = false;
+    
+    this.init();
   }
 
-  // Aktifkan peta dan mulai animasi saat overlay diklik
-  mapOverlay.addEventListener('click', function() {
-      map.scrollWheelZoom.enable();
-      map.dragging.enable();
-      map.touchZoom.enable();
-      this.style.opacity = '0';
-      this.style.pointerEvents = 'none';
-      addMarkersSequentially();
+  init() {
+    document.body.classList.add('reels-page');
+    this.setupEventListeners();
+    this.loadYouTubeAPI();
+  }
+
+  loadYouTubeAPI() {
+    if (window.YT) {
+      this.onYouTubeAPIReady();
+      return;
+    }
+
+    window.onYouTubeIframeAPIReady = () => this.onYouTubeAPIReady();
+    
+    const script = document.createElement('script');
+    script.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(script);
+  }
+
+  onYouTubeAPIReady() {
+    this.isInitialized = true;
+    this.renderReels();
+    
+    setTimeout(() => {
+      document.getElementById('loading-overlay').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('loading-overlay').style.display = 'none';
+      }, 500);
+    }, 1000);
+  }
+
+  renderReels() {
+    const container = document.getElementById('reels-container');
+    container.innerHTML = '';
+
+    reelsData.forEach((video, index) => {
+      const reelElement = this.createReelElement(video, index);
+      container.appendChild(reelElement);
+    });
+
+    this.setupIntersectionObserver();
+    this.setupTouchEvents();
+  }
+
+  createReelElement(video, index) {
+    const reel = document.createElement('div');
+    reel.className = 'modern-reel-item';
+    reel.dataset.index = index;
+    reel.dataset.videoId = video.youtubeVideoId;
+
+    reel.innerHTML = `
+      <div class="video-container">
+        <div class="video-skeleton" id="skeleton-${index}"></div>
+        <div id="player-${index}" class="video-player"></div>
+        <div class="video-overlay"></div>
+        
+        <div class="video-progress">
+          <div class="progress-bar" id="progress-${index}"></div>
+        </div>
+      </div>
+
+      <div class="content-overlay">
+        <div class="video-info">
+          <h3>${video.title}</h3>
+          <p>@jejakhabibsaggaf</p>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="action-btn like-btn" onclick="reelsSystem.toggleLike(${index})">
+          <i class="fas fa-heart"></i>
+          <span class="count">${video.likes}</span>
+        </button>
+        
+        <button class="action-btn comment-btn">
+          <i class="fas fa-comment"></i>
+          <span class="count">128</span>
+        </button>
+        
+        <button class="action-btn share-btn" onclick="reelsSystem.shareVideo(${index})">
+          <i class="fas fa-share"></i>
+          <span class="count">${video.shares}</span>
+        </button>
+        
+        <button class="action-btn bookmark-btn" onclick="reelsSystem.toggleBookmark(${index})">
+          <i class="fas fa-bookmark"></i>
+        </button>
+      </div>
+    `;
+
+    return reel;
+  }
+
+  setupIntersectionObserver() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const index = parseInt(entry.target.dataset.index);
+        
+        if (entry.isIntersecting && entry.intersectionRatio > 0.7) {
+          this.playVideo(index);
+          this.currentIndex = index;
+        } else {
+          this.pauseVideo(index);
+        }
+      });
+    }, { threshold: [0.7] });
+
+    document.querySelectorAll('.modern-reel-item').forEach(item => {
+      observer.observe(item);
+    });
+  }
+
+  setupTouchEvents() {
+    const container = document.getElementById('reels-container');
+    let startY = 0;
+    let startTime = 0;
+
+    // Double-tap like functionality
+    let lastTap = 0;
+    container.addEventListener('touchend', (e) => {
+      const currentTime = new Date().getTime();
+      const tapLength = currentTime - lastTap;
+      
+      if (tapLength < 500 && tapLength > 0) {
+        e.preventDefault();
+        this.handleDoubleTap(e);
+      }
+      
+      lastTap = currentTime;
+    });
+
+    // Smooth scrolling
+    container.addEventListener('touchstart', (e) => {
+      startY = e.touches[0].clientY;
+      startTime = Date.now();
+    });
+
+    container.addEventListener('touchend', (e) => {
+      const endY = e.changedTouches[0].clientY;
+      const deltaY = startY - endY;
+      const deltaTime = Date.now() - startTime;
+      const velocity = Math.abs(deltaY) / deltaTime;
+
+      if (velocity > 0.5 && Math.abs(deltaY) > 50) {
+        if (deltaY > 0 && this.currentIndex < reelsData.length - 1) {
+          this.scrollToReel(this.currentIndex + 1);
+        } else if (deltaY < 0 && this.currentIndex > 0) {
+          this.scrollToReel(this.currentIndex - 1);
+        }
+      }
+    });
+  }
+
+  scrollToReel(index) {
+    const container = document.getElementById('reels-container');
+    container.scrollTo({
+      top: index * window.innerHeight,
+      behavior: 'smooth'
+    });
+  }
+
+  handleDoubleTap(e) {
+    const rect = e.target.getBoundingClientRect();
+    const x = e.changedTouches[0].clientX;
+    const y = e.changedTouches[0].clientY;
+    
+    this.showLikeAnimation(x, y);
+    this.toggleLike(this.currentIndex);
+  }
+
+  showLikeAnimation(x, y) {
+    const animation = document.getElementById('like-animation');
+    animation.style.left = x + 'px';
+    animation.style.top = y + 'px';
+    animation.classList.add('active');
+    
+    setTimeout(() => {
+      animation.classList.remove('active');
+    }, 800);
+  }
+
+  async playVideo(index) {
+    if (!this.players.has(index)) {
+      await this.createPlayer(index);
+    }
+    
+    const player = this.players.get(index);
+    if (player && player.playVideo) {
+      document.getElementById(`skeleton-${index}`).style.display = 'none';
+      player.playVideo();
+      
+      if (this.isGlobalMuted) {
+        player.mute();
+      } else {
+        player.unMute();
+      }
+      
+      this.startProgressTracking(index);
+    }
+  }
+
+  pauseVideo(index) {
+    const player = this.players.get(index);
+    if (player && player.pauseVideo) {
+      player.pauseVideo();
+      this.stopProgressTracking(index);
+    }
+  }
+
+  async createPlayer(index) {
+    const videoData = reelsData[index];
+    
+    return new Promise((resolve) => {
+      const player = new YT.Player(`player-${index}`, {
+        videoId: videoData.youtubeVideoId,
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          rel: 0,
+          showinfo: 0,
+          modestbranding: 1,
+          loop: 1,
+          playlist: videoData.youtubeVideoId,
+          playsinline: 1
+        },
+        events: {
+          onReady: (event) => {
+            this.players.set(index, event.target);
+            resolve(event.target);
+          },
+          onStateChange: this.onPlayerStateChange.bind(this)
+        }
+      });
+    });
+  }
+
+  onPlayerStateChange(event) {
+    // Handle player state changes if needed
+  }
+
+  startProgressTracking(index) {
+    const player = this.players.get(index);
+    const progressBar = document.getElementById(`progress-${index}`);
+    
+    if (!player || !progressBar) return;
+
+    this.progressInterval = setInterval(() => {
+      if (player.getCurrentTime && player.getDuration) {
+        const current = player.getCurrentTime();
+        const duration = player.getDuration();
+        const progress = (current / duration) * 100;
+        progressBar.style.width = `${progress}%`;
+      }
+    }, 1000);
+  }
+
+  stopProgressTracking() {
+    if (this.progressInterval) {
+      clearInterval(this.progressInterval);
+      this.progressInterval = null;
+    }
+  }
+
+  toggleGlobalSound() {
+    this.isGlobalMuted = !this.isGlobalMuted;
+    const btn = document.getElementById('global-sound-btn');
+    
+    if (this.isGlobalMuted) {
+      btn.classList.add('muted');
+    } else {
+      btn.classList.remove('muted');
+    }
+  
+    // Apply to current player
+    const currentPlayer = this.players.get(this.currentIndex);
+    if (currentPlayer) {
+      if (this.isGlobalMuted) {
+        currentPlayer.mute();
+      } else {
+        currentPlayer.unMute();
+      }
+    }
+  }
+
+
+      toggleGlobalSound() {
+        this.isGlobalMuted = !this.isGlobalMuted;
+        const btn = document.getElementById('global-sound-btn');
+        
+        if (this.isGlobalMuted) {
+          btn.classList.add('muted');
+        } else {
+          btn.classList.remove('muted');
+        }
+     
+        // Apply to current player
+        const currentPlayer = this.players.get(this.currentIndex);
+        if (currentPlayer) {
+          if (this.isGlobalMuted) {
+            currentPlayer.mute();
+          } else {
+            currentPlayer.unMute();
+          }
+        }
+      }
+     
+      toggleLike(index) {
+        const likeBtn = document.querySelector(`[data-index="${index}"] .like-btn`);
+        const isLiked = likeBtn.classList.toggle('liked');
+        
+        if (isLiked) {
+          // Increment like count (fake)
+          const countElement = likeBtn.querySelector('.count');
+          let currentCount = this.parseCount(countElement.textContent);
+          currentCount += 1;
+          countElement.textContent = this.formatCount(currentCount);
+          
+          // Vibrate on mobile
+          if (navigator.vibrate) {
+            navigator.vibrate(50);
+          }
+        } else {
+          // Decrement like count
+          const countElement = likeBtn.querySelector('.count');
+          let currentCount = this.parseCount(countElement.textContent);
+          currentCount -= 1;
+          countElement.textContent = this.formatCount(currentCount);
+        }
+      }
+     
+      toggleBookmark(index) {
+        const bookmarkBtn = document.querySelector(`[data-index="${index}"] .bookmark-btn`);
+        bookmarkBtn.classList.toggle('liked');
+        
+        // Vibrate feedback
+        if (navigator.vibrate) {
+          navigator.vibrate(30);
+        }
+      }
+     
+      shareVideo(index) {
+        const video = reelsData[index];
+        const shareUrl = `${window.location.origin}/reels.html#video-${index}`;
+        const shareText = `Saksikan "${video.title}" - Lensa Kisah Habib Saggaf Aljufri`;
+     
+        // Show share modal
+        document.getElementById('share-modal').classList.remove('hidden');
+        
+        // Store current share data
+        this.currentShareData = {
+          url: shareUrl,
+          text: shareText,
+          title: video.title
+        };
+      }
+     
+      parseCount(countStr) {
+        const num = parseFloat(countStr);
+        if (countStr.includes('k')) return num * 1000;
+        if (countStr.includes('M')) return num * 1000000;
+        return num;
+      }
+     
+      formatCount(count) {
+        if (count >= 1000000) {
+          return (count / 1000000).toFixed(1) + 'M';
+        }
+        if (count >= 1000) {
+          return (count / 1000).toFixed(1) + 'k';
+        }
+        return count.toString();
+      }
+     
+      setupEventListeners() {
+        // Global sound control
+        document.getElementById('global-sound-btn').addEventListener('click', () => {
+          this.toggleGlobalSound();
+        });
+     
+        // Share modal handlers
+        document.querySelectorAll('.share-option').forEach(option => {
+          option.addEventListener('click', (e) => {
+            const platform = e.currentTarget.dataset.platform;
+            this.handleShare(platform);
+          });
+        });
+     
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+          switch(e.key) {
+            case 'ArrowUp':
+              e.preventDefault();
+              if (this.currentIndex > 0) {
+                this.scrollToReel(this.currentIndex - 1);
+              }
+              break;
+            case 'ArrowDown':
+              e.preventDefault();
+              if (this.currentIndex < reelsData.length - 1) {
+                this.scrollToReel(this.currentIndex + 1);
+              }
+              break;
+            case ' ':
+              e.preventDefault();
+              this.toggleGlobalSound();
+              break;
+            case 'l':
+              this.toggleLike(this.currentIndex);
+              break;
+          }
+        });
+     
+        // Hide/show header on scroll
+        let lastScrollTop = 0;
+        const header = document.querySelector('.modern-reels-header');
+        
+        document.getElementById('reels-container').addEventListener('scroll', () => {
+          const scrollTop = document.getElementById('reels-container').scrollTop;
+          
+          if (scrollTop > lastScrollTop && scrollTop > 100) {
+            header.style.opacity = '0';
+          } else {
+            header.style.opacity = '1';
+          }
+          
+          lastScrollTop = scrollTop;
+        });
+      }
+     
+      handleShare(platform) {
+        const { url, text, title } = this.currentShareData;
+        
+        switch(platform) {
+          case 'whatsapp':
+            window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+            break;
+          case 'facebook':
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+            break;
+          case 'twitter':
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+            break;
+          case 'copy':
+            navigator.clipboard.writeText(url).then(() => {
+              // Show toast notification
+              this.showToast('Link berhasil disalin!');
+            });
+            break;
+        }
+        
+        this.closeShareModal();
+      }
+     
+      showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.textContent = message;
+        toast.style.cssText = `
+          position: fixed;
+          bottom: 100px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: rgba(0,0,0,0.8);
+          color: white;
+          padding: 12px 20px;
+          border-radius: 25px;
+          font-size: 14px;
+          z-index: 300;
+          animation: toastShow 0.3s ease;
+        `;
+        
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.style.animation = 'toastHide 0.3s ease forwards';
+          setTimeout(() => toast.remove(), 300);
+        }, 2000);
+      }
+     }
+     
+     // Global functions
+     function startReels() {
+      document.getElementById('welcome-overlay').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('welcome-overlay').style.display = 'none';
+      }, 500);
+      
+      // Play silent audio for iOS autoplay
+      const silentAudio = document.getElementById('silent-audio');
+      silentAudio.play().catch(() => {});
+     }
+     
+     function closeShareModal() {
+      document.getElementById('share-modal').classList.add('hidden');
+     }
+     
+     // Initialize system when DOM is ready
+     document.addEventListener('DOMContentLoaded', function() {
+      // Only initialize if we're on reels page
+      if (document.getElementById('reels-container')) {
+        window.reelsSystem = new ModernReelsSystem();
+      }
+     });
+     
+     // Add toast animations to CSS
+     const toastStyles = document.createElement('style');
+     toastStyles.textContent = `
+      @keyframes toastShow {
+        from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+        to { opacity: 1; transform: translateX(-50%) translateY(0); }
+      }
+      
+      @keyframes toastHide {
+        from { opacity: 1; transform: translateX(-50%) translateY(0); }
+        to { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+      }
+     `;
+     document.head.appendChild(toastStyles);
+
+ 
+
+
+
+
+
+  
+document.addEventListener("DOMContentLoaded", function () {
+
+  // ===== LEGASI DASHBOARD ANIMATIONS =====
+  
+  // Animated Counter untuk Stats
+  // ===== FIXED ANIMATED COUNTER =====
+const statCounterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const targetElement = entry.target;
+      const targetValue = targetElement.dataset.target;
+      
+      // Debug log
+      console.log('Animating:', targetElement, 'Target:', targetValue);
+      
+      if (!targetValue || isNaN(parseInt(targetValue))) {
+        console.error('Invalid target value:', targetValue);
+        return;
+      }
+      
+      const target = parseInt(targetValue);
+      const duration = 2000;
+      const start = Date.now();
+      const startValue = 0;
+
+      const animateCounter = () => {
+        const now = Date.now();
+        const progress = Math.min((now - start) / duration, 1);
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const current = Math.floor(startValue + (target - startValue) * easeOutQuart);
+        
+        targetElement.textContent = current.toLocaleString('id-ID');
+        
+        if (progress < 1) {
+          requestAnimationFrame(animateCounter);
+        } else {
+          targetElement.textContent = target.toLocaleString('id-ID');
+        }
+      };
+
+      animateCounter();
+      statCounterObserver.unobserve(targetElement);
+    }
   });
-}
+}, { threshold: 0.5 });
+
+// Apply observer ke elemen yang benar
+document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+  console.log('Observing stat number:', el, 'Target:', el.dataset.target);
+  statCounterObserver.observe(el);
+});
+
+  // Progress Bars Animation
+  const progressObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        const target = parseInt(card.dataset.target);
+        const maxTarget = 1700; // Nilai maksimum untuk scaling
+        const percentage = (target / maxTarget) * 100;
+        
+        setTimeout(() => {
+          const progressBar = card.querySelector('.progress-bar');
+          if (progressBar) {
+            progressBar.style.width = `${percentage}%`;
+          }
+        }, 500);
+        
+        progressObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  // Timeline Animation
+  const timelineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  // Apply observers
+  document.querySelectorAll('.stat-number').forEach(el => statCounterObserver.observe(el));
+  document.querySelectorAll('.stat-card').forEach(el => progressObserver.observe(el));
+  document.querySelectorAll('.timeline-item').forEach(el => timelineObserver.observe(el));
+});
+
+
+
 

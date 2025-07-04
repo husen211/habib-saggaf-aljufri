@@ -1,274 +1,754 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Galeri Kisah - Habib Saggaf Aljufri</title>
+    <link rel="icon" href="/asset/favicon 48px.png" type="image/png" sizes="48x48" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Galeri Kisah - Habib Saggaf Aljufri</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.4/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body class="bg-[#fefcf9] text-stone-700">
-    <!-- Header (simple) -->
-    <header class="bg-white shadow-sm">
-      <div
-        class="container mx-auto px-6 py-4 flex items-center justify-between"
-      >
-        <a href="index.html" class="text-xl font-bold text-emerald-800"
-          >Jejak Sang Pembangun</a
-        >
-        <nav class="hidden md:flex gap-6 text-sm font-medium">
-          <a
-            href="#galeri-kisah"
-            class="text-stone-600 hover:text-emerald-700 transition"
-            >Galeri Kisah</a
-          >
-        </nav>
-      </div>
+    
+    <style>
+        /* GALERI KISAH OPTIMIZED STYLES */
+        .gallery-optimized-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .gallery-optimized-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .gallery-optimized-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .gallery-optimized-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        /* Featured card spans 2 columns on larger screens */
+        .featured-large-optimized {
+            grid-column: span 1;
+        }
+
+        @media (min-width: 768px) {
+            .featured-large-optimized {
+                grid-column: span 2;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .featured-large-optimized {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+        }
+
+        /* Wide card spans full width */
+        .wide-card-optimized {
+            grid-column: 1 / -1;
+        }
+
+        /* Optimized gallery card */
+        .gallery-card-optimized {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(229, 231, 235, 0.6);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .gallery-card-optimized:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Fixed image container with consistent aspect ratio */
+        .image-container-optimized {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .featured-large-optimized .image-container-optimized {
+            height: 280px;
+        }
+
+        .wide-card-optimized .image-container-optimized {
+            height: 320px;
+        }
+
+        @media (min-width: 1200px) {
+            .featured-large-optimized .image-container-optimized {
+                height: 400px;
+            }
+        }
+
+        /* Image styling with proper object-fit */
+        .image-optimized {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-card-optimized:hover .image-optimized {
+            transform: scale(1.05);
+        }
+
+        /* Content area */
+        .content-optimized {
+            padding: 1.25rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .featured-large-optimized .content-optimized,
+        .wide-card-optimized .content-optimized {
+            padding: 1.5rem;
+        }
+
+        /* Badges */
+        .badges-optimized {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            z-index: 10;
+        }
+
+        .badge-optimized {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            color: #1f2937;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            transform: translateY(-4px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .badge-featured-optimized {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .badge-category-optimized {
+            background: rgba(16, 185, 129, 0.9);
+            color: white;
+        }
+
+        .gallery-card-optimized:hover .badge-optimized {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Meta and title */
+        .meta-optimized {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .title-optimized {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            transition: color 0.2s ease;
+        }
+
+        .featured-large-optimized .title-optimized,
+        .wide-card-optimized .title-optimized {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+
+        .gallery-card-optimized:hover .title-optimized {
+            color: #10b981;
+        }
+
+        /* Description */
+        .description-optimized {
+            color: #6b7280;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            font-size: 13px;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .featured-large-optimized .description-optimized,
+        .wide-card-optimized .description-optimized {
+            font-size: 14px;
+            -webkit-line-clamp: 4;
+        }
+
+        /* Read more button */
+        .read-more-optimized {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #10b981;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(16, 185, 129, 0.1);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .read-more-optimized:hover {
+            background: #10b981;
+            color: white;
+            transform: translateX(2px);
+        }
+
+        /* Hero section optimization */
+        .hero-optimized {
+            padding: 4rem 0;
+        }
+
+        @media (min-width: 768px) {
+            .hero-optimized {
+                padding: 6rem 0;
+            }
+        }
+
+        /* Main section optimization */
+        .main-optimized {
+            padding: 3rem 0;
+        }
+
+        @media (min-width: 768px) {
+            .main-optimized {
+                padding: 4rem 0;
+            }
+        }
+
+        /* CTA section optimization */
+        .cta-optimized {
+            padding: 3rem 0;
+        }
+
+        @media (min-width: 768px) {
+            .cta-optimized {
+                padding: 4rem 0;
+            }
+        }
+
+        /* Simple loading state without blur */
+        .image-optimized[src=""],
+        .image-optimized:not([src]) {
+            background: #f0f0f0;
+        }
+
+        /* Responsive image overlay */
+        .image-overlay-optimized {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 60%,
+                rgba(0, 0, 0, 0.3) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-card-optimized:hover .image-overlay-optimized {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-gray-100 text-stone-700">
+    
+    <!-- Header Simple -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                    <img src="/asset/Logo_alkhairaat.svg.png" alt="Logo Alkhairaat" class="w-10 h-10" />
+                    <h1 class="text-xl md:text-2xl font-bold text-emerald-800">
+                        Jejak Sang Pembangun
+                    </h1>
+                </a>
+                
+                <nav class="hidden md:flex items-center gap-6">
+                    <a href="#galeri-kisah" class="text-stone-600 hover:text-emerald-700 transition font-medium">Galeri Kisah</a>
+                    <a href="index.html" class="bg-emerald-700 hover:bg-emerald-800 text-white px-4 py-2 rounded-md transition font-medium">
+                        Beranda
+                    </a>
+                </nav>
+                
+                <!-- Mobile menu button -->
+                <button class="md:hidden p-2 rounded-md text-stone-600 hover:bg-stone-100" onclick="toggleMobileMenu()">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 border-t border-gray-200 pt-4">
+                <a href="#galeri-kisah" class="block px-4 py-2 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition">Galeri Kisah</a>
+                <a href="index.html" class="block px-4 py-2 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition">Beranda</a>
+            </div>
+        </div>
     </header>
 
-    <main class="py-16 md:py-24">
-      <div class="container mx-auto px-6">
-        <h1
-          id="galeri-kisah"
-          class="text-3xl md:text-4xl font-bold text-emerald-800 text-center mb-10"
-        >
-          Galeri Kisah
-        </h1>
-
-        <div class="space-y-12 max-w-4xl mx-auto">
-          <!-- Six gallery cards copied from index order -->
-          <!-- Card 1 -->
-          <div class="w-full">
-            <div
-              class="bg-white rounded-md md:flex-row shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-            >
-              <img
-                src="asset/habib saggaf dan habib idrus.webp"
-                alt="Habib Saggaf di masa muda"
-                class="w-full md:w-1/2 h-80 object-cover"
-                onerror="this.onerror=null;this.src='https://placehold.co/600x400/f5f5f4/44403c?text=Foto+1';"
-              />
-              <div class="p-6 flex flex-col md:w-1/2">
-                <h4 class="font-bold text-lg text-emerald-800">
-                  Masa Muda Penuh Ilmu
-                </h4>
-                <p class="mt-2 text-sm text-stone-600 leading-relaxed">
-                  Foto ini mengabadikan Habib Saggaf muda bersama kakeknya,
-                  Habib Idrus bin Salim Aljufri (Guru Tua)...
-                </p>
-                <a
-                  href="galeri/masa-muda-penuh-ilmu.html"
-                  class="read-more-btn mt-auto self-start inline-flex px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700"
-                  >Selengkapnya</a
-                >
-              </div>
+    <!-- Hero Section - Optimized -->
+    <section class="hero-optimized bg-gradient-to-br from-emerald-50 via-white to-teal-50 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%2310b981" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="4"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-40"></div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold mb-6 shadow-lg">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+                </svg>
+                Koleksi Lengkap Dokumentasi
             </div>
-          </div>
-
-          <!-- Card 4 -->
-          <div class="w-full">
-            <div
-              class="bg-white rounded-md md:flex-row shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-            >
-              <img
-                src="asset/habib saggaf dan prabowo 2.jpg"
-                alt="Habib Saggaf bersama Prabowo Subianto"
-                class="w-full md:w-1/2 h-80 object-cover"
-                onerror="this.onerror=null;this.src='https://placehold.co/600x400/f5f5f4/44403c?text=Foto+1';"
-              />
-              <div class="p-6 flex flex-col md:w-1/2">
-                <h4 class="font-bold text-lg text-emerald-800">
-                 Habib Saggaf Bersama Prabowo Subianto
-                </h4>
-                <p class="mt-2 text-sm text-stone-600 leading-relaxed">
-                  Foto ini mengabadikan Habib Saggaf bersama Prabowo Subianto...
-                </p>
-                <a
-                  href="galeri/Bersama-Prabowo-Subianto.html"
-                  class="read-more-btn mt-auto self-start inline-flex px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700"
-                  >Selengkapnya</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="flex flex-col md:flex-row-reverse items-center gap-8">
-            <div class="w-full">
-              <div
-                class="bg-white rounded-md md:flex-row shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-              >
-                <img
-                  src="asset/tito-karnavian-sayyid-saggaf-aljufri-and-hadi-tjahjanto-92c3a5-1024.jpg"
-                  alt="Panglima dan Kapolri bersama Habib Saggaf"
-                  class="w-full md:w-1/2 h-80 object-cover"
-                  onerror="this.onerror=null;this.src='https://placehold.co/600x400/eaddc7/44403c?text=Foto+2';"
-                />
-                <div class="p-6 flex flex-col md:w-1/2">
-                  <h4 class="font-bold text-lg text-emerald-800">
-                    Merangkul Semua Kalangan
-                  </h4>
-                  <p class="mt-2 text-sm text-stone-600 leading-relaxed">
-                    Dalam gambar ini, Habib Saggaf duduk bersama Panglima TNI
-                    dan Kapolri...
-                  </p>
-                  <a
-                    href="galeri/merangkul-semua-kalangan.html"
-                    class="read-more-btn mt-auto self-start inline-flex px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700"
-                    >Selengkapnya</a
-                  >
+            
+            <h1 id="galeri-kisah" class="text-4xl md:text-6xl font-bold mb-6">
+                <span class="text-gray-900">Galeri</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">Kisah</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
+                Jelajahi perjalanan hidup yang menginspirasi melalui koleksi foto dan momen bersejarah 
+                yang mengabadikan dedikasi dan kontribusi Habib Saggaf Aljufri bagi bangsa dan umat.
+            </p>
+            
+            <div class="flex items-center justify-center gap-4 text-sm text-gray-500">
+                <div class="flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>20+ Foto Eksklusif</span>
                 </div>
-              </div>
-            </div>
-          </div>
-          <!-- Card 3 -->
-          <div class="flex flex-col md:flex-row items-center gap-8">
-            <div class="w-full">
-              <div
-                class="bg-white rounded-md md:flex-row shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-              >
-                <img
-                  src="asset/habib dn pendeta.jpg"
-                  alt="Habib Saggaf bersama Pdt Son H. Poli"
-                  class="w-full md:w-1/2 h-80 object-cover"
-                  onerror="this.onerror=null;this.src='https://placehold.co/600x400/d6c2a8/44403c?text=Foto+3';"
-                />
-                <div class="p-6 flex flex-col md:w-1/2">
-                  <h4 class="font-bold text-lg text-emerald-800">
-                    Bersama Tokoh Agama Lain
-                  </h4>
-                  <p class="mt-2 text-sm text-stone-600 leading-relaxed">
-                    Momen kebersamaan Habib Saggaf dengan Pdt. Son H. Polii...
-                  </p>
-                  <a
-                    href="galeri/bersama-tokoh-agama-lain.html"
-                    class="read-more-btn mt-auto self-start inline-flex px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700"
-                    >Selengkapnya</a
-                  >
+                <span class="text-gray-300">•</span>
+                <div class="flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>Momen Bersejarah</span>
                 </div>
-              </div>
-            </div>
-          </div>
-          <!-- Card 4 -->
-          <div class="flex flex-col md:flex-row-reverse items-center gap-8">
-            <div class="w-full">
-              <div
-                class="bg-white rounded-md md:flex-row shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-              >
-                <img
-                  src="asset/habib-saggaf-bin-muhammad-aljufri-dengan-anies-baswedan.jpg"
-                  alt="Habib Saggaf bersama Anies Baswedan"
-                  class="w-full md:w-1/2 h-80 object-cover"
-                  onerror="this.onerror=null;this.src='https://placehold.co/600x400/d6c2a8/44403c?text=Foto+4';"
-                />
-                <div class="p-6 flex flex-col md:w-1/2">
-                  <h4 class="font-bold text-lg text-emerald-800">
-                    Tokoh Pemersatu Umat
-                  </h4>
-                  <p class="mt-2 text-sm text-stone-600 leading-relaxed">
-                    Pertemuan Habib Saggaf dengan Anies Baswedan...
-                  </p>
-                  <a
-                    href="galeri/tokoh-pemersatu-umat.html"
-                    class="read-more-btn mt-auto self-start inline-flex px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700"
-                    >Selengkapnya</a
-                  >
+                <span class="text-gray-300">•</span>
+                <div class="flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>Dokumentasi Resmi</span>
                 </div>
-              </div>
             </div>
-          </div>
-          <!-- Card 5 -->
-          <div class="flex flex-col md:flex-row items-center gap-8">
-            <div class="w-full">
-              <div
-                class="bg-white rounded-md md:flex-row shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-              >
-                <img
-                  src="asset/jufus kalla sowan di kediaman habib saggaf.jpg"
-                  alt="Habib Saggaf bersama Jusuf Kalla"
-                  class="w-full md:w-1/2 h-80 object-cover"
-                  onerror="this.onerror=null;this.src='https://placehold.co/600x400/fef3c7/44403c?text=Foto+5';"
-                />
-                <div class="p-6 flex flex-col md:w-1/2">
-                  <h4 class="font-bold text-lg text-emerald-800">
-                    Menjaga Silaturahmi Kebangsaan
-                  </h4>
-                  <p class="mt-2 text-sm text-stone-600 leading-relaxed">
-                    Kunjungan Wakil Presiden RI ke-10 dan ke-12, Jusuf Kalla...
-                  </p>
-                  <a
-                    href="galeri/menjaga-silaturahmi-kebangsaan.html"
-                    class="read-more-btn mt-auto self-start inline-flex px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700"
-                    >Selengkapnya</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Card 6 -->
-          <div class="flex flex-col md:flex-row-reverse items-center gap-8">
-            <div class="w-full">
-              <div
-                class="bg-white rounded-md md:flex-row shadow-lg overflow-hidden border border-stone-200/60 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-              >
-                <img
-                  src="asset/Susilo bambang yudhoyono bersama habib saggaf aljufri ketika mengunjungi kota palu.jpg"
-                  alt="Susilo Bambang Yudhoyono bersama Habib Saggaf"
-                  class="w-full md:w-1/2 h-80 object-cover"
-                  onerror="this.onerror=null;this.src='https://placehold.co/600x400/d1fae5/44403c?text=Foto+6';"
-                />
-                <div class="p-6 flex flex-col md:w-1/2">
-                  <h4 class="font-bold text-lg text-emerald-800">
-                    Muktamar IX Alkhairaat
-                  </h4>
-                  <p class="mt-2 text-sm text-stone-600 leading-relaxed">
-                    Kunjungan Presiden ke-6 Susilo Bambang Yudhoyono ke Pondok
-                    Pesantren Alkhairaat...
-                  </p>
-                  <a
-                    href="galeri/muktamar-ix-alkhairaat.html"
-                    class="read-more-btn mt-auto self-start inline-flex px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700"
-                    >Selengkapnya</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
+    </section>
+
+    <!-- Main Gallery Section - Optimized -->
+    <main class="main-optimized">
+        <div class="container mx-auto px-6">
+            <div class="gallery-optimized-grid">
+                
+                <!-- Card 1 - Featured Large -->
+                <article class="gallery-card-optimized featured-large-optimized">
+                    <div class="image-container-optimized">
+                        <img src="asset/habib saggaf dan habib idrus.webp" 
+                             alt="Masa Muda Penuh Ilmu" 
+                             class="image-optimized"
+                             loading="lazy"
+                             onerror="this.onerror=null;this.src='https://placehold.co/800x600/f5f5f4/44403c?text=Masa+Muda';">
+                        <div class="image-overlay-optimized"></div>
+                        <div class="badges-optimized">
+                            <span class="badge-optimized badge-featured-optimized">Unggulan</span>
+                            <span class="badge-optimized badge-category-optimized">Sejarah</span>
+                        </div>
+                    </div>
+                    <div class="content-optimized">
+                        <div class="meta-optimized">
+                            <span style="color: #10b981; font-weight: 700;">Era Kepemimpinan</span>
+                            <span style="color: #d1d5db;">•</span>
+                            <span>5 min read</span>
+                        </div>
+                        <h2 class="title-optimized">Masa Muda Penuh Ilmu</h2>
+                        <p class="description-optimized">
+                            Foto langka yang mengabadikan Habib Saggaf muda bersama kakeknya, Habib Idrus bin Salim Aljufri (Guru Tua). 
+                            Momen ini menunjukkan transfer ilmu dan kebijaksanaan lintas generasi yang menjadi fondasi kepemimpinan beliau.
+                        </p>
+                        <a href="galeri/masa-muda-penuh-ilmu.html" class="read-more-optimized">
+                            Baca Kisah Lengkap
+                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="gallery-card-optimized">
+                    <div class="image-container-optimized">
+                        <img src="asset/habib saggaf dan prabowo 2.jpg" 
+                             alt="Habib Saggaf Bersama Prabowo Subianto" 
+                             class="image-optimized"
+                             loading="lazy"
+                             onerror="this.onerror=null;this.src='https://placehold.co/600x400/f5f5f4/44403c?text=Prabowo';">
+                        <div class="image-overlay-optimized"></div>
+                        <div class="badges-optimized">
+                            <span class="badge-optimized badge-category-optimized">Kenegaraan</span>
+                        </div>
+                    </div>
+                    <div class="content-optimized">
+                        <div class="meta-optimized">
+                            <span style="color: #10b981; font-weight: 700;">2019</span>
+                            <span style="color: #d1d5db;">•</span>
+                            <span>3 min read</span>
+                        </div>
+                        <h3 class="title-optimized">Silaturahmi dengan Prabowo Subianto</h3>
+                        <p class="description-optimized">
+                            Pertemuan bersejarah dengan calon Presiden, menunjukkan peran Habib Saggaf sebagai tokoh spiritual yang dihormati pemimpin bangsa.
+                        </p>
+                        <a href="galeri/Bersama-Prabowo-Subianto.html" class="read-more-optimized">
+                            Selengkapnya
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="gallery-card-optimized">
+                    <div class="image-container-optimized">
+                        <img src="asset/tito-karnavian-sayyid-saggaf-aljufri-and-hadi-tjahjanto-92c3a5-1024.jpg" 
+                             alt="Merangkul Semua Kalangan" 
+                             class="image-optimized"
+                             loading="lazy"
+                             onerror="this.onerror=null;this.src='https://placehold.co/600x400/eaddc7/44403c?text=TNI+Polri';">
+                        <div class="image-overlay-optimized"></div>
+                        <div class="badges-optimized">
+                            <span class="badge-optimized badge-category-optimized">Haul Akbar</span>
+                        </div>
+                    </div>
+                    <div class="content-optimized">
+                        <div class="meta-optimized">
+                            <span style="color: #10b981; font-weight: 700;">2018</span>
+                            <span style="color: #d1d5db;">•</span>
+                            <span>4 min read</span>
+                        </div>
+                        <h3 class="title-optimized">Merangkul Semua Kalangan</h3>
+                        <p class="description-optimized">
+                            Kedatangan Panglima TNI Marsekal Hadi Tjahjanto dan Kapolri Jenderal Tito Karnavian pada Haul ke-50 Guru Tua.
+                        </p>
+                        <a href="galeri/merangkul-semua-kalangan.html" class="read-more-optimized">
+                            Selengkapnya
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Card 4 -->
+                <article class="gallery-card-optimized">
+                    <div class="image-container-optimized">
+                        <img src="asset/habib dn pendeta.jpg" 
+                             alt="Bersama Tokoh Agama Lain" 
+                             class="image-optimized"
+                             loading="lazy"
+                             onerror="this.onerror=null;this.src='https://placehold.co/600x400/d6c2a8/44403c?text=Toleransi';">
+                        <div class="image-overlay-optimized"></div>
+                        <div class="badges-optimized">
+                            <span class="badge-optimized badge-category-optimized">Toleransi</span>
+                        </div>
+                    </div>
+                    <div class="content-optimized">
+                        <div class="meta-optimized">
+                            <span style="color: #10b981; font-weight: 700;">Dialog Antar Umat</span>
+                            <span style="color: #d1d5db;">•</span>
+                            <span>3 min read</span>
+                        </div>
+                        <h3 class="title-optimized">Bersama Tokoh Agama Lain</h3>
+                        <p class="description-optimized">
+                            Momen kebersamaan Habib Saggaf dengan Pdt. Son H. Polii, cerminan komitmen pada toleransi dan kerukunan beragama.
+                        </p>
+                        <a href="galeri/bersama-tokoh-agama-lain.html" class="read-more-optimized">
+                            Selengkapnya
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Card 5 -->
+                <article class="gallery-card-optimized">
+                    <div class="image-container-optimized">
+                        <img src="asset/habib-saggaf-bin-muhammad-aljufri-dengan-anies-baswedan.jpg" 
+                             alt="Tokoh Pemersatu Umat" 
+                             class="image-optimized"
+                             loading="lazy"
+                             onerror="this.onerror=null;this.src='https://placehold.co/600x400/d6c2a8/44403c?text=Anies';">
+                        <div class="image-overlay-optimized"></div>
+                        <div class="badges-optimized">
+                            <span class="badge-optimized badge-category-optimized">Pemersatu</span>
+                        </div>
+                    </div>
+                    <div class="content-optimized">
+                        <div class="meta-optimized">
+                            <span style="color: #10b981; font-weight: 700;">Era Modern</span>
+                            <span style="color: #d1d5db;">•</span>
+                            <span>3 min read</span>
+                        </div>
+                        <h3 class="title-optimized">Tokoh Pemersatu Umat</h3>
+                        <p class="description-optimized">
+                            Pertemuan dengan Anies Baswedan, menunjukkan peran Habib Saggaf sebagai rujukan tokoh muda bangsa.
+                        </p>
+                        <a href="galeri/tokoh-pemersatu-umat.html" class="read-more-optimized">
+                            Selengkapnya
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Card 6 -->
+                <article class="gallery-card-optimized">
+                    <div class="image-container-optimized">
+                        <img src="asset/jufus kalla sowan di kediaman habib saggaf.jpg" 
+                             alt="Menjaga Silaturahmi Kebangsaan" 
+                             class="image-optimized"
+                             loading="lazy"
+                             onerror="this.onerror=null;this.src='https://placehold.co/600x400/fef3c7/44403c?text=JK';">
+                        <div class="image-overlay-optimized"></div>
+                        <div class="badges-optimized">
+                            <span class="badge-optimized badge-category-optimized">Kebangsaan</span>
+                        </div>
+                    </div>
+                    <div class="content-optimized">
+                        <div class="meta-optimized">
+                            <span style="color: #10b981; font-weight: 700;">Silaturahmi</span>
+                            <span style="color: #d1d5db;">•</span>
+                            <span>4 min read</span>
+                        </div>
+                        <h3 class="title-optimized">Menjaga Silaturahmi Kebangsaan</h3>
+                        <p class="description-optimized">
+                            Kunjungan Wakil Presiden Jusuf Kalla ke kediaman Habib Saggaf, bukti hubungan yang erat dengan tokoh bangsa.
+                        </p>
+                        <a href="galeri/menjaga-silaturahmi-kebangsaan.html" class="read-more-optimized">
+                            Selengkapnya
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Card 7 - Wide -->
+                <article class="gallery-card-optimized wide-card-optimized">
+                    <div class="image-container-optimized">
+                        <img src="asset/Susilo bambang yudhoyono bersama habib saggaf aljufri ketika mengunjungi kota palu.jpg" 
+                             alt="Muktamar IX Alkhairaat" 
+                             class="image-optimized"
+                             loading="lazy"
+                             onerror="this.onerror=null;this.src='https://placehold.co/800x400/d1fae5/44403c?text=SBY';">
+                        <div class="image-overlay-optimized"></div>
+                        <div class="badges-optimized">
+                            <span class="badge-optimized badge-featured-optimized">Bersejarah</span>
+                            <span class="badge-optimized badge-category-optimized">Muktamar</span>
+                        </div>
+                    </div>
+                    <div class="content-optimized">
+                        <div class="meta-optimized">
+                            <span style="color: #10b981; font-weight: 700;">26 Agustus 2008</span>
+                            <span style="color: #d1d5db;">•</span>
+                            <span>6 min read</span>
+                        </div>
+                        <h3 class="title-optimized">Muktamar IX Alkhairaat: Kunjungan Presiden SBY</h3>
+                        <p class="description-optimized">
+                            Momen bersejarah kunjungan Presiden ke-6 Susilo Bambang Yudhoyono ke Pondok Pesantren Alkhairaat. 
+                            Habib Saggaf menyambut beliau dengan menyampirkan sorban putih sebagai simbol kehormatan dan persaudaraan ulama-umara.
+                        </p>
+                        <a href="galeri/muktamar-ix-alkhairaat.html" class="read-more-optimized">
+                            Baca Kisah Lengkap
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+        </div>
     </main>
 
-    <div class="text-center my-10">
-      <a
-        href="index.html#galeri-kisah-beranda"
-        class="inline-block px-6 py-3 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition"
-        >Kembali ke Beranda</a
-      >
-    </div>
+    <!-- CTA Section - Optimized -->
+    <section class="cta-optimized bg-gradient-to-r from-emerald-600 to-teal-600 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/10"></div>
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">
+                Jelajahi Lebih Banyak Kisah
+            </h2>
+            <p class="text-emerald-100 text-lg max-w-2xl mx-auto mb-6">
+                Kembali ke beranda untuk melihat timeline kehidupan, warisan Alkhairaat, dan konten inspiratif lainnya.
+            </p>
+            <a href="index.html#galeri-kisah-beranda" 
+               class="inline-flex items-center gap-3 bg-white text-emerald-600 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+                </svg>
+                Kembali ke Beranda
+            </a>
+        </div>
+    </section>
 
-    <footer class="bg-emerald-900 text-white py-6">
-      <div class="container mx-auto px-6 text-center text-sm text-emerald-200">
-        <p>© 2025 Jejak Sang Pembangun</p>
-        <p class="text-xs mt-2">
-          Beberapa gambar di situs ini berasal dari dokumentasi keluarga serta sumber publik seperti Media Alkhairaat, Antara News, Republika, Mercusuar, kumparan, akun media sosial tokoh publik dan Artikel lainnya. Hak cipta sepenuhnya tetap dimiliki oleh pemilik masing-masing. Jika terdapat materi yang perlu dikreditkan secara lebih spesifik atau dihapus, silakan hubungi kami.
-        </p>
-      </div>
+    <!-- Footer - Optimized -->
+    <footer class="bg-emerald-900 text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="text-center">    
+                <div class="border-t border-emerald-800 pt-6">
+                    <p class="text-emerald-200 text-sm">© 2025 Jejak Sang Pembangun</p>
+                    <p class="text-emerald-300 text-xs mt-2 max-w-4xl mx-auto">
+                        Beberapa gambar di situs ini berasal dari dokumentasi keluarga serta sumber publik seperti Media Alkhairaat, 
+                        Antara News, Republika, Mercusuar, kumparan, akun media sosial tokoh publik dan artikel lainnya. 
+                        Hak cipta sepenuhnya tetap dimiliki oleh pemilik masing-masing. Jika terdapat materi yang perlu dikreditkan 
+                        secara lebih spesifik atau dihapus, silakan hubungi kami.
+                    </p>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script src="script.js"></script>
-  </body>
+    
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Enhanced gallery functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simple lazy loading without blur effect
+            const images = document.querySelectorAll('.image-optimized');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        
+                        // Simple fade in effect instead of blur
+                        img.style.opacity = '0.7';
+                        img.style.transition = 'opacity 0.3s ease';
+                        
+                        img.onload = function() {
+                            this.style.opacity = '1';
+                        };
+                        
+                        // If image is already loaded
+                        if (img.complete) {
+                            img.style.opacity = '1';
+                        }
+                        
+                        observer.unobserve(img);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+            
+            images.forEach(img => imageObserver.observe(img));
+            
+            // Card animation on scroll
+            const cards = document.querySelectorAll('.gallery-card-optimized');
+            
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                        
+                        cardObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                cardObserver.observe(card);
+            });
+            
+            // Enhanced hover effects for desktop
+            if (window.innerWidth >= 1024) {
+                cards.forEach(card => {
+                    card.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-12px) scale(1.02)';
+                    });
+                    
+                    card.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0) scale(1)';
+                    });
+                });
+            }
+            
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
 </html>
