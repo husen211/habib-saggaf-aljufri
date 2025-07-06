@@ -12,22 +12,41 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="haul.css" />
+    <link rel="stylesheet" href="haul.css">
+    <script src="haul.js"></script>
 </head>
 <body class="bg-stone-50 text-stone-800">
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay"></div>
+
+    <!-- Mobile Menu -->
+    <nav id="mobile-menu">
+        <div class="mb-8">
+            <h2 class="text-xl font-bold text-emerald-800">Menu</h2>
+        </div>
+        <a href="#jejak-kehidupan" class="mobile-nav-link">Jejak Kehidupan</a>
+        <a href="#legasi-alkhairaat" class="mobile-nav-link">Legasi</a>
+        <a href="#pemikiran" class="mobile-nav-link">Pemikiran</a>
+        <a href="#undangan" class="mobile-nav-link">Undangan</a>
+        <a href="#informasi" class="mobile-nav-link">Haul 2025</a>
+    </nav>
 
     <header id="header" class="fixed top-0 inset-x-0 w-full z-50 transition-all duration-300">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="/" class="flex items-center space-x-3">
-                <img src="/asset/Logo_alkhairaat.svg.png" alt="Logo Alkhairaat" class="w-10 h-10" />
+                <img src="asset/Logo_alkhairaat.svg.png" alt="Logo Alkhairaat" class="w-10 h-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                <div class="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center" style="display: none;">
+                    <i class="fas fa-mosque text-white"></i>
+                </div>
                 <h1 class="text-xl md:text-2xl font-bold text-emerald-800">Jejak Sang Pembangun</h1>
             </a>
             <nav id="desktop-nav" class="hidden md:flex items-center space-x-2">
-                <a href="/#jejak-kehidupan" class="nav-link">Jejak Kehidupan</a>
-                <a href="/#legasi-alkhairaat" class="nav-link">Legasi</a>
-                <a href="/#pemikiran" class="nav-link">Pemikiran</a>
-                <a href="haul.html" class="nav-cta">
+                <a href="#jejak-kehidupan" class="nav-link">Jejak Kehidupan</a>
+                <a href="#legasi-alkhairaat" class="nav-link">Legasi</a>
+                <a href="#pemikiran" class="nav-link">Pemikiran</a>
+                <a href="#undangan" class="nav-link">Undangan</a>
+                <a href="#informasi" class="nav-cta">
                     <span class="cta-text">Haul 2025</span>
                     <span class="cta-icon">
                         <i class="fas fa-calendar-check"></i>
@@ -35,8 +54,12 @@
                 </a>
             </nav>
             <button id="mobile-menu-button" class="md:hidden z-[101] p-2 rounded-md text-stone-600">
-                <svg id="hamburger-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
-                <svg id="close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                <svg id="hamburger-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+                <svg id="close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
             </button>
         </div>
     </header>
@@ -46,7 +69,9 @@
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <h1 class="text-4xl md:text-6xl font-bold font-serif text-white mb-4">Haul Akbar 2025</h1>
-                <p class="text-lg md:text-xl text-stone-200 max-w-2xl mx-auto mb-8">Mengenang dan Meneladani Jejak Sang Pembangun, Habib Saggaf bin Muhammad Aljufri.</p>
+                <p class="text-lg md:text-xl text-stone-200 max-w-2xl mx-auto mb-8">
+                    Mengenang dan Meneladani Jejak Sang Pembangun, Habib Saggaf bin Muhammad Aljufri.
+                </p>
                 <div id="countdown-container" class="max-w-2xl mx-auto">
                     <div id="countdown" class="grid grid-cols-4 gap-4 text-white">
                         <div><span id="days">00</span><p>Hari</p></div>
@@ -58,36 +83,79 @@
             </div>
         </section>
 
+        <!-- Bagian Undangan/Flyer -->
+        <section id="undangan" class="py-16 md:py-24 bg-gradient-to-br from-emerald-50 to-teal-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-emerald-800 font-serif">Undangan Resmi</h2>
+                    <p class="mt-3 text-stone-600 max-w-2xl mx-auto">
+                        Undangan resmi Haul Akbar Habib Saggaf bin Muhammad Aljufri ke-4
+                    </p>
+                </div>
+
+                <div class="max-w-4xl mx-auto">
+                    <div class="undangan-container scroll-fade">
+                        <div class="undangan-frame">
+                            <img src="asset/undangan hal 4.jpg" 
+                                 alt="Undangan Haul Akbar 2025" 
+                                 class="undangan-image"
+                                 onerror="this.parentElement.innerHTML='<div class=\'undangan-placeholder\'><i class=\'fas fa-image text-6xl text-emerald-300 mb-4\'></i><p class=\'text-emerald-600 font-semibold\'>Undangan Haul Akbar 2025</p><p class=\'text-stone-500 text-sm mt-2\'>13 Juli 2025 - Kompleks Alkhairaat Madinatul Ilmi Dolo</p></div>'" />
+                        </div>
+                        <div class="undangan-actions">
+                            <button onclick="downloadImage()" class="action-btn primary">
+                                <i class="fas fa-download"></i>
+                                Unduh Undangan
+                            </button>
+                            <button onclick="shareImage()" class="action-btn secondary">
+                                <i class="fas fa-share-alt"></i>
+                                Bagikan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="informasi" class="py-16 md:py-24">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-emerald-800 font-serif">Informasi Lengkap Acara</h2>
-                    <p class="mt-3 text-stone-600">Semua yang perlu Anda ketahui tentang Haul Akbar 2025.</p>
+                    <p class="mt-3 text-stone-600 max-w-2xl mx-auto">
+                        Semua yang perlu Anda ketahui tentang Haul Akbar 2025. Mari bergabung dalam momen bersejarah ini.
+                    </p>
                 </div>
 
                 <div class="info-grid">
                     <div class="info-card scroll-fade">
-                        <div class="card-icon bg-emerald-100 text-emerald-600"><i class="fas fa-calendar-alt"></i></div>
+                        <div class="card-icon bg-emerald-100 text-emerald-600">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
                         <h3 class="card-title">Detail Acara</h3>
                         <p class="card-text"><strong>Tanggal:</strong> 13 Juli 2025</p>
                         <p class="card-text"><strong>Waktu:</strong> 08:00 WITA - Selesai</p>
-                        <p class="card-text"><strong>Lokasi:</strong> Kompleks Alkhairaat Pusat, Palu, Sulawesi Tengah</p>
+                        <p class="card-text"><strong>Lokasi:</strong> Kompleks Alkhairaat Madinatul Ilmi Dolo, Kab Sigi, Sulawesi Tengah</p>
                     </div>
                     <div class="info-card scroll-fade" style="animation-delay: 0.2s;">
-                        <div class="card-icon bg-amber-100 text-amber-600"><i class="fas fa-tasks"></i></div>
-                        <h3 class="card-title">Rangkaian Kegiatan</h3>
-                        <ul class="card-list">
-                            <li>Pembacaan Al-Qur'an & Dzikir</li>
-                            <li>Tausiyah & Manaqib</li>
-                            <li>Doa Bersama</li>
-                            <li>Ramah Tamah</li>
-                        </ul>
+                        <div class="card-icon bg-amber-100 text-amber-600">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <h3 class="card-title">Rangkaian Haul </h3>
+                        <!-- <p class="card-text">• Pembacaan Al-Qur'an & Dzikir</p>
+                        <p class="card-text">• Tausiyah & Manaqib</p>
+                        <p class="card-text">• Doa Bersama</p>
+                        <p class="card-text">• Ramah Tamah</p> -->
                     </div>
-                     <div class="info-card scroll-fade" style="animation-delay: 0.4s;">
-                        <div class="card-icon bg-sky-100 text-sky-600"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="info-card scroll-fade" style="animation-delay: 0.4s;">
+                        <div class="card-icon bg-sky-100 text-sky-600">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
                         <h3 class="card-title">Peta & Akomodasi</h3>
-                        <p class="card-text">Informasi akomodasi dan rute menuju lokasi akan diperbarui mendekati tanggal acara.</p>
-                        <a href="#" class="card-link">Lihat Peta Lokasi <i class="fas fa-arrow-right"></i></a>
+                        <p class="card-text">
+                            Informasi akomodasi dan rute menuju lokasi akan diperbarui mendekati tanggal acara.
+                        </p>
+                        <a href="https://maps.app.goo.gl/uF2GoomxUmYyvKPe8" target="_blank" class="card-link">
+                            Lihat Peta Lokasi <i class="fas fa-external-link-alt"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -97,16 +165,18 @@
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-emerald-800 font-serif">Kilas Balik Haul</h2>
-                    <p class="mt-3 text-stone-600">Saksikan kembali momen-momen khidmat dari perhelatan Haul tahun-tahun sebelumnya.</p>
+                    <p class="mt-3 text-stone-600 max-w-2xl mx-auto">
+                        Saksikan kembali momen-momen khidmat dari perhelatan Haul tahun-tahun sebelumnya.
+                    </p>
                 </div>
 
                 <div class="video-gallery-layout">
                     <div class="video-player-main scroll-fade">
                         <iframe id="main-video-player"
-                            src="http://googleusercontent.com/youtube.com/2"
+                            src="https://www.youtube.com/embed/urEVNget_g8"
                             title="YouTube video player"
                             frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen>
                         </iframe>
                     </div>
@@ -114,18 +184,35 @@
                     <div class="video-playlist-container scroll-fade">
                         <h3 class="playlist-title">Daftar Putar</h3>
                         <div id="video-playlist" class="video-playlist">
-                            </div>
+                            <!-- Playlist akan diisi oleh JavaScript -->
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+        <div id="kembali" class="text-center h-20 bg-stone-100">
+            <a href="index.html" class="btn btn-kembali">Kembali ke Beranda <i class="fas fa-arrow-left"></i></a>
+           </div>
     </main>
 
-    <footer class="bg-emerald-900 text-white py-6">
-        <div class="container mx-auto px-6 text-center text-sm text-emerald-200">
-            <p>&copy; 2025 Jejak Sang Pembangun. All rights reserved.</p>
+    <footer class="bg-emerald-900 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center items-center mb-4">
+                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center mr-3">
+                    <i>
+                        <img src="asset/favicon 48px.png" alt="">
+                    </i>
+                </div>
+                <h3 class="text-xl font-bold">Jejak Sang Pembangun</h3>
+            </div>
+            <p class="text-sm text-emerald-200 mb-4">
+                Mengenang dan meneladani warisan spiritual Habib Saggaf bin Muhammad Aljufri
+            </p>
+            <p class="text-xs text-emerald-300">
+                &copy; 2025 Jejak Sang Pembangun.
+            </p>
         </div>
     </footer>
 
-    <script src="script.js"></script> <script src="haul.js"></script> </body>
+</body>
 </html>
