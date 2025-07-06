@@ -1,0 +1,343 @@
+/* --- haul.css --- */
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    height: 70vh;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    background: url('/asset/haul background.jpeg') no-repeat center center/cover;
+    /* Ganti dengan gambar latar yang sesuai */
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(6, 78, 59, 0.8), rgba(0, 0, 0, 0.4));
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+}
+
+/* Countdown Timer */
+#countdown-container {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#countdown > div {
+    text-align: center;
+}
+
+#countdown span {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+#countdown p {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    margin-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    #countdown span {
+        font-size: 4rem;
+    }
+}
+
+/* Info Section */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.info-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 2.5rem;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease-in-out;
+}
+
+.info-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto 1.5rem;
+}
+
+.card-title {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+}
+
+.card-text {
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.card-list {
+    list-style: none;
+    padding: 0;
+    color: #4b5563;
+}
+
+.card-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #e5e7eb;
+}
+.card-list li:last-child {
+    border-bottom: none;
+}
+
+.card-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #059669;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.card-link:hover {
+    color: #065f46;
+}
+
+/* Video Gallery */
+.video-gallery-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+    .video-gallery-layout {
+        grid-template-columns: 3fr 1fr;
+    }
+}
+
+.video-player-main {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    background-color: #000;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.video-player-main iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video-playlist-container {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+.playlist-title {
+    font-family: 'Lora', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.video-playlist {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.playlist-item {
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.playlist-item:last-child {
+    border-bottom: none;
+}
+
+.playlist-item:hover, .playlist-item.active {
+    background-color: #f0fdf4; /* emerald-50 */
+}
+
+.playlist-item img {
+    width: 120px;
+    height: 68px;
+    object-fit: cover;
+    border-radius: 0.25rem;
+    flex-shrink: 0;
+}
+
+.playlist-item-info h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+}
+
+.playlist-item-info p {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+
+/* ===== IMPROVEMENT NAVBAR MODERN (Versi Solid) ===== */
+
+/* Style Header dengan Latar Belakang Putih Solid */
+#header {
+    background-color: #ffffff; /* Latar belakang putih solid */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    transition: padding 0.3s ease; /* Transisi untuk padding saja */
+  }
+  
+  /* Style Link Navigasi (Desktop) */
+  .nav-link {
+    position: relative;
+    padding: 0.5rem 1rem;
+    color: #57534e; /* stone-600 */
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: #065f46; /* emerald-800 */
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-50%);
+  }
+  
+  .nav-link:hover {
+    color: #065f46; /* emerald-800 */
+  }
+  
+  .nav-link:hover::after {
+    width: 60%;
+  }
+  
+  /* Style Link Aktif */
+  .nav-link.active {
+    color: #065f46; /* emerald-800 */
+  }
+  
+  .nav-link.active::after {
+    width: 60%;
+  }
+  
+  
+  /* Style Menu Mobile (Slide-in) */
+  #mobile-menu.open {
+    transform: translateX(0);
+  }
+  
+  #mobile-menu-overlay.open {
+    display: block;
+  }
+  
+  /* Tombol hamburger/close */
+  #mobile-menu-button.open #hamburger-icon {
+    display: none;
+  }
+  #mobile-menu-button.open #close-icon {
+    display: block;
+    color: #1f2937;
+  }
+  
+  .mobile-nav-link {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 600;
+    color: #4b5563; /* gray-600 */
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f3f4f6; /* gray-100 */
+    transition: color 0.2s;
+  }
+  
+  .mobile-nav-link:hover {
+    color: #059669; /* emerald-600 */
+  }
+  
+  /* Ini adalah style untuk tombol CTA Haul yang Anda tambahkan */
+  .nav-cta {
+      background-color: #059669; /* emerald-600 */
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px; /* rounded-full */
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+  }
+  
+  .nav-cta:hover {
+      background-color: #047857; /* emerald-700 */
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(5, 150, 105, 0.3);
+  }
+  
+  .nav-cta .cta-icon {
+      transition: transform 0.3s ease;
+  }
+  
+  .nav-cta:hover .cta-icon {
+      transform: rotate(10deg) scale(1.1);
+  }

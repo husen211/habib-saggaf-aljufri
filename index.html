@@ -73,117 +73,139 @@
       </p>
     </div>
 
-    <header
-      id="header"
-      class="bg-white/80 backdrop-blur-md fixed top-0 inset-x-0 w-full z-50 shadow-sm"
-    >
-      <div
-        class="container mx-auto px-4 py-3 flex justify-between items-center"
-      >
-        <a href="/" class="flex items-center space-x-3">
-          <img
-            src="/asset/Logo_alkhairaat.svg.png"
-            alt="Logo Alkhairaat"
-            class="w-10 h-10"
-          />
-          
-        <h1 class="text-xl md:text-2xl font-bold text-emerald-800">
-          Jejak Sang Pembangun
+    <!-- IMPROVED NAVBAR HTML - Replace existing header in index.html -->
+<header id="header" class="navbar-enhanced fixed top-0 inset-x-0 w-full z-50 transition-all duration-500">
+  <div class="navbar-blur"></div>
+  
+  <div class="container mx-auto px-4 py-3 relative z-10">
+    <div class="flex justify-between items-center">
+      
+      <!-- Logo Section - Enhanced -->
+      <a href="/" class="logo-wrapper group">
+        <div class="logo-container">
+          <img src="/asset/Logo_alkhairaat.svg.png" alt="Logo Alkhairaat" class="logo-img" />
+          <div class="logo-glow"></div>
+        </div>
+        <h1 class="logo-title">
+          <span class="title-main">Jejak Sang Pembangun</span>
+          <span class="title-highlight"></span>
         </h1>
-        <nav class="hidden md:flex space-x-6 text-sm font-semibold">
-          <a
-            href="#jejak-kehidupan"
-            class="text-stone-600 hover:text-emerald-700 transition"
-            >Jejak Kehidupan</a
-          >
-          <a
-            href="#legasi-alkhairaat"
-            class="text-stone-600 hover:text-emerald-700 transition"
-            >Legasi Alkhairaat</a
-          >
-          <a
-            href="#cuplikan-video"
-            class="text-stone-600 hover:text-emerald-700 transition"
-            >Cuplikan Video</a
-          >
-
-          <a
-            href="#kesan-mereka-index"
-            class="text-stone-600 hover:text-emerald-700 transition"
-            >Kesan Mereka</a
-          >
-
-          <a
-            href="#pemikiran"
-            class="text-stone-600 hover:text-emerald-700 transition"
-            >Pemikiran & Pengaruh</a
-          >
-          <a
-            href="#kaderisasi"
-            class="text-stone-600 hover:text-emerald-700 transition"
-            >Pusat Kaderisasi</a
-          >
-          
-        </nav>
-        <button
-          id="mobile-menu-button"
-          class="md:hidden p-2 rounded-md text-stone-600 hover:bg-stone-100"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16m-7 6h7"
-            />
-          </svg>
-        </button>
-      </div>
-      <div
-        id="mobile-menu"
-        class="hidden md:hidden bg-white border-t border-stone-200"
-      >
-        <a
-          href="#jejak-kehidupan"
-          class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
-          >Jejak Kehidupan</a
-        >
-        <a
-          href="#legasi-alkhairaat"
-          class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
-          >Legasi Alkhairaat</a
-        >
-        <a
-          href="#cuplikan-video"
-          class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
-          >Cuplikan Video</a
-        >
-
-        <a
-          href="kesan_mereka.html"
-          class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
-          >Habib Saggaf di Mata Mereka</a
-        >
-
-        <a
-          href="#pemikiran"
-          class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
-          >Pemikiran & Pengaruh</a
-        >
-        <a
-          href="#kaderisasi"
-          class="block px-4 py-3 text-stone-600 hover:bg-stone-50 hover:text-emerald-700 transition"
-          >Pusat Kaderisasi</a
-        >
+      </a>
+      
+      <!-- Desktop Navigation - Enhanced -->
+      <nav class="desktop-nav hidden md:flex items-center">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="#jejak-kehidupan" class="nav-link">
+              <span class="nav-text">Jejak Kehidupan</span>
+              <span class="nav-indicator"></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#legasi-alkhairaat" class="nav-link">
+              <span class="nav-text">Legasi Alkhairaat</span>
+              <span class="nav-indicator"></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#cuplikan-video" class="nav-link">
+              <span class="nav-text">Cuplikan Video</span>
+              <span class="nav-indicator"></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#kesan-mereka-index" class="nav-link">
+              <span class="nav-text">Kesan Mereka</span>
+              <span class="nav-indicator"></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#pemikiran" class="nav-link">
+              <span class="nav-text">Pemikiran</span>
+              <span class="nav-indicator"></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#kaderisasi" class="nav-link">
+              <span class="nav-text">Kaderisasi</span>
+              <span class="nav-indicator"></span>
+            </a>
+          </li>
+        </ul>
         
+        <!-- Special CTA Button -->
+        <a href="haul.html" class="nav-cta">
+          <span class="cta-text">Haul 2025</span>
+          <span class="cta-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 2v4M16 2v4M3 10h18M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7m18 0V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6"/>
+            </svg>
+          </span>
+        </a>
+      </nav>
+      
+      <!-- Mobile Menu Button - Enhanced -->
+      <button id="mobile-menu-button" class="mobile-menu-btn md:hidden">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu - Enhanced -->
+  <div id="mobile-menu" class="mobile-menu">
+    <div class="mobile-menu-overlay"></div>
+    <div class="mobile-menu-container">
+      <nav class="mobile-nav">
+        <a href="#jejak-kehidupan" class="mobile-nav-link">
+          <span class="mobile-nav-number">01</span>
+          <span class="mobile-nav-text">Jejak Kehidupan</span>
+          <span class="mobile-nav-arrow">→</span>
+        </a>
+        <a href="#legasi-alkhairaat" class="mobile-nav-link">
+          <span class="mobile-nav-number">02</span>
+          <span class="mobile-nav-text">Legasi Alkhairaat</span>
+          <span class="mobile-nav-arrow">→</span>
+        </a>
+        <a href="#cuplikan-video" class="mobile-nav-link">
+          <span class="mobile-nav-number">03</span>
+          <span class="mobile-nav-text">Cuplikan Video</span>
+          <span class="mobile-nav-arrow">→</span>
+        </a>
+        <a href="#kesan-mereka-index" class="mobile-nav-link">
+          <span class="mobile-nav-number">04</span>
+          <span class="mobile-nav-text">Kesan Mereka</span>
+          <span class="mobile-nav-arrow">→</span>
+        </a>
+        <a href="#pemikiran" class="mobile-nav-link">
+          <span class="mobile-nav-number">05</span>
+          <span class="mobile-nav-text">Pemikiran & Pengaruh</span>
+          <span class="mobile-nav-arrow">→</span>
+        </a>
+        <a href="#kaderisasi" class="mobile-nav-link">
+          <span class="mobile-nav-number">06</span>
+          <span class="mobile-nav-text">Pusat Kaderisasi</span>
+          <span class="mobile-nav-arrow">→</span>
+        </a>
+      </nav>
+      
+      <div class="mobile-menu-footer">
+        <a href="#haul-invitation" class="mobile-cta">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 2v4M16 2v4M3 10h18M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7m18 0V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6"/>
+          </svg>
+          <span>Haul Tahunan 2025</span>
+        </a>
       </div>
-    </header>
+    </div>
+  </div>
+  
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress">
+    <div class="scroll-progress-bar"></div>
+  </div>
+</header>
 
     <main class="pt-20">
       <section
