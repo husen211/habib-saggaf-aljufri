@@ -1,141 +1,148 @@
-
 // ===== ENHANCED NAVBAR JAVASCRIPT =====
 // File: navbar-enhanced.js
 
-document.addEventListener('DOMContentLoaded', function() {
-  const navbar = document.getElementById('header');
-  const mobileMenuBtn = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const progressBar = document.querySelector('.scroll-progress-bar');
-  const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
-  
+document.addEventListener("DOMContentLoaded", function () {
+  const navbar = document.getElementById("header");
+  const mobileMenuBtn = document.getElementById("mobile-menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const progressBar = document.querySelector(".scroll-progress-bar");
+  const navLinks = document.querySelectorAll(".nav-link, .mobile-nav-link");
+
   // Scroll handling - REMOVED auto-hide functionality
   function handleScroll() {
     const currentScroll = window.pageYOffset;
-    const winHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const winHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
     const scrolled = (currentScroll / winHeight) * 100;
-    
+
     // Update progress bar
     if (progressBar) {
-      progressBar.style.width = scrolled + '%';
+      progressBar.style.width = scrolled + "%";
     }
-    
+
     // Add/remove scrolled class
     if (currentScroll > 50) {
-      navbar.classList.add('scrolled');
+      navbar.classList.add("scrolled");
     } else {
-      navbar.classList.remove('scrolled');
+      navbar.classList.remove("scrolled");
     }
-    
+
     // REMOVED hide/show navbar on scroll - navbar always visible
   }
-  
+
   // Throttle scroll event
   let scrollTimer;
-  window.addEventListener('scroll', function() {
+  window.addEventListener("scroll", function () {
     if (scrollTimer) {
       clearTimeout(scrollTimer);
     }
     scrollTimer = setTimeout(handleScroll, 10);
   });
-  
+
   // Mobile menu toggle
-  mobileMenuBtn.addEventListener('click', function() {
-    this.classList.toggle('active');
-    mobileMenu.classList.toggle('active');
-    
+  mobileMenuBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.classList.toggle("active");
+    mobileMenu.classList.toggle("active");
+
     // Prevent body scroll when menu is open
-    if (mobileMenu.classList.contains('active')) {
-      document.body.classList.add('mobile-menu-open');
+    if (mobileMenu.classList.contains("active")) {
+      document.body.classList.add("mobile-menu-open");
     } else {
-      document.body.classList.remove('mobile-menu-open');
+      document.body.classList.remove("mobile-menu-open");
     }
+
+    // Prevent page scroll jump on hamburger click
+    window.scrollTo(window.pageXOffset, window.pageYOffset);
   });
-  
+
   // Close mobile menu when clicking overlay
-  const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+  const mobileMenuOverlay = document.querySelector(".mobile-menu-overlay");
   if (mobileMenuOverlay) {
-    mobileMenuOverlay.addEventListener('click', function() {
-      mobileMenuBtn.classList.remove('active');
-      mobileMenu.classList.remove('active');
-      document.body.classList.remove('mobile-menu-open');
+    mobileMenuOverlay.addEventListener("click", function () {
+      mobileMenuBtn.classList.remove("active");
+      mobileMenu.classList.remove("active");
+      document.body.classList.remove("mobile-menu-open");
     });
   }
-  
+
   // Close mobile menu on link click
-  document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', function() {
-      mobileMenuBtn.classList.remove('active');
-      mobileMenu.classList.remove('active');
-      document.body.classList.remove('mobile-menu-open');
+  document.querySelectorAll(".mobile-nav-link").forEach((link) => {
+    link.addEventListener("click", function () {
+      mobileMenuBtn.classList.remove("active");
+      mobileMenu.classList.remove("active");
+      document.body.classList.remove("mobile-menu-open");
     });
   });
-  
+
   // Active link detection
   function updateActiveLink() {
-    const sections = document.querySelectorAll('section[id]');
+    const sections = document.querySelectorAll("section[id]");
     const scrollPosition = window.pageYOffset + 100;
-    
-    sections.forEach(section => {
+
+    sections.forEach((section) => {
       const sectionTop = section.offsetTop;
       const sectionHeight = section.offsetHeight;
-      const sectionId = section.getAttribute('id');
-      
-      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${sectionId}`) {
-            link.classList.add('active');
+      const sectionId = section.getAttribute("id");
+
+      if (
+        scrollPosition >= sectionTop &&
+        scrollPosition < sectionTop + sectionHeight
+      ) {
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${sectionId}`) {
+            link.classList.add("active");
           }
         });
       }
     });
   }
-  
+
   // Update active link on scroll
-  window.addEventListener('scroll', updateActiveLink);
+  window.addEventListener("scroll", updateActiveLink);
   updateActiveLink(); // Initial check
-  
+
   // Smooth scroll for nav links
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      const href = this.getAttribute('href');
-      if (href && href.startsWith('#')) {
+  navLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
+      const href = this.getAttribute("href");
+      if (href && href.startsWith("#")) {
         e.preventDefault();
         const target = document.querySelector(href);
         if (target) {
           const offset = navbar.offsetHeight;
           const targetPosition = target.offsetTop - offset;
-          
+
           window.scrollTo({
             top: targetPosition,
-            behavior: 'smooth'
+            behavior: "smooth",
           });
         }
       }
     });
   });
-  
+
   // Initial scroll check
   handleScroll();
-  
+
   // Handle window resize for mobile menu
   let resizeTimer;
-  window.addEventListener('resize', function() {
+  window.addEventListener("resize", function () {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
+    resizeTimer = setTimeout(function () {
       // Close mobile menu on resize to desktop
-      if (window.innerWidth >= 768 && mobileMenu.classList.contains('active')) {
-        mobileMenuBtn.classList.remove('active');
-        mobileMenu.classList.remove('active');
-        document.body.classList.remove('mobile-menu-open');
+      if (
+        window.innerWidth >= 1025 &&
+        mobileMenu.classList.contains("active")
+      ) {
+        mobileMenuBtn.classList.remove("active");
+        mobileMenu.classList.remove("active");
+        document.body.classList.remove("mobile-menu-open");
       }
     }, 250);
   });
-
-
-
- 
 
   // --- LOGIKA UNTUK CHARTS (Hanya untuk index.html) ---
   let growthChartInstance = null;
@@ -264,8 +271,6 @@ document.addEventListener('DOMContentLoaded', function() {
     { threshold: 0.5 }
   );
 
-
-
   const growthChartCanvas = document.getElementById("growthChart");
   const distributionChartCanvas = document.getElementById("distributionChart");
   if (growthChartCanvas) chartObserver.observe(growthChartCanvas);
@@ -284,7 +289,6 @@ document.addEventListener('DOMContentLoaded', function() {
       },
     });
   }
-
 
   // --- FITUR SHARE UNDANGAN HAUL ---
   const shareBtn = document.getElementById("share-haul-btn");
@@ -526,233 +530,240 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-  
-   // ===== TIMELINE DETAIL FUNCTIONALITY =====
-  
+
+  // ===== TIMELINE DETAIL FUNCTIONALITY =====
+
   // Setup timeline detail buttons
-  const timelineCards = document.querySelectorAll('.timeline-card');
-  
-  timelineCards.forEach(card => {
-    const detailButton = card.querySelector('.detail-button');
-    const titleElement = card.querySelector('h4[onclick]');
-    
+  const timelineCards = document.querySelectorAll(".timeline-card");
+
+  timelineCards.forEach((card) => {
+    const detailButton = card.querySelector(".detail-button");
+    const titleElement = card.querySelector("h4[onclick]");
+
     // Tambahkan event listener untuk button
     if (detailButton) {
-      detailButton.addEventListener('click', function(e) {
+      detailButton.addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
-        
-        const detailContent = card.querySelector('.timeline-detail-content');
+
+        const detailContent = card.querySelector(".timeline-detail-content");
         toggleTimelineDetailContent(detailContent, this);
       });
     }
-    
+
     // Tambahkan event listener untuk title
     if (titleElement) {
-      titleElement.addEventListener('click', function(e) {
+      titleElement.addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
-        
-        const detailContent = card.querySelector('.timeline-detail-content');
-        const button = card.querySelector('.detail-button');
+
+        const detailContent = card.querySelector(".timeline-detail-content");
+        const button = card.querySelector(".detail-button");
         toggleTimelineDetailContent(detailContent, button);
       });
-      
+
       // Tambahkan cursor pointer
-      titleElement.style.cursor = 'pointer';
+      titleElement.style.cursor = "pointer";
     }
   });
-  
+
   // Fungsi helper untuk toggle detail content
   function toggleTimelineDetailContent(detailContent, button) {
     if (!detailContent) return;
-    
-    const isExpanded = detailContent.classList.contains('expanded');
-    
+
+    const isExpanded = detailContent.classList.contains("expanded");
+
     if (isExpanded) {
       // Tutup detail
-      detailContent.classList.remove('expanded');
-      detailContent.style.maxHeight = '0px';
-      if (button) button.textContent = 'Lihat Detail';
-      
+      detailContent.classList.remove("expanded");
+      detailContent.style.maxHeight = "0px";
+      if (button) button.textContent = "Lihat Detail";
+
       // Rotate arrow icon
-      const arrowIcon = detailContent.parentElement.querySelector('.arrow-icon');
+      const arrowIcon =
+        detailContent.parentElement.querySelector(".arrow-icon");
       if (arrowIcon) {
-        arrowIcon.style.transform = 'rotate(0deg)';
+        arrowIcon.style.transform = "rotate(0deg)";
       }
     } else {
       // Buka detail
-      detailContent.classList.add('expanded');
-      detailContent.style.maxHeight = detailContent.scrollHeight + 'px';
-      if (button) button.textContent = 'Sembunyikan';
-      
+      detailContent.classList.add("expanded");
+      detailContent.style.maxHeight = detailContent.scrollHeight + "px";
+      if (button) button.textContent = "Sembunyikan";
+
       // Rotate arrow icon
-      const arrowIcon = detailContent.parentElement.querySelector('.arrow-icon');
+      const arrowIcon =
+        detailContent.parentElement.querySelector(".arrow-icon");
       if (arrowIcon) {
-        arrowIcon.style.transform = 'rotate(180deg)';
+        arrowIcon.style.transform = "rotate(180deg)";
       }
     }
   }
-  
+
   // ===== TIMELINE ANIMATION IMPROVEMENTS =====
-  
+
   // Enhanced timeline observer untuk animasi yang lebih smooth
   const timelineObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
           setTimeout(() => {
-            entry.target.classList.add('visible');
+            entry.target.classList.add("visible");
           }, index * 200); // Stagger animation
-          
+
           timelineObserver.unobserve(entry.target);
         }
       });
     },
     { threshold: 0.2 }
   );
-  
+
   // Apply observer ke timeline items
-  document.querySelectorAll('.timeline-item').forEach((item) => {
+  document.querySelectorAll(".timeline-item").forEach((item) => {
     timelineObserver.observe(item);
   });
-  
+
   // ===== MOBILE TIMELINE FIXES =====
-  
+
   function handleTimelineResponsive() {
     const isMobile = window.innerWidth <= 768;
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    
+    const timelineItems = document.querySelectorAll(".timeline-item");
+
     timelineItems.forEach((item, index) => {
-      const card = item.querySelector('.timeline-card');
-      
+      const card = item.querySelector(".timeline-card");
+
       if (isMobile) {
         // Force semua cards ke kiri di mobile
         if (card) {
-          card.classList.remove('timeline-card-right');
-          card.classList.add('timeline-card-left');
+          card.classList.remove("timeline-card-right");
+          card.classList.add("timeline-card-left");
         }
       } else {
         // Alternatif kiri-kanan di desktop
         if (card) {
           if (index % 2 === 0) {
-            card.classList.remove('timeline-card-right');
-            card.classList.add('timeline-card-left');
+            card.classList.remove("timeline-card-right");
+            card.classList.add("timeline-card-left");
           } else {
-            card.classList.remove('timeline-card-left');
-            card.classList.add('timeline-card-right');
+            card.classList.remove("timeline-card-left");
+            card.classList.add("timeline-card-right");
           }
         }
       }
     });
   }
-  
+
   // Jalankan saat load dan resize
   handleTimelineResponsive();
-  window.addEventListener('resize', handleTimelineResponsive);
-  
+  window.addEventListener("resize", handleTimelineResponsive);
+
   // ===== DEBUGGING TOOLS =====
-  
+
   // Fungsi untuk debug timeline issues
-  window.debugTimeline = function() {
-    console.log('=== TIMELINE DEBUG INFO ===');
-    
-    const timelineContainer = document.querySelector('.timeline-container');
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    const milestoneItems = document.querySelectorAll('.milestone-timeline .timeline-item');
-    
-    console.log('Timeline Container:', timelineContainer);
-    console.log('Timeline Items:', timelineItems.length);
-    console.log('Milestone Items:', milestoneItems.length);
-    
+  window.debugTimeline = function () {
+    console.log("=== TIMELINE DEBUG INFO ===");
+
+    const timelineContainer = document.querySelector(".timeline-container");
+    const timelineItems = document.querySelectorAll(".timeline-item");
+    const milestoneItems = document.querySelectorAll(
+      ".milestone-timeline .timeline-item"
+    );
+
+    console.log("Timeline Container:", timelineContainer);
+    console.log("Timeline Items:", timelineItems.length);
+    console.log("Milestone Items:", milestoneItems.length);
+
     timelineItems.forEach((item, index) => {
       const rect = item.getBoundingClientRect();
       console.log(`Item ${index}:`, {
         element: item,
         position: rect,
-        hasDataNumber: item.hasAttribute('data-number'),
-        classes: item.className
+        hasDataNumber: item.hasAttribute("data-number"),
+        classes: item.className,
       });
     });
   };
-  
+
   // Fungsi untuk reset timeline jika ada masalah
-  window.resetTimeline = function() {
-    console.log('Resetting timeline...');
-    
+  window.resetTimeline = function () {
+    console.log("Resetting timeline...");
+
     // Reset semua timeline detail states
-    const detailContents = document.querySelectorAll('.timeline-detail-content');
-    detailContents.forEach(content => {
-      content.classList.remove('expanded');
-      content.style.maxHeight = '0px';
+    const detailContents = document.querySelectorAll(
+      ".timeline-detail-content"
+    );
+    detailContents.forEach((content) => {
+      content.classList.remove("expanded");
+      content.style.maxHeight = "0px";
     });
-    
+
     // Reset semua button texts
-    const detailButtons = document.querySelectorAll('.detail-button');
-    detailButtons.forEach(button => {
-      button.textContent = 'Lihat Detail';
+    const detailButtons = document.querySelectorAll(".detail-button");
+    detailButtons.forEach((button) => {
+      button.textContent = "Lihat Detail";
     });
-    
+
     // Reset arrow icons
-    const arrowIcons = document.querySelectorAll('.arrow-icon');
-    arrowIcons.forEach(icon => {
-      icon.style.transform = 'rotate(0deg)';
+    const arrowIcons = document.querySelectorAll(".arrow-icon");
+    arrowIcons.forEach((icon) => {
+      icon.style.transform = "rotate(0deg)";
     });
-    
-    console.log('Timeline reset complete');
+
+    console.log("Timeline reset complete");
   };
-  
+
   // Auto-fix untuk masalah umum
   function autoFixTimelineIssues() {
     // Pastikan semua timeline items punya z-index yang benar
-    const timelineItems = document.querySelectorAll('.timeline-item');
+    const timelineItems = document.querySelectorAll(".timeline-item");
     timelineItems.forEach((item, index) => {
       item.style.zIndex = 10 + index;
     });
-    
+
     // Pastikan tidak ada garis yang mengganggu
-    const problemElements = document.querySelectorAll('.timeline-container::before, .timeline-container::after');
-    problemElements.forEach(el => {
-      if (el) el.style.display = 'none';
+    const problemElements = document.querySelectorAll(
+      ".timeline-container::before, .timeline-container::after"
+    );
+    problemElements.forEach((el) => {
+      if (el) el.style.display = "none";
     });
   }
-  
+
   autoFixTimelineIssues();
-
-
 }); // <--  AKHIR dari event listener DOMContentLoaded
 
 // ===== TIMELINE JAVASCRIPT FIXES =====
 
 // Fungsi toggleTimelineDetail yang hilang
 function toggleTimelineDetail(element) {
-  const detailContent = element.parentElement.querySelector('.timeline-detail-content');
-  const button = element.parentElement.querySelector('.detail-button');
-  const arrowIcon = element.querySelector('.arrow-icon');
-  
+  const detailContent = element.parentElement.querySelector(
+    ".timeline-detail-content"
+  );
+  const button = element.parentElement.querySelector(".detail-button");
+  const arrowIcon = element.querySelector(".arrow-icon");
+
   if (!detailContent) return;
-  
-  const isExpanded = detailContent.classList.contains('expanded');
-  
+
+  const isExpanded = detailContent.classList.contains("expanded");
+
   if (isExpanded) {
     // Tutup detail
-    detailContent.classList.remove('expanded');
-    detailContent.style.maxHeight = '0px';
-    button.textContent = 'Lihat Detail';
+    detailContent.classList.remove("expanded");
+    detailContent.style.maxHeight = "0px";
+    button.textContent = "Lihat Detail";
     if (arrowIcon) {
-      arrowIcon.style.transform = 'rotate(0deg)';
+      arrowIcon.style.transform = "rotate(0deg)";
     }
   } else {
     // Buka detail
-    detailContent.classList.add('expanded');
-    detailContent.style.maxHeight = detailContent.scrollHeight + 'px';
-    button.textContent = 'Sembunyikan';
+    detailContent.classList.add("expanded");
+    detailContent.style.maxHeight = detailContent.scrollHeight + "px";
+    button.textContent = "Sembunyikan";
     if (arrowIcon) {
-      arrowIcon.style.transform = 'rotate(180deg)';
+      arrowIcon.style.transform = "rotate(180deg)";
     }
   }
 }
-
 
 // ===== GLOBAL TIMELINE FUNCTIONS =====
 
@@ -760,11 +771,11 @@ function toggleTimelineDetail(element) {
 window.toggleTimelineDetail = toggleTimelineDetail;
 
 // Export functions untuk testing
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     toggleTimelineDetail,
     debugTimeline: window.debugTimeline,
-    resetTimeline: window.resetTimeline
+    resetTimeline: window.resetTimeline,
   };
 }
 
@@ -778,53 +789,125 @@ let isMapActive = false;
 // Enhanced alkhairaatLokasi data (pastikan ini ada)
 const alkhairaatLokasi = [
   // Sulawesi Tengah
-  { kota: "Kota Palu", provinsi: "Sulawesi Tengah", coords: [-0.8983, 119.8707] },
-  { kota: "Kab. Donggala", provinsi: "Sulawesi Tengah", coords: [-0.6833, 119.7333] },
-  { kota: "Kab. Sigi", provinsi: "Sulawesi Tengah", coords: [-1.3989, 119.9774] },
-  { kota: "Kab. Parigi Moutong", provinsi: "Sulawesi Tengah", coords: [-1.1594, 120.2122] },
-  { kota: "Kab. Poso", provinsi: "Sulawesi Tengah", coords: [-1.3958, 120.7519] },
-  { kota: "Kab. Tojo Una-Una", provinsi: "Sulawesi Tengah", coords: [-1.025, 121.575] },
-  { kota: "Kab. Tolitoli", provinsi: "Sulawesi Tengah", coords: [1.0456, 120.8175] },
-  { kota: "Kab. Buol", provinsi: "Sulawesi Tengah", coords: [1.1333, 121.4333] },
-  { kota: "Kab. Morowali", provinsi: "Sulawesi Tengah", coords: [-2.1167, 121.5667] },
-  { kota: "Kab. Banggai", provinsi: "Sulawesi Tengah", coords: [-0.9667, 122.7833] },
-  
+  {
+    kota: "Kota Palu",
+    provinsi: "Sulawesi Tengah",
+    coords: [-0.8983, 119.8707],
+  },
+  {
+    kota: "Kab. Donggala",
+    provinsi: "Sulawesi Tengah",
+    coords: [-0.6833, 119.7333],
+  },
+  {
+    kota: "Kab. Sigi",
+    provinsi: "Sulawesi Tengah",
+    coords: [-1.3989, 119.9774],
+  },
+  {
+    kota: "Kab. Parigi Moutong",
+    provinsi: "Sulawesi Tengah",
+    coords: [-1.1594, 120.2122],
+  },
+  {
+    kota: "Kab. Poso",
+    provinsi: "Sulawesi Tengah",
+    coords: [-1.3958, 120.7519],
+  },
+  {
+    kota: "Kab. Tojo Una-Una",
+    provinsi: "Sulawesi Tengah",
+    coords: [-1.025, 121.575],
+  },
+  {
+    kota: "Kab. Tolitoli",
+    provinsi: "Sulawesi Tengah",
+    coords: [1.0456, 120.8175],
+  },
+  {
+    kota: "Kab. Buol",
+    provinsi: "Sulawesi Tengah",
+    coords: [1.1333, 121.4333],
+  },
+  {
+    kota: "Kab. Morowali",
+    provinsi: "Sulawesi Tengah",
+    coords: [-2.1167, 121.5667],
+  },
+  {
+    kota: "Kab. Banggai",
+    provinsi: "Sulawesi Tengah",
+    coords: [-0.9667, 122.7833],
+  },
+
   // Sulawesi Utara & Gorontalo
-  { kota: "Kota Manado", provinsi: "Sulawesi Utara", coords: [1.4748, 124.8421] },
-  { kota: "Kota Bitung", provinsi: "Sulawesi Utara", coords: [1.4422, 125.1892] },
-  { kota: "Bolaang Mongondow", provinsi: "Sulawesi Utara", coords: [0.7583, 124.0322] },
+  {
+    kota: "Kota Manado",
+    provinsi: "Sulawesi Utara",
+    coords: [1.4748, 124.8421],
+  },
+  {
+    kota: "Kota Bitung",
+    provinsi: "Sulawesi Utara",
+    coords: [1.4422, 125.1892],
+  },
+  {
+    kota: "Bolaang Mongondow",
+    provinsi: "Sulawesi Utara",
+    coords: [0.7583, 124.0322],
+  },
   { kota: "Kota Gorontalo", provinsi: "Gorontalo", coords: [0.5435, 123.0596] },
   { kota: "Kab. Pohuwato", provinsi: "Gorontalo", coords: [0.55, 121.8333] },
-  
+
   // Maluku & Maluku Utara
   { kota: "Kota Ambon", provinsi: "Maluku", coords: [-3.6563, 128.1906] },
-  { kota: "Kota Ternate", provinsi: "Maluku Utara", coords: [0.7812, 127.3633] },
+  {
+    kota: "Kota Ternate",
+    provinsi: "Maluku Utara",
+    coords: [0.7812, 127.3633],
+  },
   { kota: "Kota Tidore", provinsi: "Maluku Utara", coords: [0.6583, 127.4475] },
-  { kota: "Halmahera Utara", provinsi: "Maluku Utara", coords: [1.75, 127.8833] },
-  
+  {
+    kota: "Halmahera Utara",
+    provinsi: "Maluku Utara",
+    coords: [1.75, 127.8833],
+  },
+
   // Lainnya
-  { kota: "Kota Makassar", provinsi: "Sulawesi Selatan", coords: [-5.1477, 119.4238] },
-  { kota: "Kota Kendari", provinsi: "Sulawesi Tenggara", coords: [-3.9926, 122.5149] },
+  {
+    kota: "Kota Makassar",
+    provinsi: "Sulawesi Selatan",
+    coords: [-5.1477, 119.4238],
+  },
+  {
+    kota: "Kota Kendari",
+    provinsi: "Sulawesi Tenggara",
+    coords: [-3.9926, 122.5149],
+  },
   { kota: "Kota Sorong", provinsi: "Papua Barat", coords: [-0.8833, 131.25] },
   { kota: "Kota Jayapura", provinsi: "Papua", coords: [-2.5333, 140.7167] },
-  { kota: "Kota Balikpapan", provinsi: "Kalimantan Timur", coords: [-1.2651, 116.8285] }
+  {
+    kota: "Kota Balikpapan",
+    provinsi: "Kalimantan Timur",
+    coords: [-1.2651, 116.8285],
+  },
 ];
 
 // Activate map function (global scope)
 function activateMap() {
-  const overlay = document.getElementById('map-overlay');
-  const loading = document.getElementById('map-loading');
-  
+  const overlay = document.getElementById("map-overlay");
+  const loading = document.getElementById("map-loading");
+
   if (!overlay || !loading) {
-    console.error('Map elements not found');
+    console.error("Map elements not found");
     return;
   }
-  
-  overlay.style.opacity = '0';
-  loading.classList.remove('hidden');
-  
+
+  overlay.style.opacity = "0";
+  loading.classList.remove("hidden");
+
   setTimeout(() => {
-    overlay.style.display = 'none';
+    overlay.style.display = "none";
     initEnhancedMap();
   }, 500);
 }
@@ -833,7 +916,7 @@ function activateMap() {
 function initEnhancedMap() {
   const mapElement = document.getElementById("map");
   if (!mapElement) {
-    console.error('Map element not found');
+    console.error("Map element not found");
     return;
   }
 
@@ -843,33 +926,34 @@ function initEnhancedMap() {
         scrollWheelZoom: true,
         dragging: true,
         touchZoom: true,
-        zoomControl: true
+        zoomControl: true,
       }).setView([-2.5, 118], 5);
 
       // Add tile layer
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }).addTo(currentMap);
 
       addEnhancedMarkers();
     }
-    
+
     setTimeout(() => {
-      const loadingElement = document.getElementById('map-loading');
+      const loadingElement = document.getElementById("map-loading");
       if (loadingElement) {
-        loadingElement.classList.add('hidden');
+        loadingElement.classList.add("hidden");
       }
       isMapActive = true;
       animateRegionalStats();
     }, 1500);
-    
   } catch (error) {
-    console.error('Error initializing map:', error);
+    console.error("Error initializing map:", error);
     // Fallback: hide loading and show basic message
-    const loadingElement = document.getElementById('map-loading');
+    const loadingElement = document.getElementById("map-loading");
     if (loadingElement) {
-      loadingElement.innerHTML = '<p>Peta tidak dapat dimuat. Silakan refresh halaman.</p>';
+      loadingElement.innerHTML =
+        "<p>Peta tidak dapat dimuat. Silakan refresh halaman.</p>";
     }
   }
 }
@@ -877,30 +961,40 @@ function initEnhancedMap() {
 // Enhanced markers with error handling
 function addEnhancedMarkers() {
   if (!currentMap || !Array.isArray(alkhairaatLokasi)) {
-    console.error('Map or location data not available');
+    console.error("Map or location data not available");
     return;
   }
 
   alkhairaatLokasi.forEach((location, index) => {
     try {
       // Determine marker class based on location
-      let markerClass = 'low-density';
-      if (location.kota === 'Kota Palu') {
-        markerClass = 'high-density';
-      } else if (['Kota Manado', 'Kota Ambon', 'Kota Ternate'].includes(location.kota)) {
-        markerClass = 'medium-density';
+      let markerClass = "low-density";
+      if (location.kota === "Kota Palu") {
+        markerClass = "high-density";
+      } else if (
+        ["Kota Manado", "Kota Ambon", "Kota Ternate"].includes(location.kota)
+      ) {
+        markerClass = "medium-density";
       }
 
       // Simple popup content
       const popupContent = `
         <div style="font-family: Inter, sans-serif; min-width: 200px;">
-          <h4 style="margin: 0 0 8px 0; color: #1f2937; font-size: 1.1rem;">${location.kota}</h4>
-          <p style="margin: 0 0 8px 0; color: #6b7280; font-size: 0.875rem;">${location.provinsi}</p>
+          <h4 style="margin: 0 0 8px 0; color: #1f2937; font-size: 1.1rem;">${
+            location.kota
+          }</h4>
+          <p style="margin: 0 0 8px 0; color: #6b7280; font-size: 0.875rem;">${
+            location.provinsi
+          }</p>
           <div style="display: flex; justify-content: space-between; font-size: 0.875rem;">
             <span style="color: #6b7280;">Estimasi:</span>
-            <span style="color: #10b981; font-weight: 600;">${getLocationCount(location.kota)}</span>
+            <span style="color: #10b981; font-weight: 600;">${getLocationCount(
+              location.kota
+            )}</span>
           </div>
-          <button onclick="showLocationDetails('${location.kota}', '${location.provinsi}')" 
+          <button onclick="showLocationDetails('${location.kota}', '${
+        location.provinsi
+      }')" 
                   style="width: 100%; margin-top: 12px; padding: 8px; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer;">
             Lihat Detail
           </button>
@@ -915,9 +1009,8 @@ function addEnhancedMarkers() {
       mapMarkers.push({
         marker: marker,
         location: location,
-        region: getRegionCode(location.provinsi)
+        region: getRegionCode(location.provinsi),
       });
-
     } catch (error) {
       console.error(`Error adding marker for ${location.kota}:`, error);
     }
@@ -927,50 +1020,54 @@ function addEnhancedMarkers() {
 // Get estimated count for location (safe function)
 function getLocationCount(kota) {
   const counts = {
-    'Kota Palu': '1,200+',
-    'Kab. Donggala': '150+',
-    'Kab. Sigi': '120+',
-    'Kota Manado': '80+',
-    'Kota Bitung': '45+',
-    'Kota Ambon': '60+',
-    'Kota Ternate': '40+',
-    'Kota Gorontalo': '35+',
-    'Kota Makassar': '15+',
-    'Kota Kendari': '12+'
+    "Kota Palu": "1,200+",
+    "Kab. Donggala": "150+",
+    "Kab. Sigi": "120+",
+    "Kota Manado": "80+",
+    "Kota Bitung": "45+",
+    "Kota Ambon": "60+",
+    "Kota Ternate": "40+",
+    "Kota Gorontalo": "35+",
+    "Kota Makassar": "15+",
+    "Kota Kendari": "12+",
   };
-  return counts[kota] || '5-20';
+  return counts[kota] || "5-20";
 }
 
 // Get region code for filtering (safe function)
 function getRegionCode(provinsi) {
   const regionMap = {
-    'Sulawesi Tengah': 'sulteng',
-    'Sulawesi Utara': 'sulut',
-    'Maluku': 'maluku',
-    'Maluku Utara': 'maluku',
-    'Gorontalo': 'gorontalo',
-    'Kalimantan Timur': 'kaltim',
-    'Kalimantan Utara': 'kaltim',
-    'Papua': 'papua',
-    'Papua Barat': 'papua',
-    'Sulawesi Selatan': 'sulsel',
-    'Sulawesi Barat': 'sulbar',
-    'Sulawesi Tenggara': 'sulsel'
+    "Sulawesi Tengah": "sulteng",
+    "Sulawesi Utara": "sulut",
+    Maluku: "maluku",
+    "Maluku Utara": "maluku",
+    Gorontalo: "gorontalo",
+    "Kalimantan Timur": "kaltim",
+    "Kalimantan Utara": "kaltim",
+    Papua: "papua",
+    "Papua Barat": "papua",
+    "Sulawesi Selatan": "sulsel",
+    "Sulawesi Barat": "sulbar",
+    "Sulawesi Tenggara": "sulsel",
   };
-  return regionMap[provinsi] || 'other';
+  return regionMap[provinsi] || "other";
 }
 
 // Show location details (global scope)
 function showLocationDetails(kota, provinsi) {
-  const infoPanel = document.getElementById('map-info-panel');
-  const infoTitle = document.getElementById('info-title');
-  const infoContent = document.getElementById('info-content');
-  
+  const infoPanel = document.getElementById("map-info-panel");
+  const infoTitle = document.getElementById("info-title");
+  const infoContent = document.getElementById("info-content");
+
   if (!infoPanel || !infoTitle || !infoContent) {
-    alert(`Detail untuk ${kota}, ${provinsi}\nEstimasi: ${getLocationCount(kota)} institusi`);
+    alert(
+      `Detail untuk ${kota}, ${provinsi}\nEstimasi: ${getLocationCount(
+        kota
+      )} institusi`
+    );
     return;
   }
-  
+
   infoTitle.textContent = kota;
   infoContent.innerHTML = `
     <div style="font-size: 0.875rem;">
@@ -980,7 +1077,9 @@ function showLocationDetails(kota, provinsi) {
       </div>
       <div style="display: flex; justify-content: space-between; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #f3f4f6;">
         <span style="color: #6b7280;">Estimasi Institusi:</span>
-        <span style="color: #1f2937; font-weight: 600;">${getLocationCount(kota)}</span>
+        <span style="color: #1f2937; font-weight: 600;">${getLocationCount(
+          kota
+        )}</span>
       </div>
       <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #f3f4f6;">
         <span style="color: #6b7280;">Jenis:</span>
@@ -993,37 +1092,44 @@ function showLocationDetails(kota, provinsi) {
       </div>
     </div>
   `;
-  
-  infoPanel.classList.remove('hidden');
+
+  infoPanel.classList.remove("hidden");
 }
 
 // Get location description (safe function)
 function getLocationDescription(kota) {
   const descriptions = {
-    'Kota Palu': 'Pusat utama Alkhairaat dan tempat berkedudukan Ketua Utama. Memiliki konsentrasi institusi pendidikan terbesar.',
-    'Kab. Donggala': 'Salah satu kabupaten dengan sejarah panjang Alkhairaat di Sulawesi Tengah.',
-    'Kota Manado': 'Pusat pengembangan Alkhairaat di Sulawesi Utara dengan pertumbuhan pesat.',
-    'Kota Ambon': 'Representasi Alkhairaat di wilayah Maluku dengan fokus pendidikan multikultural.',
-    'Kota Ternate': 'Gerbang utama Alkhairaat di Maluku Utara.',
-    'Kota Gorontalo': 'Pusat pendidikan Alkhairaat di Provinsi Gorontalo.'
+    "Kota Palu":
+      "Pusat utama Alkhairaat dan tempat berkedudukan Ketua Utama. Memiliki konsentrasi institusi pendidikan terbesar.",
+    "Kab. Donggala":
+      "Salah satu kabupaten dengan sejarah panjang Alkhairaat di Sulawesi Tengah.",
+    "Kota Manado":
+      "Pusat pengembangan Alkhairaat di Sulawesi Utara dengan pertumbuhan pesat.",
+    "Kota Ambon":
+      "Representasi Alkhairaat di wilayah Maluku dengan fokus pendidikan multikultural.",
+    "Kota Ternate": "Gerbang utama Alkhairaat di Maluku Utara.",
+    "Kota Gorontalo": "Pusat pendidikan Alkhairaat di Provinsi Gorontalo.",
   };
-  return descriptions[kota] || 'Bagian dari jaringan institusi pendidikan Alkhairaat yang tersebar di Indonesia Timur.';
+  return (
+    descriptions[kota] ||
+    "Bagian dari jaringan institusi pendidikan Alkhairaat yang tersebar di Indonesia Timur."
+  );
 }
 
 // Close info panel (global scope)
 function closeInfoPanel() {
-  const infoPanel = document.getElementById('map-info-panel');
+  const infoPanel = document.getElementById("map-info-panel");
   if (infoPanel) {
-    infoPanel.classList.add('hidden');
+    infoPanel.classList.add("hidden");
   }
 }
 
 // Filter markers by region (safe function)
 function filterByRegion(regionCode) {
   if (!isMapActive || !Array.isArray(mapMarkers)) return;
-  
+
   mapMarkers.forEach(({ marker, region }) => {
-    if (regionCode === 'all' || region === regionCode) {
+    if (regionCode === "all" || region === regionCode) {
       if (currentMap && marker) {
         marker.addTo(currentMap);
       }
@@ -1038,40 +1144,42 @@ function filterByRegion(regionCode) {
 // Reset map view (global scope)
 function resetMapView() {
   if (!isMapActive || !currentMap) return;
-  
+
   // Show all markers
   mapMarkers.forEach(({ marker }) => {
     if (marker && currentMap) {
       marker.addTo(currentMap);
     }
   });
-  
+
   // Reset view
   currentMap.setView([-2.5, 118], 5);
-  
+
   // Reset filter
-  const regionFilter = document.getElementById('region-filter');
+  const regionFilter = document.getElementById("region-filter");
   if (regionFilter) {
-    regionFilter.value = 'all';
+    regionFilter.value = "all";
   }
-  
+
   // Close info panel
   closeInfoPanel();
 }
 
 // Animate regional stats (safe function)
 function animateRegionalStats() {
-  const regionalCards = document.querySelectorAll('.regional-card');
-  
+  const regionalCards = document.querySelectorAll(".regional-card");
+
   regionalCards.forEach((card, index) => {
     setTimeout(() => {
-      const numberElement = card.querySelector('.regional-number');
-      const progressBar = card.querySelector('.progress-bar-regional');
-      
+      const numberElement = card.querySelector(".regional-number");
+      const progressBar = card.querySelector(".progress-bar-regional");
+
       if (numberElement && progressBar) {
-        const targetNumber = parseInt(numberElement.textContent.replace(/,/g, ''));
+        const targetNumber = parseInt(
+          numberElement.textContent.replace(/,/g, "")
+        );
         animateNumber(numberElement, 0, targetNumber, 2000);
-        
+
         setTimeout(() => {
           const percentage = Math.min((targetNumber / 1550) * 100, 100);
           progressBar.style.width = `${percentage}%`;
@@ -1089,58 +1197,34 @@ function animateNumber(element, start, end, duration) {
     const progress = Math.min(elapsed / duration, 1);
     const easeOutQuart = 1 - Math.pow(1 - progress, 4);
     const current = Math.floor(start + (end - start) * easeOutQuart);
-    
-    element.textContent = current.toLocaleString('id-ID');
-    
+
+    element.textContent = current.toLocaleString("id-ID");
+
     if (progress === 1) {
       clearInterval(timer);
-      element.textContent = end.toLocaleString('id-ID');
+      element.textContent = end.toLocaleString("id-ID");
     }
   }, 16);
 }
 
 // Initialize map controls when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Region filter
-  const regionFilter = document.getElementById('region-filter');
+  const regionFilter = document.getElementById("region-filter");
   if (regionFilter) {
-    regionFilter.addEventListener('change', function() {
+    regionFilter.addEventListener("change", function () {
       filterByRegion(this.value);
     });
   }
-  
+
   // Reset button
-  const resetButton = document.getElementById('reset-map');
+  const resetButton = document.getElementById("reset-map");
   if (resetButton) {
-    resetButton.addEventListener('click', function() {
+    resetButton.addEventListener("click", function () {
       resetMapView();
     });
   }
 });
-
-
-
-// --- LOGIKA UNTUK HALAMAN REELS (VERSI FINAL DENGAN SCOPE YANG BENAR) ---
-
-function onYouTubeIframeAPIReady() {
-  console.log("YouTube API is ready."); // Pesan untuk debugging
-  setupReelsPage();
-}
-
-/**
- * Fungsi untuk memuat script YouTube API secara dinamis.
- */
-function loadYouTubeAPI() {
-  console.log("Loading YouTube API..."); // Pesan untuk debugging
-  if (typeof YT === "undefined" || typeof YT.Player === "undefined") {
-    const tag = document.createElement("script");
-    tag.src = "https://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName("script")[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-  } else {
-    onYouTubeIframeAPIReady();
-  }
-}
 
 // ===== MODERN REELS SYSTEM =====
 
@@ -1252,8 +1336,6 @@ let reelsData = [
     title: "Ilmu Pengetahuan",
     likes: "5.4k",
     shares: "1.2k",
-
-
   },
 ];
 
@@ -1263,12 +1345,12 @@ class ModernReelsSystem {
     this.players = new Map();
     this.isGlobalMuted = true;
     this.isInitialized = false;
-    
+
     this.init();
   }
 
   init() {
-    document.body.classList.add('reels-page');
+    document.body.classList.add("reels-page");
     this.setupEventListeners();
     this.loadYouTubeAPI();
   }
@@ -1280,27 +1362,27 @@ class ModernReelsSystem {
     }
 
     window.onYouTubeIframeAPIReady = () => this.onYouTubeAPIReady();
-    
-    const script = document.createElement('script');
-    script.src = 'https://www.youtube.com/iframe_api';
+
+    const script = document.createElement("script");
+    script.src = "https://www.youtube.com/iframe_api";
     document.head.appendChild(script);
   }
 
   onYouTubeAPIReady() {
     this.isInitialized = true;
     this.renderReels();
-    
+
     setTimeout(() => {
-      document.getElementById('loading-overlay').style.opacity = '0';
+      document.getElementById("loading-overlay").style.opacity = "0";
       setTimeout(() => {
-        document.getElementById('loading-overlay').style.display = 'none';
+        document.getElementById("loading-overlay").style.display = "none";
       }, 500);
     }, 1000);
   }
 
   renderReels() {
-    const container = document.getElementById('reels-container');
-    container.innerHTML = '';
+    const container = document.getElementById("reels-container");
+    container.innerHTML = "";
 
     reelsData.forEach((video, index) => {
       const reelElement = this.createReelElement(video, index);
@@ -1312,8 +1394,8 @@ class ModernReelsSystem {
   }
 
   createReelElement(video, index) {
-    const reel = document.createElement('div');
-    reel.className = 'modern-reel-item';
+    const reel = document.createElement("div");
+    reel.className = "modern-reel-item";
     reel.dataset.index = index;
     reel.dataset.videoId = video.youtubeVideoId;
 
@@ -1361,50 +1443,53 @@ class ModernReelsSystem {
   }
 
   setupIntersectionObserver() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const index = parseInt(entry.target.dataset.index);
-        
-        if (entry.isIntersecting && entry.intersectionRatio > 0.7) {
-          this.playVideo(index);
-          this.currentIndex = index;
-        } else {
-          this.pauseVideo(index);
-        }
-      });
-    }, { threshold: [0.7] });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = parseInt(entry.target.dataset.index);
 
-    document.querySelectorAll('.modern-reel-item').forEach(item => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.7) {
+            this.playVideo(index);
+            this.currentIndex = index;
+          } else {
+            this.pauseVideo(index);
+          }
+        });
+      },
+      { threshold: [0.7] }
+    );
+
+    document.querySelectorAll(".modern-reel-item").forEach((item) => {
       observer.observe(item);
     });
   }
 
   setupTouchEvents() {
-    const container = document.getElementById('reels-container');
+    const container = document.getElementById("reels-container");
     let startY = 0;
     let startTime = 0;
 
     // Double-tap like functionality
     let lastTap = 0;
-    container.addEventListener('touchend', (e) => {
+    container.addEventListener("touchend", (e) => {
       const currentTime = new Date().getTime();
       const tapLength = currentTime - lastTap;
-      
+
       if (tapLength < 500 && tapLength > 0) {
         e.preventDefault();
         this.handleDoubleTap(e);
       }
-      
+
       lastTap = currentTime;
     });
 
     // Smooth scrolling
-    container.addEventListener('touchstart', (e) => {
+    container.addEventListener("touchstart", (e) => {
       startY = e.touches[0].clientY;
       startTime = Date.now();
     });
 
-    container.addEventListener('touchend', (e) => {
+    container.addEventListener("touchend", (e) => {
       const endY = e.changedTouches[0].clientY;
       const deltaY = startY - endY;
       const deltaTime = Date.now() - startTime;
@@ -1421,10 +1506,10 @@ class ModernReelsSystem {
   }
 
   scrollToReel(index) {
-    const container = document.getElementById('reels-container');
+    const container = document.getElementById("reels-container");
     container.scrollTo({
       top: index * window.innerHeight,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   }
 
@@ -1432,19 +1517,19 @@ class ModernReelsSystem {
     const rect = e.target.getBoundingClientRect();
     const x = e.changedTouches[0].clientX;
     const y = e.changedTouches[0].clientY;
-    
+
     this.showLikeAnimation(x, y);
     this.toggleLike(this.currentIndex);
   }
 
   showLikeAnimation(x, y) {
-    const animation = document.getElementById('like-animation');
-    animation.style.left = x + 'px';
-    animation.style.top = y + 'px';
-    animation.classList.add('active');
-    
+    const animation = document.getElementById("like-animation");
+    animation.style.left = x + "px";
+    animation.style.top = y + "px";
+    animation.classList.add("active");
+
     setTimeout(() => {
-      animation.classList.remove('active');
+      animation.classList.remove("active");
     }, 800);
   }
 
@@ -1452,18 +1537,18 @@ class ModernReelsSystem {
     if (!this.players.has(index)) {
       await this.createPlayer(index);
     }
-    
+
     const player = this.players.get(index);
     if (player && player.playVideo) {
-      document.getElementById(`skeleton-${index}`).style.display = 'none';
+      document.getElementById(`skeleton-${index}`).style.display = "none";
       player.playVideo();
-      
+
       if (this.isGlobalMuted) {
         player.mute();
       } else {
         player.unMute();
       }
-      
+
       this.startProgressTracking(index);
     }
   }
@@ -1478,7 +1563,7 @@ class ModernReelsSystem {
 
   async createPlayer(index) {
     const videoData = reelsData[index];
-    
+
     return new Promise((resolve) => {
       const player = new YT.Player(`player-${index}`, {
         videoId: videoData.youtubeVideoId,
@@ -1491,15 +1576,15 @@ class ModernReelsSystem {
           modestbranding: 1,
           loop: 1,
           playlist: videoData.youtubeVideoId,
-          playsinline: 1
+          playsinline: 1,
         },
         events: {
           onReady: (event) => {
             this.players.set(index, event.target);
             resolve(event.target);
           },
-          onStateChange: this.onPlayerStateChange.bind(this)
-        }
+          onStateChange: this.onPlayerStateChange.bind(this),
+        },
       });
     });
   }
@@ -1511,7 +1596,7 @@ class ModernReelsSystem {
   startProgressTracking(index) {
     const player = this.players.get(index);
     const progressBar = document.getElementById(`progress-${index}`);
-    
+
     if (!player || !progressBar) return;
 
     this.progressInterval = setInterval(() => {
@@ -1533,14 +1618,14 @@ class ModernReelsSystem {
 
   toggleGlobalSound() {
     this.isGlobalMuted = !this.isGlobalMuted;
-    const btn = document.getElementById('global-sound-btn');
-    
+    const btn = document.getElementById("global-sound-btn");
+
     if (this.isGlobalMuted) {
-      btn.classList.add('muted');
+      btn.classList.add("muted");
     } else {
-      btn.classList.remove('muted');
+      btn.classList.remove("muted");
     }
-  
+
     // Apply to current player
     const currentPlayer = this.players.get(this.currentIndex);
     if (currentPlayer) {
@@ -1552,180 +1637,198 @@ class ModernReelsSystem {
     }
   }
 
+  toggleGlobalSound() {
+    this.isGlobalMuted = !this.isGlobalMuted;
+    const btn = document.getElementById("global-sound-btn");
 
-      toggleGlobalSound() {
-        this.isGlobalMuted = !this.isGlobalMuted;
-        const btn = document.getElementById('global-sound-btn');
-        
-        if (this.isGlobalMuted) {
-          btn.classList.add('muted');
-        } else {
-          btn.classList.remove('muted');
-        }
-     
-        // Apply to current player
-        const currentPlayer = this.players.get(this.currentIndex);
-        if (currentPlayer) {
-          if (this.isGlobalMuted) {
-            currentPlayer.mute();
-          } else {
-            currentPlayer.unMute();
+    if (this.isGlobalMuted) {
+      btn.classList.add("muted");
+    } else {
+      btn.classList.remove("muted");
+    }
+
+    // Apply to current player
+    const currentPlayer = this.players.get(this.currentIndex);
+    if (currentPlayer) {
+      if (this.isGlobalMuted) {
+        currentPlayer.mute();
+      } else {
+        currentPlayer.unMute();
+      }
+    }
+  }
+
+  toggleLike(index) {
+    const likeBtn = document.querySelector(`[data-index="${index}"] .like-btn`);
+    const isLiked = likeBtn.classList.toggle("liked");
+
+    if (isLiked) {
+      // Increment like count (fake)
+      const countElement = likeBtn.querySelector(".count");
+      let currentCount = this.parseCount(countElement.textContent);
+      currentCount += 1;
+      countElement.textContent = this.formatCount(currentCount);
+
+      // Vibrate on mobile
+      if (navigator.vibrate) {
+        navigator.vibrate(50);
+      }
+    } else {
+      // Decrement like count
+      const countElement = likeBtn.querySelector(".count");
+      let currentCount = this.parseCount(countElement.textContent);
+      currentCount -= 1;
+      countElement.textContent = this.formatCount(currentCount);
+    }
+  }
+
+  toggleBookmark(index) {
+    const bookmarkBtn = document.querySelector(
+      `[data-index="${index}"] .bookmark-btn`
+    );
+    bookmarkBtn.classList.toggle("liked");
+
+    // Vibrate feedback
+    if (navigator.vibrate) {
+      navigator.vibrate(30);
+    }
+  }
+
+  shareVideo(index) {
+    const video = reelsData[index];
+    const shareUrl = `${window.location.origin}/reels.html#video-${index}`;
+    const shareText = `Saksikan "${video.title}" - Lensa Kisah Habib Saggaf Aljufri`;
+
+    // Show share modal
+    document.getElementById("share-modal").classList.remove("hidden");
+
+    // Store current share data
+    this.currentShareData = {
+      url: shareUrl,
+      text: shareText,
+      title: video.title,
+    };
+  }
+
+  parseCount(countStr) {
+    const num = parseFloat(countStr);
+    if (countStr.includes("k")) return num * 1000;
+    if (countStr.includes("M")) return num * 1000000;
+    return num;
+  }
+
+  formatCount(count) {
+    if (count >= 1000000) {
+      return (count / 1000000).toFixed(1) + "M";
+    }
+    if (count >= 1000) {
+      return (count / 1000).toFixed(1) + "k";
+    }
+    return count.toString();
+  }
+
+  setupEventListeners() {
+    // Global sound control
+    document
+      .getElementById("global-sound-btn")
+      .addEventListener("click", () => {
+        this.toggleGlobalSound();
+      });
+
+    // Share modal handlers
+    document.querySelectorAll(".share-option").forEach((option) => {
+      option.addEventListener("click", (e) => {
+        const platform = e.currentTarget.dataset.platform;
+        this.handleShare(platform);
+      });
+    });
+
+    // Keyboard controls
+    document.addEventListener("keydown", (e) => {
+      switch (e.key) {
+        case "ArrowUp":
+          e.preventDefault();
+          if (this.currentIndex > 0) {
+            this.scrollToReel(this.currentIndex - 1);
           }
-        }
-      }
-     
-      toggleLike(index) {
-        const likeBtn = document.querySelector(`[data-index="${index}"] .like-btn`);
-        const isLiked = likeBtn.classList.toggle('liked');
-        
-        if (isLiked) {
-          // Increment like count (fake)
-          const countElement = likeBtn.querySelector('.count');
-          let currentCount = this.parseCount(countElement.textContent);
-          currentCount += 1;
-          countElement.textContent = this.formatCount(currentCount);
-          
-          // Vibrate on mobile
-          if (navigator.vibrate) {
-            navigator.vibrate(50);
+          break;
+        case "ArrowDown":
+          e.preventDefault();
+          if (this.currentIndex < reelsData.length - 1) {
+            this.scrollToReel(this.currentIndex + 1);
           }
-        } else {
-          // Decrement like count
-          const countElement = likeBtn.querySelector('.count');
-          let currentCount = this.parseCount(countElement.textContent);
-          currentCount -= 1;
-          countElement.textContent = this.formatCount(currentCount);
-        }
-      }
-     
-      toggleBookmark(index) {
-        const bookmarkBtn = document.querySelector(`[data-index="${index}"] .bookmark-btn`);
-        bookmarkBtn.classList.toggle('liked');
-        
-        // Vibrate feedback
-        if (navigator.vibrate) {
-          navigator.vibrate(30);
-        }
-      }
-     
-      shareVideo(index) {
-        const video = reelsData[index];
-        const shareUrl = `${window.location.origin}/reels.html#video-${index}`;
-        const shareText = `Saksikan "${video.title}" - Lensa Kisah Habib Saggaf Aljufri`;
-     
-        // Show share modal
-        document.getElementById('share-modal').classList.remove('hidden');
-        
-        // Store current share data
-        this.currentShareData = {
-          url: shareUrl,
-          text: shareText,
-          title: video.title
-        };
-      }
-     
-      parseCount(countStr) {
-        const num = parseFloat(countStr);
-        if (countStr.includes('k')) return num * 1000;
-        if (countStr.includes('M')) return num * 1000000;
-        return num;
-      }
-     
-      formatCount(count) {
-        if (count >= 1000000) {
-          return (count / 1000000).toFixed(1) + 'M';
-        }
-        if (count >= 1000) {
-          return (count / 1000).toFixed(1) + 'k';
-        }
-        return count.toString();
-      }
-     
-      setupEventListeners() {
-        // Global sound control
-        document.getElementById('global-sound-btn').addEventListener('click', () => {
+          break;
+        case " ":
+          e.preventDefault();
           this.toggleGlobalSound();
-        });
-     
-        // Share modal handlers
-        document.querySelectorAll('.share-option').forEach(option => {
-          option.addEventListener('click', (e) => {
-            const platform = e.currentTarget.dataset.platform;
-            this.handleShare(platform);
-          });
-        });
-     
-        // Keyboard controls
-        document.addEventListener('keydown', (e) => {
-          switch(e.key) {
-            case 'ArrowUp':
-              e.preventDefault();
-              if (this.currentIndex > 0) {
-                this.scrollToReel(this.currentIndex - 1);
-              }
-              break;
-            case 'ArrowDown':
-              e.preventDefault();
-              if (this.currentIndex < reelsData.length - 1) {
-                this.scrollToReel(this.currentIndex + 1);
-              }
-              break;
-            case ' ':
-              e.preventDefault();
-              this.toggleGlobalSound();
-              break;
-            case 'l':
-              this.toggleLike(this.currentIndex);
-              break;
-          }
-        });
-     
-        // Hide/show header on scroll
-        let lastScrollTop = 0;
-        const header = document.querySelector('.modern-reels-header');
-        
-        document.getElementById('reels-container').addEventListener('scroll', () => {
-          const scrollTop = document.getElementById('reels-container').scrollTop;
-          
-          if (scrollTop > lastScrollTop && scrollTop > 100) {
-            header.style.opacity = '0';
-          } else {
-            header.style.opacity = '1';
-          }
-          
-          lastScrollTop = scrollTop;
-        });
+          break;
+        case "l":
+          this.toggleLike(this.currentIndex);
+          break;
       }
-     
-      handleShare(platform) {
-        const { url, text, title } = this.currentShareData;
-        
-        switch(platform) {
-          case 'whatsapp':
-            window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
-            break;
-          case 'facebook':
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
-            break;
-          case 'twitter':
-            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
-            break;
-          case 'copy':
-            navigator.clipboard.writeText(url).then(() => {
-              // Show toast notification
-              this.showToast('Link berhasil disalin!');
-            });
-            break;
+    });
+
+    // Hide/show header on scroll
+    let lastScrollTop = 0;
+    const header = document.querySelector(".modern-reels-header");
+
+    document
+      .getElementById("reels-container")
+      .addEventListener("scroll", () => {
+        const scrollTop = document.getElementById("reels-container").scrollTop;
+
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+          header.style.opacity = "0";
+        } else {
+          header.style.opacity = "1";
         }
-        
-        this.closeShareModal();
-      }
-     
-      showToast(message) {
-        const toast = document.createElement('div');
-        toast.className = 'toast-notification';
-        toast.textContent = message;
-        toast.style.cssText = `
+
+        lastScrollTop = scrollTop;
+      });
+  }
+
+  handleShare(platform) {
+    const { url, text, title } = this.currentShareData;
+
+    switch (platform) {
+      case "whatsapp":
+        window.open(
+          `https://wa.me/?text=${encodeURIComponent(text + " " + url)}`,
+          "_blank"
+        );
+        break;
+      case "facebook":
+        window.open(
+          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+            url
+          )}`,
+          "_blank"
+        );
+        break;
+      case "twitter":
+        window.open(
+          `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+            text
+          )}&url=${encodeURIComponent(url)}`,
+          "_blank"
+        );
+        break;
+      case "copy":
+        navigator.clipboard.writeText(url).then(() => {
+          // Show toast notification
+          this.showToast("Link berhasil disalin!");
+        });
+        break;
+    }
+
+    this.closeShareModal();
+  }
+
+  showToast(message) {
+    const toast = document.createElement("div");
+    toast.className = "toast-notification";
+    toast.textContent = message;
+    toast.style.cssText = `
           position: fixed;
           bottom: 100px;
           left: 50%;
@@ -1738,43 +1841,43 @@ class ModernReelsSystem {
           z-index: 300;
           animation: toastShow 0.3s ease;
         `;
-        
-        document.body.appendChild(toast);
-        
-        setTimeout(() => {
-          toast.style.animation = 'toastHide 0.3s ease forwards';
-          setTimeout(() => toast.remove(), 300);
-        }, 2000);
-      }
-     }
-     
-     // Global functions
-     function startReels() {
-      document.getElementById('welcome-overlay').style.opacity = '0';
-      setTimeout(() => {
-        document.getElementById('welcome-overlay').style.display = 'none';
-      }, 500);
-      
-      // Play silent audio for iOS autoplay
-      const silentAudio = document.getElementById('silent-audio');
-      silentAudio.play().catch(() => {});
-     }
-     
-     function closeShareModal() {
-      document.getElementById('share-modal').classList.add('hidden');
-     }
-     
-     // Initialize system when DOM is ready
-     document.addEventListener('DOMContentLoaded', function() {
-      // Only initialize if we're on reels page
-      if (document.getElementById('reels-container')) {
-        window.reelsSystem = new ModernReelsSystem();
-      }
-     });
-     
-     // Add toast animations to CSS
-     const toastStyles = document.createElement('style');
-     toastStyles.textContent = `
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.animation = "toastHide 0.3s ease forwards";
+      setTimeout(() => toast.remove(), 300);
+    }, 2000);
+  }
+}
+
+// Global functions
+function startReels() {
+  document.getElementById("welcome-overlay").style.opacity = "0";
+  setTimeout(() => {
+    document.getElementById("welcome-overlay").style.display = "none";
+  }, 500);
+
+  // Play silent audio for iOS autoplay
+  const silentAudio = document.getElementById("silent-audio");
+  silentAudio.play().catch(() => {});
+}
+
+function closeShareModal() {
+  document.getElementById("share-modal").classList.add("hidden");
+}
+
+// Initialize system when DOM is ready
+document.addEventListener("DOMContentLoaded", function () {
+  // Only initialize if we're on reels page
+  if (document.getElementById("reels-container")) {
+    window.reelsSystem = new ModernReelsSystem();
+  }
+});
+
+// Add toast animations to CSS
+const toastStyles = document.createElement("style");
+toastStyles.textContent = `
       @keyframes toastShow {
         from { opacity: 0; transform: translateX(-50%) translateY(20px); }
         to { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -1785,103 +1888,191 @@ class ModernReelsSystem {
         to { opacity: 0; transform: translateX(-50%) translateY(-20px); }
       }
      `;
-     document.head.appendChild(toastStyles);
+document.head.appendChild(toastStyles);
 
- 
-
-
-
-
-
-  
 document.addEventListener("DOMContentLoaded", function () {
-
   // ===== LEGASI DASHBOARD ANIMATIONS =====
-  
+
   // Animated Counter untuk Stats
-  // ===== FIXED ANIMATED COUNTER =====
-const statCounterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const targetElement = entry.target;
-      const targetValue = targetElement.dataset.target;
-      
-      // Debug log
-      console.log('Animating:', targetElement, 'Target:', targetValue);
-      
-      if (!targetValue || isNaN(parseInt(targetValue))) {
-        console.error('Invalid target value:', targetValue);
-        return;
-      }
-      
-      const target = parseInt(targetValue);
-      const duration = 2000;
-      const start = Date.now();
-      const startValue = 0;
+  // ===== FIXED  // --- STAT COUNTER LOGIC (Robust Version) ---
+  const statCounterObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const targetElement = entry.target;
+          const targetValue = targetElement.dataset.target;
 
-      const animateCounter = () => {
-        const now = Date.now();
-        const progress = Math.min((now - start) / duration, 1);
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-        const current = Math.floor(startValue + (target - startValue) * easeOutQuart);
-        
-        targetElement.textContent = current.toLocaleString('id-ID');
-        
-        if (progress < 1) {
-          requestAnimationFrame(animateCounter);
-        } else {
-          targetElement.textContent = target.toLocaleString('id-ID');
+          // Check if the target is a pure number
+          if (/^\d+$/.test(targetValue)) {
+            const target = parseInt(targetValue, 10);
+            let current = 0;
+            const duration = 2000; // 2 seconds
+            const stepTime = 20; // update every 20ms
+            const totalSteps = duration / stepTime;
+            const increment = target / totalSteps;
+
+            const animateCounter = () => {
+              current += increment;
+              if (current >= target) {
+                targetElement.textContent = target.toLocaleString("id-ID");
+                return;
+              }
+              targetElement.textContent =
+                Math.ceil(current).toLocaleString("id-ID");
+              requestAnimationFrame(animateCounter);
+            };
+            animateCounter();
+          } else {
+            // If target is not a number (e.g., "24/7"), just display the text
+            targetElement.textContent = targetValue;
+          }
+
+          observer.unobserve(targetElement);
         }
-      };
+      });
+    },
+    { threshold: 0.5 }
+  );
 
-      animateCounter();
-      statCounterObserver.unobserve(targetElement);
-    }
+  // Apply observer to all elements with .stat-number and a data-target
+  document.querySelectorAll(".stat-number[data-target]").forEach((el) => {
+    statCounterObserver.observe(el);
   });
-}, { threshold: 0.5 });
-
-// Apply observer ke elemen yang benar
-document.querySelectorAll('.stat-number[data-target]').forEach(el => {
-  console.log('Observing stat number:', el, 'Target:', el.dataset.target);
-  statCounterObserver.observe(el);
-});
 
   // Progress Bars Animation
-  const progressObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const card = entry.target;
-        const target = parseInt(card.dataset.target);
-        const maxTarget = 1700; // Nilai maksimum untuk scaling
-        const percentage = (target / maxTarget) * 100;
-        
-        setTimeout(() => {
-          const progressBar = card.querySelector('.progress-bar');
-          if (progressBar) {
-            progressBar.style.width = `${percentage}%`;
-          }
-        }, 500);
-        
-        progressObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.3 });
+  const progressObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const card = entry.target;
+          const target = parseInt(card.dataset.target);
+          const maxTarget = 1700; // Nilai maksimum untuk scaling
+          const percentage = (target / maxTarget) * 100;
+
+          setTimeout(() => {
+            const progressBar = card.querySelector(".progress-bar");
+            if (progressBar) {
+              progressBar.style.width = `${percentage}%`;
+            }
+          }, 500);
+
+          progressObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
 
   // Timeline Animation
-  const timelineObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.3 });
+  const timelineObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
 
   // Apply observers
-  document.querySelectorAll('.stat-number').forEach(el => statCounterObserver.observe(el));
-  document.querySelectorAll('.stat-card').forEach(el => progressObserver.observe(el));
-  document.querySelectorAll('.timeline-item').forEach(el => timelineObserver.observe(el));
+  document
+    .querySelectorAll(".stat-number")
+    .forEach((el) => statCounterObserver.observe(el));
+  document
+    .querySelectorAll(".stat-card")
+    .forEach((el) => progressObserver.observe(el));
+  document
+    .querySelectorAll(".timeline-item")
+    .forEach((el) => timelineObserver.observe(el));
 });
 
+
+
+
+// ===== PENGGANTI: KODE UNIVERSAL YOUTUBE PLAYER (ANTI-KONFLIK) =====
+
+let player; // Variabel player global
+const mainVideoId = "l-wUIbWNkyw";
+
+/**
+ * Fungsi PUSAT yang akan dipanggil oleh YouTube API setelah siap.
+ * Fungsi ini akan memeriksa halaman mana yang sedang aktif 
+ * dan menjalankan logika yang sesuai.
+ */
+function onYouTubeIframeAPIReady() {
+    console.log("Universal YouTube API is ready.");
+    
+    // Cek jika kita berada di halaman utama (ada pemutar video dokumenter)
+    if (document.getElementById("youtube-player")) {
+        console.log("Halaman utama terdeteksi. Membuat pemutar video dokumenter.");
+        player = new YT.Player("youtube-player", {
+            height: "100%",
+            width: "100%",
+            videoId: mainVideoId,
+            playerVars: {
+                playsinline: 1,
+                controls: 1,
+                rel: 0,
+                modestbranding: 1,
+                autoplay: 0,
+            },
+            events: {
+                onReady: onPlayerReady,
+                onStateChange: onPlayerStateChange,
+            },
+        });
+    } 
+    
+    // Cek jika class untuk Reels sudah di-load (berarti kita di halaman reels)
+    // dan panggil metode di dalamnya.
+    if (window.reelsSystem && typeof window.reelsSystem.onYouTubeAPIReady === 'function') {
+        console.log("Halaman Reels terdeteksi. Menginisialisasi player Reels.");
+        window.reelsSystem.onYouTubeAPIReady();
+    }
+}
+
+// Fungsi ini HANYA untuk pemutar video di halaman utama
+function onPlayerReady(event) {
+  console.log("Player dokumenter siap.");
+  const thumbnail = document.getElementById("video-thumbnail");
+
+  if (thumbnail) {
+      // Kita hanya pasang SATU event listener yang cerdas
+      thumbnail.addEventListener("click", () => {
+          const playerState = player.getPlayerState();
+          if (playerState === YT.PlayerState.PLAYING) {
+              // Jika video sedang diputar, jeda videonya
+              player.pauseVideo();
+              console.log("Video dijedah (paused).");
+          } else {
+              // Jika video tidak sedang diputar (dijeda, selesai, atau belum mulai), putar videonya
+              player.playVideo();
+              console.log("Video diputar (played).");
+          }
+      });
+  }
+}
+
+// Fungsi ini HANYA untuk pemutar video di halaman utama
+function onPlayerStateChange(event) {
+  const thumbnailImage = document.querySelector("#video-thumbnail img");
+  const playButtonWrapper = document.getElementById("play-button-wrapper");
+
+  if (thumbnailImage && playButtonWrapper) {
+      if (event.data === YT.PlayerState.PLAYING) {
+          // Saat video diputar, sembunyikan GAMBAR THUMBNAIL dan IKON PLAY
+          thumbnailImage.style.opacity = '0';
+          playButtonWrapper.style.display = 'none';
+          console.log("Menyembunyikan thumbnail & ikon play.");
+      } else {
+          // Saat video dijeda atau selesai, tampilkan kembali GAMBAR THUMBNAIL dan IKON PLAY
+          thumbnailImage.style.opacity = '1';
+          playButtonWrapper.style.display = 'flex';
+          console.log("Menampilkan thumbnail & ikon play.");
+      }
+  }
+}
 
 
 
